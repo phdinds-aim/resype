@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Clustering &#8212; ReSyPE</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">ReSyPE</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../README.html">
+   ReSyPE: Recommender System in Python Environment
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../basti/get_rec.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     get_rec
+    </span>
+   </code>
+   Function
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../basti/get_rec_item.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     get_rec_item
+    </span>
+   </code>
+   Function
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/gilbert/Clustering Module.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/phdinds-aim/resype"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fgilbert/Clustering Module.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/gilbert/Clustering Module.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   User Clustering
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#item-clustering">
+   Item Clustering
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code-for-testing">
+   Code for testing
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Data/user_movie.csv&#39;</span>
+<span class="n">state</span> <span class="o">=</span> <span class="mi">1337</span>
+<span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="user-clustering">
+<h1>User Clustering<a class="headerlink" href="#user-clustering" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="p">(</span><span class="n">KMeans</span><span class="p">,</span> <span class="n">SpectralClustering</span><span class="p">,</span>
+                             <span class="n">AgglomerativeClustering</span><span class="p">,</span> <span class="n">DBSCAN</span><span class="p">,</span> <span class="n">OPTICS</span><span class="p">,</span>
+                             <span class="n">cluster_optics_dbscan</span><span class="p">,</span> <span class="n">Birch</span><span class="p">)</span>
+
+<span class="n">model1</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">model2</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">35</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">u_cluster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">model_fname</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">drop_cols</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform user-wise clustering and assign each user to a cluster.</span>
+<span class="sd">    </span>
+<span class="sd">    Paramters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    fname        : pandas DataFrame or string</span>
+<span class="sd">                   The initial utility matrix with each row corresponding </span>
+<span class="sd">                   to a user and the columns as their rating of each item</span>
+<span class="sd">                   </span>
+<span class="sd">    model_fname  : string</span>
+<span class="sd">                   The name of the model&#39;s pickle file when saved.</span>
+<span class="sd">                   </span>
+<span class="sd">    model        : an sklearn model object</span>
+<span class="sd">                   An object with a fit_predict method. Used to cluster the</span>
+<span class="sd">                   users into groups with similar ratings of items.</span>
+
+<span class="sd">    drop_cols    : list</span>
+<span class="sd">                   Columns to be dropped in fname</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    model         : an sklearn model object</span>
+<span class="sd">                    The fitted version of the model input used to predict the</span>
+<span class="sd">                    clusters of users from fname</span>
+<span class="sd">    </span>
+<span class="sd">    result        : dict</span>
+<span class="sd">                    A mapping of each user&#39;s cluster with the keys being the</span>
+<span class="sd">                    user_id and the values their cluster membership</span>
+<span class="sd">    </span>
+<span class="sd">    df            : pandas DataFrame</span>
+<span class="sd">                    Utility matrix derived from fname with the final column</span>
+<span class="sd">                    corresponding to the cluster membership of that user</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="p">(</span><span class="n">KMeans</span><span class="p">,</span> <span class="n">SpectralClustering</span><span class="p">,</span>
+                                 <span class="n">AgglomerativeClustering</span><span class="p">,</span> <span class="n">DBSCAN</span><span class="p">,</span> <span class="n">OPTICS</span><span class="p">,</span>
+                                 <span class="n">cluster_optics_dbscan</span><span class="p">,</span> <span class="n">Birch</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pickle</span>
+    <span class="c1"># Aggregation through tables</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">fname</span>
+
+    <span class="k">if</span> <span class="n">drop_cols</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+        
+    <span class="n">u_clusterer</span> <span class="o">=</span> <span class="n">model</span>
+
+    <span class="n">u_predict</span> <span class="o">=</span> <span class="n">u_clusterer</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;u_cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">u_predict</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">u_clusterer</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;u_cluster&#39;</span><span class="p">])</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_fname</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="item-clustering">
+<h1>Item Clustering<a class="headerlink" href="#item-clustering" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">i_cluster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">model_fname</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">drop_cols</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform item-wise clustering and assign each item to a cluster of similar</span>
+<span class="sd">    items based on the users that </span>
+<span class="sd">    </span>
+<span class="sd">    Paramters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    fname        : pandas DataFrame or string</span>
+<span class="sd">                   The initial utility matrix with each row corresponding </span>
+<span class="sd">                   to a user and the columns as their rating of each item</span>
+<span class="sd">                   </span>
+<span class="sd">    model_fname  : string</span>
+<span class="sd">                   The name of the model&#39;s pickle file when saved.</span>
+<span class="sd">                   </span>
+<span class="sd">    model        : an sklearn model object</span>
+<span class="sd">                   An object with a fit_predict method. Used to cluster the</span>
+<span class="sd">                   users into groups with similar ratings of items.</span>
+
+<span class="sd">    drop_cols    : list</span>
+<span class="sd">                   Columns to be dropped in fname</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    model         : an sklearn model object</span>
+<span class="sd">                    The fitted version of the model input used to predict the</span>
+<span class="sd">                    clusters of items from fname</span>
+<span class="sd">    </span>
+<span class="sd">    result        : dict</span>
+<span class="sd">                    A mapping of each item&#39;s cluster with the keys being the</span>
+<span class="sd">                    item_id and the values their cluster membership</span>
+<span class="sd">    </span>
+<span class="sd">    df_items      : pandas DataFrame</span>
+<span class="sd">                    Utility matrix derived from fname with the final column</span>
+<span class="sd">                    corresponding to the cluster membership of that item</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="p">(</span><span class="n">KMeans</span><span class="p">,</span> <span class="n">SpectralClustering</span><span class="p">,</span> 
+                                 <span class="n">AgglomerativeClustering</span><span class="p">,</span> <span class="n">DBSCAN</span><span class="p">,</span> <span class="n">OPTICS</span><span class="p">,</span> 
+                                 <span class="n">cluster_optics_dbscan</span><span class="p">,</span> <span class="n">Birch</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pickle</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">fname</span>
+
+    <span class="k">if</span> <span class="n">drop_cols</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+
+    <span class="n">df_items</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">i_clusterer</span> <span class="o">=</span> <span class="n">model</span>
+
+    <span class="n">i_predict</span> <span class="o">=</span> <span class="n">i_clusterer</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">df_items</span><span class="p">)</span>
+    <span class="n">df_items</span><span class="p">[</span><span class="s1">&#39;i_cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i_predict</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">i_clusterer</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">df_items</span><span class="p">[</span><span class="s1">&#39;i_cluster&#39;</span><span class="p">])</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_fname</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">df_items</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_u</span><span class="p">,</span><span class="n">y_u</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">u_cluster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="s1">&#39;u_cluster.pkl&#39;</span><span class="p">,</span><span class="n">model1</span><span class="p">)</span>
+<span class="n">x_i</span><span class="p">,</span><span class="n">y_i</span><span class="p">,</span> <span class="n">df_items</span> <span class="o">=</span> <span class="n">i_cluster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="s1">&#39;i_cluster.pkl&#39;</span><span class="p">,</span><span class="n">model2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="code-for-testing">
+<h1>Code for testing<a class="headerlink" href="#code-for-testing" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+
+<span class="k">class</span> <span class="nc">TestGetRec</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+    <span class="kn">import</span> <span class="nn">os</span> 
+    <span class="k">def</span> <span class="nf">test_u_c</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="n">model1</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">)</span>
+        <span class="n">x_u</span><span class="p">,</span> <span class="n">y_u</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">u_cluster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;u_cluster.pkl&#39;</span><span class="p">,</span> <span class="n">model1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;u_cluster&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span> <span class="n">n_clusters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;u_cluster.pkl&#39;</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">test_i_c</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">35</span>
+        <span class="n">model2</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">)</span>
+        <span class="n">x_u</span><span class="p">,</span> <span class="n">y_u</span><span class="p">,</span> <span class="n">df_items</span> <span class="o">=</span> <span class="n">i_cluster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;i_cluster.pkl&#39;</span><span class="p">,</span> <span class="n">model2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">df_items</span><span class="p">[</span><span class="s1">&#39;i_cluster&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span> <span class="n">n_clusters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;i_cluster.pkl&#39;</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+        
+<span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_i_c (__main__.TestGetRec) ... ok
+test_u_c (__main__.TestGetRec) ... 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./gilbert"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By AIM PhDDS2023<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
