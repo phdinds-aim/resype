@@ -1,31 +1,32 @@
-# ReSyPE
+<div align="center">
+<img alt="Logo" src="logo.png" width="60%"/>
+</div>
 
-Python library for machine learning recsys
 
-## Usage
+# ReSyPE: Recommender System in Python Environment
 
-### Building the book
+## Introduction
+ReSyPE (pronounced *recipe*) is a Python library built for both practitioners and researchers that wish to quickly develop and deploy ML-based recommender systems.
 
-If you'd like to develop and/or build the ReSyPE book, you should:
+The library provides an end-to-end pipeline that includes:
 
-1. Clone this repository
-2. Run `pip install -r requirements.txt` (it is recommended you do this within a virtual environment)
-3. (Optional) Edit the books source files located in the `resype_book/` directory
-4. Run `jupyter-book clean resype_book/` to remove any existing builds
-5. Run `jupyter-book build resype_book/`
+1. Loading transaction, user feature, and item feature datasets
+2. Interchangable methods for user and item clustering
+3. Modular framework for machine learning models
+4. Iterative or decomposition-based techniques
 
-A fully-rendered HTML version of the book will be built in `resype_book/_build/html/`.
+## Installation
 
-### Hosting the book
+`pip install resype`
 
-Please see the [Jupyter Book documentation](https://jupyterbook.org/publish/web.html) to discover options for deploying a book online using services such as GitHub, GitLab, or Netlify.
+## Getting Started
 
-For GitHub and GitLab deployment specifically, the [cookiecutter-jupyter-book](https://github.com/executablebooks/cookiecutter-jupyter-book) includes templates for, and information about, optional continuous integration (CI) workflow files to help easily and automatically deploy books online with GitHub or GitLab. For example, if you chose `github` for the `include_ci` cookiecutter option, your book template was created with a GitHub actions workflow file that, once pushed to GitHub, automatically renders and pushes your book to the `gh-pages` branch of your repo and hosts it on GitHub Pages when a push or pull request is made to the main branch.
-
-## Contributors
-
-We welcome and recognize all contributions. You can see a list of current contributors in the [contributors tab](https://github.com/aimphdds2023/resype_book/graphs/contributors).
-
-## Credits
-
-This project is created using the excellent open source [Jupyter Book project](https://jupyterbook.org/) and the [executablebooks/cookiecutter-jupyter-book template](https://github.com/executablebooks/cookiecutter-jupyter-book).
+    import resype
+    
+    re = resype(transaction_list, user_features, item_features)
+    km = Kmeans(**params)
+    re.cluster_fit(user_model=km, item_model=None, user_n=20, item_n=None, agg_func='sum')
+    ml = MLP(**params)
+    re.fit(model=ml, method="iterative or svd") 
+    
+    df_rec = re.get_rec(top_k=10, user_list = [1, 2, 3])
