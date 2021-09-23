@@ -1,6 +1,7 @@
 <div align="center">
-<img alt="Logo" src="resype logo.png" width="60%"/>
+<img alt="Logo" src="logo.png" width="60%"/>
 </div>
+
 
 # ReSyPE: Recommender System in Python Environment
 
@@ -29,5 +30,5 @@ The library provides an end-to-end pipeline that includes:
     re.cluster_fit(user_model=km, item_model=None, user_n=20, item_n=None, agg_func='sum')
     ml = MLP(**params)
     re.fit(model=ml, method="iterative or svd") 
-
+    
     df_rec = re.get_rec(top_k=10, user_list = [1, 2, 3])
