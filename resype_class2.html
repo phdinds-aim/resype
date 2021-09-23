@@ -1,0 +1,4422 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReSyPE Class Definition &#8212; ReSyPE</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">ReSyPE</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="README.html">
+   ReSyPE: Recommender System in Python Environment
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Preprocessing
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="francis/csv_preprocessing.html">
+   Item Feature Table
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="francis/item_feature_ntbk.html">
+   Item Feature Table
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="francis/user_feature_ntbk.html">
+   User Feature Table
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="francis/transaction_list_ntbk.html">
+   Transaction Table
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Clustering
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="gilbert/clustering_module.html">
+   User Clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="issa/aggregation_to_util_matrix_final.html">
+   User Clustering
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  ML Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="eloi/demo_notebook_iterative_model.html">
+   Preprocess Utility Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="eloi/demo_notebook_svd_model.html">
+   Utility Matrix
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Get Recommendations
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="basti/get_rec.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     get_rec
+    </span>
+   </code>
+   Function
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="basti/get_rec_item.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     get_rec_item
+    </span>
+   </code>
+   Function
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/resype_class2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/phdinds-aim/resype"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fresype_class2.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/resype_class2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#resype">
+   ReSyPE
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#preprocessing">
+     Preprocessing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modeling">
+     Modeling
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#preprocess-utility-matrix">
+       Preprocess Utility Matrix
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#non-clustered-data">
+       Non-clustered Data
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-recommendations">
+     Get Recommendations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clustering-version">
+   Clustering Version
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#aggregating">
+     Aggregating
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#clustered-data">
+       Clustered Data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trying-the-entire-pipeline">
+   Trying the entire pipeline
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#non-clustering-version">
+     Non-Clustering Version
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Clustering Version
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-model">
+     Train Model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting Started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#methods">
+   Methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#api-optional">
+   API (Optional)
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="resype-class-definition">
+<h1>ReSyPE Class Definition<a class="headerlink" href="#resype-class-definition" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">jdc</span>
+
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">svds</span>
+
+<span class="c1"># import warnings</span>
+<span class="c1"># warnings.filterwarnings(&quot;ignore&quot;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="resype">
+<h2>ReSyPE<a class="headerlink" href="#resype" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Resype</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resype implements a machine learning framework for recommender systems.</span>
+<span class="sd">            Parameters:</span>
+<span class="sd">                    transaction_list (pandas.DataFrame): Dataframe with columns user_id, item_id, rating in the form</span>
+<span class="sd">                        |user_id|item_id|rating|</span>
+<span class="sd">                        |=======|=======|======|</span>
+<span class="sd">                        | 1     | 1     | 4    |</span>
+<span class="sd">                        </span>
+<span class="sd">            Final outputs:</span>
+<span class="sd">                    recommendations (pandas.DataFrame): Dataframe with columns user_id, item_id, score</span>
+<span class="sd">                        |user_id|item_id|rating|</span>
+<span class="sd">                        |=======|=======|======|</span>
+<span class="sd">                        | 1     | 3     | 2    |                    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction_list</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Parameters:</span>
+<span class="sd">                    transaction_list (pandas.DataFrame): Dataframe with columns user_id, item_id, rating in the form</span>
+<span class="sd">                        |user_id|item_id|rating|</span>
+<span class="sd">                        |=======|=======|======|</span>
+<span class="sd">                        | 1     | 1     | 4    |        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transaction_list</span> <span class="o">=</span> <span class="n">transaction_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">users_clustered</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># whether the users were clustered</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items_clustered</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># whether the items were clustered</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="preprocessing">
+<h3>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def construct_utility_matrix(self):
+    self.utility_matrix = transaction_list.pivot(index=&#39;user_id&#39;, columns=&#39;item_id&#39;, values=&#39;rating&#39;) # utility matrix    
+    return self.utility_matrix
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transaction_list</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;sample_data/ratings.csv&quot;</span><span class="p">)[[</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]]</span>
+<span class="n">transaction_list</span> <span class="o">=</span> <span class="n">transaction_list</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">transaction_list</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
+
+<span class="n">re</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">transaction_list</span><span class="p">)</span>
+<span class="n">re</span><span class="o">.</span><span class="n">transaction_list</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>item_id</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>44782</th>
+      <td>298</td>
+      <td>4027</td>
+      <td>3.5</td>
+    </tr>
+    <tr>
+      <th>83602</th>
+      <td>534</td>
+      <td>480</td>
+      <td>4.5</td>
+    </tr>
+    <tr>
+      <th>22706</th>
+      <td>156</td>
+      <td>288</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>12634</th>
+      <td>80</td>
+      <td>51935</td>
+      <td>4.5</td>
+    </tr>
+    <tr>
+      <th>44331</th>
+      <td>294</td>
+      <td>3146</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>231</th>
+      <th>288</th>
+      <th>296</th>
+      <th>480</th>
+      <th>1042</th>
+      <th>1213</th>
+      <th>2456</th>
+      <th>2457</th>
+      <th>2505</th>
+      <th>2681</th>
+      <th>2692</th>
+      <th>3146</th>
+      <th>3863</th>
+      <th>4027</th>
+      <th>49272</th>
+      <th>51935</th>
+      <th>55247</th>
+      <th>62250</th>
+      <th>68358</th>
+      <th>74685</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>160</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>183</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>187</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>201</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>236</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>275</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>294</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>298</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>339</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>417</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>460</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>462</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>534</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>542</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>608</th>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="modeling">
+<h3>Modeling<a class="headerlink" href="#modeling" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="preprocess-utility-matrix">
+<h4>Preprocess Utility Matrix<a class="headerlink" href="#preprocess-utility-matrix" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def mean_center_utilmat(U_df, axis=1, fillna=True, fill_val=None):
+    &quot;&quot;&quot;Gets the mean-centered utility matrix
+
+        Parameters:
+                U_df (DataFrame): utility matrix (rows are users, columns are items) 
+                axis (int): The axis along mean is evaluated, 
+                    {0/&#39;index&#39;, 1/&#39;columns&#39;}, default 1
+                fillna (bool): Indicates whether missing/null values are to 
+                    be filled
+                fill_val (None/float) : Value to be used to fill null values 
+                    when fillna==True, default None
+
+        Returns:
+            mean_centered (DataFrame): mean-centered utility matrix
+    &quot;&quot;&quot;
+    mean_centered = U_df.sub(U_df.mean(axis=axis), axis=1-axis)
+    if fillna:
+        if fill_val is not None:
+            return mean_centered.fillna(fill_val)
+        else:
+            return mean_centered.fillna(0)
+    else:
+        return mean_centered
+
+
+
+def split_utilmat_label_features(self, label_index, axis=1):
+    &quot;&quot;&quot;Splits utility matrix into label (column/row where ratings are predicted) 
+    and features (columns/rows to be used as input in the model)
+
+        Parameters:
+                U_df (DataFrame): utility matrix (rows are users, columns are items) 
+                label_index (int/str): column name or index corresponding to  item 
+                    ratings (column) or user ratings (row) to be predicted
+                axis (int): The axis along the utility matrix is split, 
+                    {0/&#39;index&#39;, 1/&#39;columns&#39;}, default 1
+
+        Returns:
+                label_df (DataFrame): contains the column/row to be predicted
+                feature_df (DataFrame): contains the features   
+    &quot;&quot;&quot;
+    
+    # VARIABLES
+    U = self.utility_matrix
+    
+    if axis == 1:
+        label_col = U.columns[U.columns == label_index]
+        feature_col = U.columns[~(U.columns == label_index)]
+        label_df = U.loc[:, label_col]
+        feature_df = U.loc[:, feature_col]
+    elif axis == 0:
+        label_row = U.index[U.index == label_index]
+        feature_row = U.index[~(U.index == label_index)]
+        label_df = U.loc[label_row, :]
+        feature_df = U.loc[feature_row, :]
+
+    return label_df, feature_df
+
+
+def known_missing_split_1d(label_data, feature_data, split_axis=1,
+                           missing_val_filled=False, fill_val=None):
+    &quot;&quot;&quot;Returns index of the dataset corresponding to known and missing ratings
+    in the label data (row or column to be predicted)
+
+    Parameters:
+        label_df (DataFrame) : contains the column/row to be predicted
+        feature_df (DataFrame) : contains the features  
+        split_axis (int) : The axis along the utility matrix is split, 
+            {0/&#39;index&#39;, 1/&#39;columns&#39;}, default 1
+        missing_val_filled (bool) : Indicates whether missing/null values 
+            in the label/feature data were filled
+        fill_val (None/float) : Value used to fill the null values when 
+            missing_val_filled==True, default None            
+
+    Returns:
+        X_known.index : index corresponding to known ratings
+        X_missing.index : index corresponding to missing/unknown ratings
+    &quot;&quot;&quot;    
+    if missing_val_filled:
+        if fill_val is None:
+            missing_vals = (label_data == 0).values.flatten()
+        else:
+            missing_vals = (label_data == fill_val).values.flatten()
+    else:
+        missing_vals = label_data.isnull().values.flatten()
+    if split_axis == 1:
+        X_missing = feature_data.loc[missing_vals, :]
+        X_known = feature_data.loc[~missing_vals, :]
+    elif split_axis == 0:
+        X_missing = feature_data.loc[:, missing_vals]
+        X_known = feature_data.loc[:, ~missing_vals]
+    else:
+        X_missing = feature_data.loc[missing_vals, :]
+        X_known = feature_data.loc[~missing_vals, :]
+
+    return X_known.index, X_missing.index
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def known_missing_split_U(U, split_axis=1, missing_val_filled=False,
+                          fill_val=None):
+    &quot;&quot;&quot;Returns index of the dataset corresponding to known and missing ratings
+    in for the whole utility matrix
+
+        Parameters:
+                U_df (DataFrame) : utility matrix (rows are users, columns are items) 
+                split_axis (int) : The axis along the utility matrix is split, 
+                    {0/&#39;index&#39;, 1/&#39;columns&#39;}, default 1
+                missing_val_filled (bool) : Indicates whether missing/null 
+                    values in the label/feature data were filled
+                fill_val (None/float) : Value used to fill the null values when 
+                    missing_val_filled==True, default None            
+
+        Returns:
+                known_idx (dict): keys are the column name/index to be predicted, 
+                    values are index of utility matrix that contains known values
+                missing_idx (dict): keys are the column name/index to be predicted, 
+                    values are index of utility matrix that contains missing values
+        &quot;&quot;&quot;    
+    
+    if missing_val_filled:
+        if fill_val is None:
+            missing_val = 0
+        else:
+            missing_val = fill_val
+        if split_axis == 1:
+            known_idx = dict((U == missing_val).T.apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.index[np.argwhere(~x).flatten()]))
+            missing_idx = dict((U == missing_val).T.apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.index[np.argwhere(x).flatten()]))
+        elif split_axis == 0:
+            known_idx = dict((U == missing_val).apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.T.index[np.argwhere(~x).flatten()]))
+            missing_idx = dict((U == missing_val).apply(lambda x: np.array(x), axis=1).apply(
+                lambda x: U.T.index[np.argwhere(x).flatten()]))
+        else:
+            print(&#39;Invalid axis. Result for axis=1 is returned.&#39;)
+            known_idx = dict((U == missing_val).T.apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.index[np.argwhere(~x).flatten()]))
+            missing_idx = dict((U == missing_val).T.apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.index[np.argwhere(x).flatten()]))
+    else:
+        if split_axis == 1:
+            known_idx = dict(U.isnull().T.apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.index[np.argwhere(~x).flatten()]))
+            missing_idx = dict(U.isnull().T.apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.index[np.argwhere(x).flatten()]))
+        elif split_axis == 0:
+            train_idx = dict(U.isnull().apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.T.index[np.argwhere(~x).flatten()]))
+            test_idx = dict(U.isnull().apply(lambda x: np.array(x), axis=1).apply(
+                lambda x: U.T.index[np.argwhere(x).flatten()]))
+        else:
+            print(&#39;Invalid axis. Result for axis=1 is returned.&#39;)
+            known_idx = dict(U.isnull().T.apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.index[np.argwhere(~x).flatten()]))
+            missing_idx = dict(U.isnull().T.apply(lambda x: np.array(
+                x), axis=1).apply(lambda x: U.index[np.argwhere(x).flatten()]))
+
+    return known_idx, missing_idx
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>231</th>
+      <th>288</th>
+      <th>296</th>
+      <th>480</th>
+      <th>1042</th>
+      <th>1213</th>
+      <th>2456</th>
+      <th>2457</th>
+      <th>2505</th>
+      <th>2681</th>
+      <th>2692</th>
+      <th>3146</th>
+      <th>3863</th>
+      <th>4027</th>
+      <th>49272</th>
+      <th>51935</th>
+      <th>55247</th>
+      <th>62250</th>
+      <th>68358</th>
+      <th>74685</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>160</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>183</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>187</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>201</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>236</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>275</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>294</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>298</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>339</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>417</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>460</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>462</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>534</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>542</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>608</th>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df_mc</span> <span class="o">=</span> <span class="n">mean_center_utilmat</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fillna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">U_df_mc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>231</th>
+      <th>288</th>
+      <th>296</th>
+      <th>480</th>
+      <th>1042</th>
+      <th>1213</th>
+      <th>2456</th>
+      <th>2457</th>
+      <th>2505</th>
+      <th>2681</th>
+      <th>2692</th>
+      <th>3146</th>
+      <th>3863</th>
+      <th>4027</th>
+      <th>49272</th>
+      <th>51935</th>
+      <th>55247</th>
+      <th>62250</th>
+      <th>68358</th>
+      <th>74685</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>160</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>183</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>187</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>201</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>236</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>275</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>294</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>298</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>339</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>417</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>460</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>462</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>534</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>542</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>608</th>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">known_index</span><span class="p">,</span> <span class="n">missing_index</span> <span class="o">=</span> <span class="n">known_missing_split_U</span><span class="p">(</span>
+    <span class="n">U</span><span class="o">=</span><span class="n">U_df_mc</span><span class="p">,</span> <span class="n">split_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">missing_val_filled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def nan_mask(p=0.2):
+    &quot;&quot;&quot;Randomly sets values of the utility matrix to NaN
+    
+    Parameters:
+            U (numpy.array): utility matrix (rows are users, columns are items) 
+            p (float): percentage of matrix which will be set to NaN, 
+                value ranges from 0 to 1, default 0.2
+
+    Returns:
+            U*mask (numpy.array): utility matrix masked with NaNs
+    &quot;&quot;&quot;    
+    # VARS
+    U = self.utility_matrix
+    
+    mask = np.ones(np.shape(U))
+    random_index = np.random.choice(U.size, size=int(U.size*p), replace=False)
+    np.ravel(mask)[random_index] = np.nan
+    return U*mask
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def gen_missing_ratings(U_df, p=0.2, n_masks=10):
+    &quot;&quot;&quot;Generates multiple sets of masked utility matrix 
+    
+    Parameters:
+            U_df (DataFrame): utility matrix (rows are users, columns are items) 
+            p (float): percentage of matrix which will be set to NaN, 
+                value ranges from 0 to 1, default 0.2
+            n_masks (int): number of masks to be generated; indicates number 
+                of synthetic datasets to be generated, default 10
+
+    Returns:
+            masked_um (list): list of masked utility matrices
+    &quot;&quot;&quot;    
+    cols = U_df.columns
+    idx = U_df.index
+    U_arr = U_df.values
+    masked_um = []
+    for n in range(n_masks):
+        masked_um.append(pd.DataFrame(nan_mask(U_arr, p=p),
+                                      columns=cols,
+                                      index=idx))
+    return masked_um
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="non-clustered-data">
+<h4>Non-clustered Data<a class="headerlink" href="#non-clustered-data" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">initialize_models_itemwise</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initializes classifier/regressor per item to be predicted</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        model : model object to use to fit the data</span>
+<span class="sd">        U (DataFrame) : utilily matrix (rows are users, columns are items) </span>
+<span class="sd">        suffix (str) : suffix for keys in output dictionary</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        models (dict): dictionary of models, keys correspond to columns/items </span>
+<span class="sd">        in the utility matrix and values are the model objects</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">models</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">item</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">model</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">U</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">models</span>
+
+
+<span class="k">def</span> <span class="nf">initialize_models_userwise</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_model&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initializes classifier/regressor per user to be predicted</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        model : model object to use to fit the data</span>
+<span class="sd">        U (DataFrame) : utilily matrix (rows are users, columns are items) </span>
+<span class="sd">        suffix (str) : suffix for keys in output dictionary</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        models (dict): dictionary of models, keys correspond to the rows/users </span>
+<span class="sd">            in the utility matrix and values are the model objects</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">models</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">user</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">:</span> <span class="n">model</span> <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">U</span><span class="o">.</span><span class="n">index</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">models</span>
+
+
+<span class="k">def</span> <span class="nf">eval_convergence_criterion</span><span class="p">(</span>
+        <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span>
+        <span class="n">mse_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">stdev_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scaled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scaling_method</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span>
+        <span class="n">rating_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rating_max</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluates whether the model training has converged</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        pred_curr (array) : array of predicted ratings from current iteration</span>
+<span class="sd">        pred_prev (array) : array of predicted ratings from previous iteration</span>
+<span class="sd">        stopping_criterion (str) : metric for evaluating convergence, </span>
+<span class="sd">            {mse/&#39;mean squared error&#39;, stdev_abs/&#39;standard deviation of </span>
+<span class="sd">            absolute difference&#39;}, default &#39;mse&#39;</span>
+<span class="sd">        mse_threshold (float) : threshold for stopping criterion when </span>
+<span class="sd">            &#39;mse&#39;is selected, default 0.1            </span>
+<span class="sd">        stdev_threshold (float) : threshold for stopping criterion when </span>
+<span class="sd">            &#39;stdev_abs&#39;is selected, default None</span>
+<span class="sd">        scaled (bool) : Indicates whether metric for stopping criterion is </span>
+<span class="sd">            to be scaled/normalized</span>
+<span class="sd">        scaling_method (str) : indicates method for scaling when scaled==True, </span>
+<span class="sd">            {max/&#39;maximum rating&#39;, minmax/&#39;maximum rating - minimum rating&#39;},</span>
+<span class="sd">            default &#39;max&#39;</span>
+<span class="sd">        rating_min (numeric) : minimum value of rating, default None</span>
+<span class="sd">        rating_max (numeric) : maximum value of rating, default None</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        metric (float) : value of metric</span>
+<span class="sd">        stop_train (bool) : Indicates convergence (stop training when True)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">stopping_criterion</span> <span class="o">==</span> <span class="s1">&#39;mse&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mse_threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Threshold for calculating MSE is not defined. &#39;</span>
+                  <span class="s1">&#39;Input threshold value.&#39;</span><span class="p">)</span>
+        <span class="n">metric</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">scaled</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">scaling_method</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">rating_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scaled metric needs maximum possible value &#39;</span>
+                          <span class="s1">&#39;of rating.&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">scaling_factor</span> <span class="o">=</span> <span class="n">rating_max</span>
+            <span class="k">elif</span> <span class="n">scaling_metho</span> <span class="o">==</span> <span class="s1">&#39;minmax&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">rating_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">rating_min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="s1">&#39;Scaled metric needs maximum and minimum &#39;</span>
+                        <span class="s1">&#39;possible values of rating.&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">scaling_factor</span> <span class="o">=</span> <span class="p">(</span><span class="n">rating_max</span> <span class="o">-</span> <span class="n">rating_min</span><span class="p">)</span>
+            <span class="n">metric</span> <span class="o">/=</span> <span class="n">scaling_factor</span>
+
+        <span class="n">stop_train</span> <span class="o">=</span> <span class="p">(</span><span class="n">metric</span> <span class="o">&lt;=</span> <span class="n">mse_threshold</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">stopping_criterion</span> <span class="o">==</span> <span class="s1">&#39;stdev_abs&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">stdev_threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Threshold for calculating standard deviation of absolute &#39;</span>
+                  <span class="s1">&#39;error is not defined. Input threshold value.&#39;</span><span class="p">)</span>
+
+        <span class="n">metric</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pred_curr</span><span class="o">-</span><span class="n">pred_prev</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">scaled</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">scaling_method</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">rating_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scaled metric needs maximum possible value &#39;</span>
+                          <span class="s1">&#39;of rating.&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">scaling_factor</span> <span class="o">=</span> <span class="n">rating_max</span>
+            <span class="k">elif</span> <span class="n">scaling_metho</span> <span class="o">==</span> <span class="s1">&#39;minmax&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">rating_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">rating_min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="s1">&#39;Scaled metric needs maximum and minimum possible&#39;</span>
+                        <span class="s1">&#39; values of rating.&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">scaling_factor</span> <span class="o">=</span> <span class="p">(</span><span class="n">rating_max</span> <span class="o">-</span> <span class="n">rating_min</span><span class="p">)</span>
+            <span class="n">metric</span> <span class="o">/=</span> <span class="n">scaling_factor</span>
+
+        <span class="n">stop_train</span> <span class="o">=</span> <span class="p">(</span><span class="n">metric</span> <span class="o">&lt;=</span> <span class="n">stdev_threshold</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mse_threshold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Stopping criterion set to MSE. Input threshold value.&#39;</span><span class="p">)</span>
+        <span class="n">metric</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">)</span>
+
+        <span class="n">stop_train</span> <span class="o">=</span> <span class="p">(</span><span class="n">metric</span> <span class="o">&lt;=</span> <span class="n">mse_threshold</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">metric</span><span class="p">,</span> <span class="n">stop_train</span>
+
+
+<span class="k">def</span> <span class="nf">train_model_itemwise</span><span class="p">(</span>
+        <span class="n">U_df</span><span class="p">,</span> <span class="n">model_object</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span> <span class="n">mse_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">stdev_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">scaled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scaling_method</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">rating_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rating_max</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Trains model iteratively for the item-wise recommender system: </span>
+<span class="sd">    (1) Estimates the missing entries of each column/item by setting it as </span>
+<span class="sd">    the target variable and the remaining columns as the feature variables. </span>
+<span class="sd">    (2) For the remaining columns, the current set of filled in values are </span>
+<span class="sd">    used to create a complete matrix of feature variables. </span>
+<span class="sd">    (3) The observed ratings in the target column are used for training. </span>
+<span class="sd">    (4) The missing entries are updated based on the prediction of the model </span>
+<span class="sd">    on each target column. </span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">                U_df (DataFrame): raw utility matrix (rows are users, </span>
+<span class="sd">                    columns are items) </span>
+<span class="sd">                model_object : model object to use to fit the data</span>
+<span class="sd">                return_models (bool): Indicates whether trained models are </span>
+<span class="sd">                    returned as output, default True</span>
+<span class="sd">                max_iter (int): maximum number of iterations for model </span>
+<span class="sd">                    training and updating of missing values, default 100</span>
+<span class="sd">                stopping_criterion (str): metric for evaluating convergence, </span>
+<span class="sd">                    {mse/&#39;mean squared error&#39;, stdev_abs/&#39;standard deviation </span>
+<span class="sd">                    of absolute difference&#39;}, default &#39;mse&#39;</span>
+<span class="sd">                mse_threshold (float): threshold for stopping criterion when </span>
+<span class="sd">                    &#39;mse&#39;is selected, default 0.1            </span>
+<span class="sd">                stdev_threshold (float): threshold for stopping criterion </span>
+<span class="sd">                    when &#39;stdev_abs&#39;is selected, default None</span>
+<span class="sd">                scaled (bool): Indicates whether metric for stopping criterion </span>
+<span class="sd">                    is to be scaled/normalized</span>
+<span class="sd">                scaling_method (str): indicates method for scaling when </span>
+<span class="sd">                    scaled==True, {max/&#39;maximum rating&#39;,</span>
+<span class="sd">                    minmax/&#39;maximum rating - minimum rating&#39;}, default &#39;max&#39;</span>
+<span class="sd">                rating_min (numeric): minimum value of rating, default None</span>
+<span class="sd">                rating_max (numeric): maximum value of rating, default None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">                U_update (DataFrame): complete utility matrix</span>
+<span class="sd">                metric_iter (array-like): value of convergence metric per iteration</span>
+<span class="sd">                models_item (dict): dictionary of trained models, returned only if</span>
+<span class="sd">                    return_models=True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># VARS</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">U_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">models_item</span> <span class="o">=</span> <span class="n">initialize_models_itemwise</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model_object</span><span class="p">,</span> <span class="n">U</span><span class="o">=</span><span class="n">U</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="n">known_index</span><span class="p">,</span> <span class="n">missing_index</span> <span class="o">=</span> <span class="n">known_missing_split_U</span><span class="p">(</span>
+        <span class="n">U</span><span class="o">=</span><span class="n">U</span><span class="p">,</span> <span class="n">split_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">missing_val_filled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">len_missing_vals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">missing_index</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span> <span class="p">[]))</span>
+    
+    <span class="n">U</span> <span class="o">=</span> <span class="n">mean_center_utilmat</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fillna</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fill_val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">U_update</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>    
+    
+    <span class="n">preds_per_iter</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">len_missing_vals</span><span class="p">)]</span>
+    <span class="n">metric_iter</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">U</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">models_item</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+                <span class="n">U_update</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">known_index</span><span class="p">[</span><span class="n">item</span><span class="p">]],</span>
+                <span class="n">U_update</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">known_index</span><span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="n">item</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_index</span><span class="p">[</span><span class="n">item</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">pred</span> <span class="o">=</span> <span class="n">models_item</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+                    <span class="n">U_update</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">missing_index</span><span class="p">[</span><span class="n">item</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+            <span class="n">preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+            <span class="n">U_update</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">missing_index</span><span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred</span>
+
+        <span class="n">metric</span><span class="p">,</span> <span class="n">stopping_criterion</span> <span class="o">=</span> <span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">preds</span><span class="p">),</span>
+            <span class="n">preds_per_iter</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">stopping_criterion</span><span class="o">=</span><span class="n">stopping_criterion</span><span class="p">,</span>
+            <span class="n">mse_threshold</span><span class="o">=</span><span class="n">mse_threshold</span><span class="p">,</span>
+            <span class="n">stdev_threshold</span><span class="o">=</span><span class="n">stdev_threshold</span><span class="p">,</span>
+            <span class="n">scaled</span><span class="o">=</span><span class="n">scaled</span><span class="p">,</span>
+            <span class="n">scaling_method</span><span class="o">=</span><span class="n">scaling_method</span><span class="p">,</span>
+            <span class="n">rating_min</span><span class="o">=</span><span class="n">rating_min</span><span class="p">,</span>
+            <span class="n">rating_max</span><span class="o">=</span><span class="n">rating_min</span><span class="p">)</span>
+        <span class="n">metric_iter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">stopping_criterion</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">preds_per_iter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">preds</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">return_models</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">U_update</span><span class="p">,</span> <span class="n">metric_iter</span><span class="p">,</span> <span class="n">models_item</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">U_update</span><span class="p">,</span> <span class="n">metric_iter</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def train_model_svd(
+        U_df, model_object, d, return_models=True):
+    &quot;&quot;&quot;
+    Trains model with dimensionality reduction (SVD): 
+    (1) Estimates the missing entries of the utility matrix.
+    (2) Each column/item is set as the target variable one at a time, and
+    the remaining columns are set as the feature matrix.
+    (3) SVD is performed on the feature matrix before model training.
+    (4) Rows with missing items are in the test set, while the rest are in 
+    the training set.
+    (5) Process is repeated for all columns/items, yielding a completed 
+    utility matrix.
+
+    Parameters:
+        U_df (DataFrame) : raw utilily matrix (rows are users, columns are items) 
+        model_object : model object to use to fit the data
+        d : number of desired dimensions after dimensionality reduction
+        return_models (bool) : Indicates whether trained models are returned 
+            as output, default True
+
+    Returns:
+        U_update (DataFrame) : complete utility matrix
+        models_item (dict) : dictionary of trained models, returned only if
+            return_models=True
+    &quot;&quot;&quot;
+    U = U_df.copy()
+    
+    known_index, missing_index = known_missing_split_U(
+        U, split_axis=1)
+    
+    U = mean_filled_utilmat(U)
+    U_update = U.copy()
+    
+    models_item = initialize_models_itemwise(model=model_object, U=U, suffix=&#39;&#39;)
+
+    for item in U.columns:
+        U_temp = U.drop(item, axis=1)
+        S = np.matmul(U_temp.T.values, U_temp.values)
+        _, _, PT = svds(S, k=d)
+        Pd = PT.T
+        U_svd = pd.DataFrame(np.matmul(U_temp.values, Pd),
+                             index=U_temp.index)
+        
+        models_item[str(item)].fit(
+            U_svd.loc[known_index[item]],
+            U_update.loc[known_index[item], item])
+        if len(missing_index[item]) &gt; 0:
+            pred = models_item[str(item)].predict(
+                U_svd.loc[missing_index[item]])
+        else:
+            pred = np.array([])
+        U_update.loc[missing_index[item], item] = pred
+
+
+    if return_models:
+        return U_update, models_item
+    else:
+        return U_update
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def mean_filled_utilmat(U, axis=1):
+    if axis:
+        return U.T.fillna(U.mean(axis=axis)).T
+    else:
+        return U.fillna(U.mean(axis=axis))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def fit(self, model_object, method=&quot;iterative&quot;):
+    U_df_mc = mean_center_utilmat(self.utility_matrix, axis=1, fillna=False)
+    
+    if method == &#39;iterative&#39;:
+        self.models_item = initialize_models_itemwise(U_df_mc, model_object, suffix=&#39;&#39;)    
+        U_imputed, metrics, models = train_model_itemwise(U_df_mc, model_object, return_models=True) 
+        self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
+        
+    if method == &#39;svd&#39;:
+        self.models_item = initialize_models_itemwise(U_df_mc, model_object, suffix=&#39;&#39;)
+        U_imputed, models = train_model_svd(U_df_mc, model_object, d=2, return_models=True)        
+        self.utility_matrix_preds = U_imputed
+        
+    return None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from sklearn.classifier import Random</span>
+<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span><span class="p">,</span> <span class="n">MLPRegressor</span>
+<span class="n">mlp1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mlp1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
+<span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_preds</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>231</th>
+      <th>288</th>
+      <th>296</th>
+      <th>480</th>
+      <th>1042</th>
+      <th>1213</th>
+      <th>2456</th>
+      <th>2457</th>
+      <th>2505</th>
+      <th>2681</th>
+      <th>2692</th>
+      <th>3146</th>
+      <th>3863</th>
+      <th>4027</th>
+      <th>49272</th>
+      <th>51935</th>
+      <th>55247</th>
+      <th>62250</th>
+      <th>68358</th>
+      <th>74685</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>-0.080233</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.066657</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.005161</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>0.0</td>
+      <td>0.048173</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>160</th>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-0.041206</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mlp1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;svd&#39;</span><span class="p">)</span>
+<span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_preds</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>231</th>
+      <th>288</th>
+      <th>296</th>
+      <th>480</th>
+      <th>1042</th>
+      <th>1213</th>
+      <th>2456</th>
+      <th>2457</th>
+      <th>2505</th>
+      <th>2681</th>
+      <th>2692</th>
+      <th>3146</th>
+      <th>3863</th>
+      <th>4027</th>
+      <th>49272</th>
+      <th>51935</th>
+      <th>55247</th>
+      <th>62250</th>
+      <th>68358</th>
+      <th>74685</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>-0.043063</td>
+      <td>0.015026</td>
+      <td>0.000000</td>
+      <td>-0.010668</td>
+      <td>-0.035762</td>
+      <td>-0.013796</td>
+      <td>-0.046287</td>
+      <td>0.006769</td>
+      <td>0.0449</td>
+      <td>-0.009412</td>
+      <td>0.023641</td>
+      <td>0.045927</td>
+      <td>-0.004665</td>
+      <td>0.002118</td>
+      <td>0.036311</td>
+      <td>0.046359</td>
+      <td>-0.002485</td>
+      <td>0.026334</td>
+      <td>0.011642</td>
+      <td>-0.018651</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>-0.043063</td>
+      <td>0.015026</td>
+      <td>-0.096995</td>
+      <td>-0.010668</td>
+      <td>-0.035762</td>
+      <td>-0.013796</td>
+      <td>-0.046287</td>
+      <td>0.006769</td>
+      <td>0.0449</td>
+      <td>0.000000</td>
+      <td>0.023641</td>
+      <td>0.045927</td>
+      <td>-0.004665</td>
+      <td>0.002118</td>
+      <td>0.036311</td>
+      <td>0.046359</td>
+      <td>-0.002485</td>
+      <td>0.026334</td>
+      <td>0.011642</td>
+      <td>-0.018651</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>-0.043063</td>
+      <td>0.015026</td>
+      <td>-0.096995</td>
+      <td>-0.010668</td>
+      <td>-0.035762</td>
+      <td>-0.013796</td>
+      <td>-0.046287</td>
+      <td>0.006769</td>
+      <td>0.0449</td>
+      <td>-0.009412</td>
+      <td>0.023641</td>
+      <td>0.045927</td>
+      <td>-0.004665</td>
+      <td>0.002118</td>
+      <td>0.036311</td>
+      <td>0.000000</td>
+      <td>-0.002485</td>
+      <td>0.026334</td>
+      <td>0.011642</td>
+      <td>-0.018651</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>-0.043063</td>
+      <td>0.000000</td>
+      <td>-0.096995</td>
+      <td>-0.010668</td>
+      <td>-0.035762</td>
+      <td>-0.013796</td>
+      <td>-0.046287</td>
+      <td>0.006769</td>
+      <td>0.0449</td>
+      <td>-0.009412</td>
+      <td>0.023641</td>
+      <td>0.045927</td>
+      <td>-0.004665</td>
+      <td>0.002118</td>
+      <td>0.036311</td>
+      <td>0.046359</td>
+      <td>-0.002485</td>
+      <td>0.026334</td>
+      <td>0.011642</td>
+      <td>-0.018651</td>
+    </tr>
+    <tr>
+      <th>160</th>
+      <td>-0.043063</td>
+      <td>0.015026</td>
+      <td>-0.096995</td>
+      <td>-0.010668</td>
+      <td>-0.035762</td>
+      <td>-0.013796</td>
+      <td>0.000000</td>
+      <td>0.006769</td>
+      <td>0.0449</td>
+      <td>-0.009412</td>
+      <td>0.023641</td>
+      <td>0.045927</td>
+      <td>-0.004665</td>
+      <td>0.002118</td>
+      <td>0.036311</td>
+      <td>0.046359</td>
+      <td>-0.002485</td>
+      <td>0.026334</td>
+      <td>0.011642</td>
+      <td>-0.018651</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="get-recommendations">
+<h3>Get Recommendations<a class="headerlink" href="#get-recommendations" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def get_rec(self, user_list, top_n, uc_assignment=None):
+    
+    &quot;&quot;&quot;Returns the top N item cluster recommendations for each user in the user list
+    
+            Parameters:
+                    utility_matrix (numpy.ndarray): Matrix of utilities for each user-item pairing
+                    utility_matrix_o (numpy.ndarray): Original utility matrix, before imputation
+                    user_list (array-like): List of users
+                    uc_assignment (array-like): List containing the cluster assignment of each user
+                    top_n (int): Number of item clusters to recommend
+
+            Returns:
+                    df_rec (pandas.DataFrame): Table containing the top N item cluster recommendations for each user in the user list
+                    
+    &quot;&quot;&quot;
+    print(&quot;ok&quot;)    
+    utility_matrix_o = self.utility_matrix.fillna(0).values
+    utility_matrix = self.utility_matrix_preds.values
+    print(&quot;ok&quot;)    
+    # Don&#39;t recommend items that are already rated
+    utility_matrix[np.where(utility_matrix_o != 0)] = -np.inf
+    print(&quot;ok&quot;)    
+    # Get top N per user cluster
+    cluster_rec = utility_matrix.argsort()[:, -top_n:]
+    print(&quot;ok&quot;)
+    # Create recommendation table
+    df_rec = pd.DataFrame()
+    df_rec[&#39;user_id&#39;] = user_list
+    
+    for i in range(top_n):
+        df_rec[&#39;rank_&#39;+str(i+1)] = np.zeros(df_rec.shape[0])
+        for j in range(df_rec.shape[0]):
+            if uc_assignment is None:
+                df_rec.iloc[j, i+1] = cluster_rec[user_list[j], top_n-i-1]
+            else:
+                df_rec.iloc[j, i+1] = cluster_rec[uc_assignment[user_list[j]], top_n-i-1]
+    
+    self.df_rec = df_rec
+    return df_rec
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get rec</span>
+<span class="n">user_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">re</span><span class="o">.</span><span class="n">get_rec</span><span class="p">(</span><span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ok
+ok
+ok
+ok
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>rank_1</th>
+      <th>rank_2</th>
+      <th>rank_3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>15.0</td>
+      <td>11.0</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>11.0</td>
+      <td>8.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>15.0</td>
+      <td>11.0</td>
+      <td>8.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="clustering-version">
+<h2>Clustering Version<a class="headerlink" href="#clustering-version" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def cluster_users(self, model):
+    &quot;&quot;&quot;
+    Perform user-wise clustering and assign each user to a cluster.
+    
+    Paramters
+    ---------                  
+    model        : an sklearn model object
+                   An object with a fit_predict method. Used to cluster the
+                   users into groups with similar ratings of items.
+
+    Returns
+    -------
+    model         : an sklearn model object
+                    The fitted version of the model input used to predict the
+                    clusters of users from fname
+    
+    result        : dict
+                    A mapping of each user&#39;s cluster with the keys being the
+                    user_id and the values their cluster membership
+    
+    df            : pandas DataFrame
+                    Utility matrix derived from fname with the final column
+                    corresponding to the cluster membership of that user
+    &quot;&quot;&quot;
+
+    # SOME VARIABLES
+    df = self.utility_matrix # utility matrix    
+    df = df.fillna(0) # fillna with 0
+    
+    # Aggregation through tables
+    u_clusterer = model
+    u_predict = u_clusterer.fit_predict(df)
+    df[&#39;u_cluster&#39;] = u_predict
+
+    model = u_clusterer
+    result = dict(df[&#39;u_cluster&#39;])
+    
+    # Output variables
+    self.user_cluster_model = model # attach the user_cluster_model to the class
+    self.utility_matrix_w_user_clusters = df # utility matrix with user clusters
+    self.user_cluster_mapping_dict = result # mapping of users and cluster labels
+    self.users_clustered = True # tag that we clustered the users
+    
+    return model, result, df
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def cluster_items(self, model):
+    
+    # WE MIGHT WANT TO FIX TO DROP COLS AS HARD CODED INSTEAD OF AN ARGUMENT
+    # SO LONG AS WE STANDARDIZE THE INPUT
+    
+    &quot;&quot;&quot;
+    Perform item-wise clustering and assign each item to a cluster of similar
+    items based on the users that 
+    
+    Paramters
+    ---------
+                   
+    model        : an sklearn model object
+                   An object with a fit_predict method. Used to cluster the
+                   users into groups with similar ratings of items.
+
+    Returns
+    -------
+    model         : an sklearn model object
+                    The fitted version of the model input used to predict the
+                    clusters of items from fname
+    
+    result        : dict
+                    A mapping of each item&#39;s cluster with the keys being the
+                    item_id and the values their cluster membership
+    
+    df_items      : pandas DataFrame
+                    Utility matrix derived from fname with the final column
+                    corresponding to the cluster membership of that item
+    &quot;&quot;&quot;
+
+    # SOME VARIABLES
+    df = self.utility_matrix # utility matrix      
+    df = self.utility_matrix # utility matrix    
+    df = df.fillna(0) # fillna with 0
+
+    df_items = df.T
+    i_clusterer = model
+
+    i_predict = i_clusterer.fit_predict(df_items)
+    df_items[&#39;i_cluster&#39;] = i_predict
+
+    model = i_clusterer
+    result = dict(df_items[&#39;i_cluster&#39;])
+    
+    # Output variables
+    self.item_cluster_model = model # attach the item_cluster_model to the class
+    self.utility_matrix_w_item_clusters = df_items # utility matrix with item clusters
+    self.item_cluster_mapping_dict = result # mapping of users and cluster labels    
+    self.items_clustered = True # tag that we clustered the items
+    
+    return model, result, df_items
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km_users</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">km_items</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">user_model</span><span class="p">,</span> <span class="n">user_cluster_map</span><span class="p">,</span> <span class="n">util_matrix_w_users</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">cluster_users</span><span class="p">(</span><span class="n">km_users</span><span class="p">)</span>
+<span class="n">item_model</span><span class="p">,</span> <span class="n">item_cluster_map</span><span class="p">,</span> <span class="n">util_matrix_w_items</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">cluster_items</span><span class="p">(</span><span class="n">km_items</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">item_cluster_model</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">user_cluster_model</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(KMeans(n_clusters=10), KMeans(n_clusters=10))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_w_user_clusters</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>231</th>
+      <th>288</th>
+      <th>296</th>
+      <th>480</th>
+      <th>1042</th>
+      <th>1213</th>
+      <th>2456</th>
+      <th>2457</th>
+      <th>2505</th>
+      <th>2681</th>
+      <th>...</th>
+      <th>3146</th>
+      <th>3863</th>
+      <th>4027</th>
+      <th>49272</th>
+      <th>51935</th>
+      <th>55247</th>
+      <th>62250</th>
+      <th>68358</th>
+      <th>74685</th>
+      <th>u_cluster</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>160</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_w_item_clusters</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>user_id</th>
+      <th>1</th>
+      <th>57</th>
+      <th>80</th>
+      <th>156</th>
+      <th>160</th>
+      <th>183</th>
+      <th>187</th>
+      <th>201</th>
+      <th>236</th>
+      <th>275</th>
+      <th>...</th>
+      <th>294</th>
+      <th>298</th>
+      <th>339</th>
+      <th>417</th>
+      <th>460</th>
+      <th>462</th>
+      <th>534</th>
+      <th>542</th>
+      <th>608</th>
+      <th>i_cluster</th>
+    </tr>
+    <tr>
+      <th>item_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>231</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>296</th>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>480</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>1042</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+<div class="section" id="aggregating">
+<h3>Aggregating<a class="headerlink" href="#aggregating" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def cluster_assignment(self):
+    
+    &quot;&quot;&quot;
+    Converts the dictionary containing user_id and user_cluster assignment  
+    to a pandas data frame 
+
+    Returns
+    -------
+    result        : dataframe of cluster assignments
+
+    &quot;&quot;&quot;
+    
+    if self.users_clustered: # if we ran the cluster_users method: 
+        data_name=&#39;user_id&#39;        
+        cluster_name=&#39;u_cluster&#39;        
+        self.user_assignment = pd.DataFrame(list(self.user_cluster_mapping_dict.items()), columns=[data_name, cluster_name])
+        self.user_assignment.set_index(data_name, inplace=True)
+        
+    if self.items_clustered: # if we ran the cluster_users method: 
+        data_name=&#39;user_id&#39;        
+        cluster_name=&#39;i_cluster&#39;        
+        self.item_assignment = pd.DataFrame(list(self.item_cluster_mapping_dict.items()), columns=[data_name, cluster_name])
+        self.item_assignment.set_index(data_name, inplace=True)
+    
+    return None
+
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">cluster_assignment</span><span class="p">()</span>
+<span class="n">re</span><span class="o">.</span><span class="n">user_assignment</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>u_cluster</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>156</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>160</th>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">item_assignment</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>i_cluster</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>231</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>296</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>480</th>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>1042</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+
+def utility_matrix_agg(self, u_agg=&#39;mean&#39;, i_agg=&#39;mean&#39;):
+    &quot;&quot;&quot;
+    Aggregates the results of the clustering with respect to item clusters and user clusters.
+    ------
+    Methods : two possible ways to aggregate the results of cluster assignments in df_u and df_i are &#39;sum&#39; and &#39;mean&#39;
+    u_agg   : aggregration method to be used for users
+    
+    i_agg   : aggregation method to be used for items
+    
+    -----
+    Returns : utility matrix consisting of the aggregrated user clusters as rows and aggregated item clusters as columns
+    
+    &quot;&quot;&quot;
+    
+    # GET utility matrices with cluster labels
+    df_u = self.utility_matrix_w_user_clusters
+    df_i = self.utility_matrix_w_item_clusters
+
+    u_series = df_u[&#39;u_cluster&#39;]
+    i_series = df_i[&#39;i_cluster&#39;]
+
+    u_ids = np.unique(u_series.values)
+    i_ids = np.unique(i_series.values) 
+
+    u_feats = {}
+    for u_id in u_ids: #u_ids are clusters of u_id
+        sub_df = df_u.groupby(&#39;u_cluster&#39;).get_group(
+            u_id).drop(columns=[&#39;u_cluster&#39;]).T
+        sub_df = sub_df.merge(i_series.reset_index(drop=True), left_index=True, right_index=True)
+
+        if u_agg == &#39;sum&#39;:
+            df_grp = sub_df.groupby(&#39;i_cluster&#39;).sum()
+        if u_agg == &#39;mean&#39;:
+            df_grp = sub_df.groupby(&#39;i_cluster&#39;).mean()
+        if not isinstance(u_agg,str):
+            df_grp = sub_df.groupby(&#39;i_cluster&#39;).apply(u_agg)
+
+        if i_agg == &#39;sum&#39;:
+            df_grp = df_grp.sum(axis=1)
+        if i_agg == &#39;mean&#39;:
+            df_grp = df_grp.mean(axis=1)
+        if not isinstance(i_agg,str):
+            df_grp = df_grp.apply(i_agg, axis=1)
+
+        u_feats[u_id] = df_grp
+    
+
+    u_matrix = pd.DataFrame()
+    for k, v in u_feats.items():
+        u_matrix = u_matrix.merge(v.rename(k), how=&#39;outer&#39;,
+                                  left_index=True, right_index=True)
+
+    # UPDATE THE UTILITY MATRIX
+    self.utility_matrix = u_matrix.fillna(0).T 
+    self.utility_matrix.index.rename(&#39;u_cluster&#39;, inplace=True)
+    return self.utility_matrix
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_agg</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+    </tr>
+    <tr>
+      <th>u_cluster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+    </tr>
+    <tr>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>2</th>
+    </tr>
+    <tr>
+      <th>3</th>
+    </tr>
+    <tr>
+      <th>4</th>
+    </tr>
+    <tr>
+      <th>5</th>
+    </tr>
+    <tr>
+      <th>6</th>
+    </tr>
+    <tr>
+      <th>7</th>
+    </tr>
+    <tr>
+      <th>8</th>
+    </tr>
+    <tr>
+      <th>9</th>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="section" id="clustered-data">
+<h4>Clustered Data<a class="headerlink" href="#clustered-data" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_to</span> Resype
+def train_model_itemwise_cluster(
+        Uc_df, model_object, n_synth_data=100, p=0.2):
+    &quot;&quot;&quot;Trains model iteratively for the cluster-based recommender system: 
+    (1) Given cluster-based utility matrix, create multiple synthetic data of 
+    missing ratings. Randomly drop matrix elements by setting them to NaN to 
+    create &quot;missing&quot; ratings. 
+    (2) For each set of synthetic data:
+        (2a) Estimate the missing entries of each column/item by setting it as 
+        the target variable and the remaining columns as the feature variables. 
+        (2b) For the remaining columns, the current set of filled in values are 
+        used to create a complete matrix of feature variables. 
+        (2c) The observed ratings in the target column are used for training. 
+        (2d) The missing entries are updated based on the prediction of the 
+        model on each target column. 
+    (3) Get mean of the completed utility matrix from all imputed synthetic data. 
+
+    Parameters:
+            Uc_df (DataFrame): output utility matrix from clustering
+                (rows are users, columns are items) 
+            model_object: model object to use to fit the data
+            n_synth_data (int): number of synthetic datasets to be generated,
+                default 100
+            p (float): percentage of matrix which will be set to NaN, 
+                value ranges from 0 to 1, default 0.2         
+
+    Returns:
+            (DataFrame): updated cluster-based utility matrix 
+
+    &quot;&quot;&quot;
+    synth_data = gen_missing_ratings(Uc_df, p=p, n_masks=n_synth_data)
+    um_output = []
+    for n in range(n_synth_data):
+        U_df = synth_data[n]
+        U_df_mc = um.mean_center_utilmat(U_df, axis=1, fillna=True, fill_val=0)
+        U_imputed, metrics, models = im.train_model_itemwise(
+            U_df_mc, model_object, return_models=return_models)
+        um_output.append(U_imputed)
+    um_output = pd.concat(um_output)
+    return um_output.groupby(um_output.index).mean()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+    </tr>
+    <tr>
+      <th>u_cluster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+    </tr>
+    <tr>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th>2</th>
+    </tr>
+    <tr>
+      <th>3</th>
+    </tr>
+    <tr>
+      <th>4</th>
+    </tr>
+    <tr>
+      <th>5</th>
+    </tr>
+    <tr>
+      <th>6</th>
+    </tr>
+    <tr>
+      <th>7</th>
+    </tr>
+    <tr>
+      <th>8</th>
+    </tr>
+    <tr>
+      <th>9</th>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">add_to</span> Resype
+<span class="k">def</span> <span class="nf">get_rec_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_k</span><span class="p">,</span> <span class="n">ic_assignment</span><span class="p">):</span>
+    
+    <span class="sd">&quot;&quot;&quot;Returns the top K item recommendations for each user in the user list. </span>
+<span class="sd">    Items are selected randomly from the top recommended item cluster, exhaustively. Left overs are taken from the next highest ranked item clusters in a cascading fashion.</span>
+<span class="sd">    </span>
+<span class="sd">            Parameters:</span>
+<span class="sd">                    df_rec (pandas.DataFrame): Table containing the top N item cluster recommendations for each user in the user list</span>
+<span class="sd">                    ic_assignment (array-like): List containing the cluster assignment of each item</span>
+<span class="sd">                    top_n (int): Number of items to recommend</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                    df_rec_item (pandas.DataFrame): Table containing the top K item recommendations for each user in the user list</span>
+<span class="sd">                    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_rec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df_rec</span>
+    <span class="n">ic_assignment</span> <span class="o">=</span> 
+    
+    <span class="c1"># Create recommendation table</span>
+    <span class="n">df_rec_item</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">df_rec_item</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_rec</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">top_k</span><span class="p">):</span>
+        <span class="n">df_rec_item</span><span class="p">[</span><span class="s1">&#39;rank_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">df_rec_item</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># Get items</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df_rec_item</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">item_rec</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_rec</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">top_k</span><span class="p">:</span>
+            <span class="n">item_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ic_assignment</span> <span class="o">==</span> <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">rank</span><span class="o">+</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">top_k</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">item_rec</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_list</span><span class="p">):</span>
+                <span class="n">item_rec</span> <span class="o">=</span> <span class="n">item_rec</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">item_list</span><span class="p">)</span>
+                <span class="n">rank</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">item_rec</span> <span class="o">=</span> <span class="n">item_rec</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">item_list</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">top_k</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">item_rec</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="n">df_rec_item</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">item_rec</span>
+                
+    <span class="k">return</span> <span class="n">df_rec_item</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="trying-the-entire-pipeline">
+<h2>Trying the entire pipeline<a class="headerlink" href="#trying-the-entire-pipeline" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="non-clustering-version">
+<h3>Non-Clustering Version<a class="headerlink" href="#non-clustering-version" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id1">
+<h3>Clustering Version<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">user_feature</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;tmp_files/user_feature&quot;</span><span class="p">)</span>
+<span class="n">item_feature_table</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;tmp_files/item_feature_table&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_u</span><span class="p">,</span> <span class="n">y_u</span><span class="p">,</span> <span class="n">df_u</span> <span class="o">=</span> <span class="n">u_cluster</span><span class="p">(</span><span class="n">user_feature</span><span class="p">,</span><span class="s2">&quot;kmeans&quot;</span><span class="p">,</span> <span class="n">u_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">x_i</span><span class="p">,</span> <span class="n">y_i</span><span class="p">,</span> <span class="n">df_i</span> <span class="o">=</span> <span class="n">i_cluster</span><span class="p">(</span><span class="n">item_feature_table</span><span class="p">,</span><span class="s1">&#39;kmeans&#39;</span><span class="p">,</span> <span class="n">i_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uc_assignment</span> <span class="o">=</span> <span class="n">cluster_assignment</span><span class="p">(</span><span class="n">y_u</span><span class="p">,</span> <span class="n">data_name</span><span class="o">=</span><span class="s1">&#39;user_id&#39;</span><span class="p">)</span>
+<span class="n">ic_assignment</span> <span class="o">=</span> <span class="n">cluster_assignment</span><span class="p">(</span><span class="n">y_i</span><span class="p">,</span> <span class="n">data_name</span><span class="o">=</span><span class="s1">&#39;item_id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">ic_assignment</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">uc_assignment</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">df_u</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_i</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Uc</span> <span class="o">=</span> <span class="n">utility_matrix_agg</span><span class="p">(</span><span class="n">df_u</span><span class="p">,</span> <span class="n">df_i</span><span class="p">,</span> <span class="n">u_agg</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">i_agg</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
+<span class="n">Uc</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">Uc</span><span class="p">,</span> <span class="s2">&quot;tmp_files/Uc&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="train-model">
+<h3>Train Model<a class="headerlink" href="#train-model" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Uc</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;tmp_files/Uc&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span><span class="p">,</span> <span class="n">MLPRegressor</span>
+<span class="n">mlp1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>we can prob make the model an argument of the function</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">Uc_df_output</span> <span class="o">=</span> <span class="n">train_model_itemwise_cluster</span><span class="p">(</span><span class="n">Uc</span><span class="p">,</span> <span class="n">n_synth_data</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># README</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install resype
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">resype</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># PREPROCESSING</span>
+<span class="c1"># Francis to change the values to be the ratings e.g. 1,2,3,4,5</span>
+<span class="c1"># Francis to remove scaling</span>
+
+<span class="c1"># RESYPE PIPE</span>
+<span class="n">re</span> <span class="o">=</span> <span class="n">resype</span><span class="p">(</span><span class="n">transaction_list</span><span class="p">,</span> <span class="n">user_features</span><span class="p">,</span> <span class="n">item_features</span><span class="p">)</span>
+<span class="n">km</span> <span class="o">=</span> <span class="n">Kmeans</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+<span class="n">re</span><span class="o">.</span><span class="n">cluster_fit</span><span class="p">(</span><span class="n">user_model</span><span class="o">=</span><span class="n">km</span><span class="p">,</span> <span class="n">item_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_n</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">item_n</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">agg_func</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
+<span class="c1"># Gilbert will update the function so it looks like the thing above</span>
+
+<span class="c1"># internal logic na self.is_clustered = True / False</span>
+<span class="c1"># if self.is_clustered, run the model for clustered UM, else run the model for unclustered</span>
+<span class="n">ml</span> <span class="o">=</span> <span class="n">GBM</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+<span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">ml</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;iterative or svd&quot;</span><span class="p">)</span> 
+<span class="c1"># Eloi will update the model for clustered version</span>
+<span class="c1"># Eloi and Vinni will add iterative or svd logic</span>
+<span class="c1"># Eloi to add logic if ratings are 0s and 1s and with NaN - autodetect if just 0 and 1</span>
+
+<span class="n">df_rec</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">get_rec</span><span class="p">(</span><span class="n">top_k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">user_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="c1"># Basti will update the logic for unclustered version</span>
+
+<span class="c1"># get_rec should assign for users not yet in the training set</span>
+<span class="c1"># limitation of the collaborative filtering model</span>
+
+<span class="c1"># Basti to prepare the Getting started</span>
+<span class="c1"># Gilbert to help with documentation after fixing the function</span>
+<span class="c1"># Francis to help with the documentation - if we need to do anything else</span>
+<span class="c1"># Issa to help with documentation - if we need to do anything else</span>
+<span class="c1"># Prince to compile to classes and prepare the website doc</span>
+<span class="c1"># Separate the functions -&gt; 1 function is to 1 notebook. Show input and show output per function</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># functions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Narrative</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># sample usage</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="api-optional">
+<h2>API (Optional)<a class="headerlink" href="#api-optional" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#modules, methods, arguments</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">item</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Uc</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;original&#39;</span><span class="p">)</span>
+<span class="n">Uc_df_output</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;model_output&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By AIM PhDDS2023<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
