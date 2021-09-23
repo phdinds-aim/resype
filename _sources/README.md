@@ -1,6 +1,7 @@
-<div align="center">
-<img alt="Logo" src="resype_logo.png" width="60%"/>
-</div>
+![logo](resype_logo.png)
+
+
+
 
 # ReSyPE: Recommender System in Python Environment
 
