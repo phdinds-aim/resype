@@ -20,14 +20,30 @@ The library provides an end-to-end pipeline that includes:
 
 ## Getting Started
 
-    import resype
-    from sklearn.cluster import KMeans
-    from sklearn.neural_network import MLPRegressor
+    import pandas as pd
+    import numpy as np
+    from resype.resype import Resype
     
-    re = resype(transaction_list, user_features, item_features)
-    km = KMeans()
-    re.cluster_fit(user_model=km, item_model=None, user_n=20, item_n=None, agg_func='sum')
-    ml = MLPRegressor()
-    re.fit(model=ml, method='iterative') 
-
-    df_rec = re.get_rec(top_k=10, user_list = [1, 2, 3])
+    # load transaction list
+    transaction_list = pd.read_csv("sample_data/ratings.csv")[['userId', 'movieId', 'rating']]
+    transaction_list = transaction_list.sample(20)
+    transaction_list.columns = ["user_id", 'item_id', 'rating']
+    
+    re = Resype(transaction_list)
+    
+    # construct utlity matrix
+    re.construct_utility_matrix()
+    
+    # import sklearn Model
+    from sklearn.neural_network import MLPClassifier, MLPRegressor
+    mlp1 = MLPRegressor(hidden_layer_sizes=(50, 50))
+    
+    # fit and predict
+    re.fit(mlp1, method='iterative')
+    
+    # recommend
+    user_list = [0, 1, 2] # indices
+    top_n = 10
+    re.get_rec(user_list, top_n)
+    
+    

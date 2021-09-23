@@ -313,17 +313,31 @@
 </div>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import resype
-from sklearn.cluster import KMeans
-from sklearn.neural_network import MLPRegressor
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import numpy as np
+from resype.resype import Resype
 
-re = resype(transaction_list, user_features, item_features)
-km = KMeans()
-re.cluster_fit(user_model=km, item_model=None, user_n=20, item_n=None, agg_func=&#39;sum&#39;)
-ml = MLPRegressor()
-re.fit(model=ml, method=&#39;iterative&#39;) 
+# load transaction list
+transaction_list = pd.read_csv(&quot;sample_data/ratings.csv&quot;)[[&#39;userId&#39;, &#39;movieId&#39;, &#39;rating&#39;]]
+transaction_list = transaction_list.sample(20)
+transaction_list.columns = [&quot;user_id&quot;, &#39;item_id&#39;, &#39;rating&#39;]
 
-df_rec = re.get_rec(top_k=10, user_list = [1, 2, 3])
+re = Resype(transaction_list)
+
+# construct utlity matrix
+re.construct_utility_matrix()
+
+# import sklearn Model
+from sklearn.neural_network import MLPClassifier, MLPRegressor
+mlp1 = MLPRegressor(hidden_layer_sizes=(50, 50))
+
+# fit and predict
+re.fit(mlp1, method=&#39;iterative&#39;)
+
+# recommend
+user_list = [0, 1, 2] # indices
+top_n = 10
+re.get_rec(user_list, top_n)
 </pre></div>
 </div>
 </div>
