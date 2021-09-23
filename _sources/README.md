@@ -21,12 +21,14 @@ The library provides an end-to-end pipeline that includes:
 
 ## Getting Started
 
-    import pandas as pd
+```python
+import pandas as pd
     import numpy as np
     from resype.resype import Resype
     
     # load transaction list
-    transaction_list = pd.read_csv("sample_data/ratings.csv")[['userId', 'movieId', 'rating']]
+    transaction_list = pd.read_csv("sample_data/ratings.csv")
+    transaction_list = transaction_list[['userId', 'movieId', 'rating']]
     transaction_list = transaction_list.sample(20)
     transaction_list.columns = ["user_id", 'item_id', 'rating']
     
@@ -46,5 +48,4 @@ The library provides an end-to-end pipeline that includes:
     user_list = [0, 1, 2] # indices
     top_n = 10
     re.get_rec(user_list, top_n)
-    
-    
+```
