@@ -12,7 +12,7 @@ The library provides an end-to-end pipeline that includes:
 1. Loading transaction, user feature, and item feature datasets
 2. Interchangable methods for user and item clustering
 3. Modular framework for machine learning models
-4. Iterative or decomposition-based techniques
+4. Iterative and decomposition-based techniques
 
 ## Installation
 
@@ -21,6 +21,8 @@ The library provides an end-to-end pipeline that includes:
 ## Getting Started
 
     import resype
+    
+  
     
     re = resype(transaction_list, user_features, item_features)
     km = Kmeans(**params)
