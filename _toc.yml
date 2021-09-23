@@ -1,0 +1,8 @@
+format: jb-book
+root: README
+parts:
+  - caption: Functions
+    chapters:
+    - file: basti/get_rec
+    - file: basti/get_rec_item
+    - file: eloi/demo_notebook_iterative_model

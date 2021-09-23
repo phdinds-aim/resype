@@ -1,0 +1,14 @@
+title: ReSyPE
+author: AIM PhDDS 2023
+logo: images/resype_logo.png
+execute:
+  execute_notebooks: "off"
+
+sphinx:
+    config:
+      html_theme_options:
+        use_download_button: false
+        repository_url: https://github.com/phdinds-aim/resype
+        use_issues_button: false
+        use_repository_button: true
+        use_edit_page_button: false
