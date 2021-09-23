@@ -41,17 +41,18 @@ def initialize_models_userwise(model, U, suffix='_model'):
 def train_model_svd(
         U_df, model_object, d, return_models=True):
     """
-    Trains model iteratively for the item-wise recommender system: 
-    (1) Estimates the missing entries of each column/item by setting it as 
-    the target variable and the remaining columns as the feature variables. 
-    (2) For the remaining columns, the current set of filled in values are 
-    used to create a complete matrix of feature variables. 
-    (3) The observed ratings in the target column are used for training. 
-    (4) The missing entries are updated based on the prediction of the model 
-    on each target column. 
+    Trains model with dimensionality reduction (SVD): 
+    (1) Estimates the missing entries of the utility matrix.
+    (2) Each column/item is set as the target variable one at a time, and
+    the remaining columns are set as the feature matrix.
+    (3) SVD is performed on the feature matrix before model training.
+    (4) Rows with missing items are in the test set, while the rest are in 
+    the training set.
+    (5) Process is repeated for all columns/items, yielding a completed 
+    utility matrix.
 
     Parameters:
-        U_df (DataFrame) : utilily matrix (rows are users, columns are items) 
+        U_df (DataFrame) : raw utilily matrix (rows are users, columns are items) 
         model_object : model object to use to fit the data
         d : number of desired dimensions after dimensionality reduction
         return_models (bool) : Indicates whether trained models are returned 
@@ -66,9 +67,6 @@ def train_model_svd(
     
     known_index, missing_index = um.known_missing_split_U(
         U, split_axis=1)
-
-    len_missing_vals = len(sum([i.tolist()
-                                for i in missing_index.values()], []))
     
     U = um.mean_filled_utilmat(U)
     U_update = U.copy()
