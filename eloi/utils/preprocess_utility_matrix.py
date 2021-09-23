@@ -1,9 +1,12 @@
 import pandas as pd
 import numpy as np
 
-import pandas as pd
-import numpy as np
 
+def mean_filled_utilmat(U, axis=1):
+    if axis:
+        return U.T.fillna(U.mean(axis=axis)).T
+    else:
+        return U.fillna(U.mean(axis=axis))
 
 def mean_center_utilmat(U, axis=1, fillna=True, fill_val=None):
     """Gets the mean-centered utility matrix
