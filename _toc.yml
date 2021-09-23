@@ -1,8 +1,8 @@
-format: jb-book
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-article
 root: README
-parts:
-  - caption: Functions
-    chapters:
-    - file: basti/get_rec
-    - file: basti/get_rec_item
-    - file: eloi/demo_notebook_iterative_model
+sections:
+- file: basti/get_rec
+- file: basti/get_rec_item
