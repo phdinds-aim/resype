@@ -1,0 +1,23 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-article
+root: README
+parts:
+  - caption: Preprocessing
+    chapters:
+    - file: francis/csv_preprocessing
+    - file: francis/item_feature_ntbk
+    - file: francis/user_feature_ntbk
+    - file: francis/transaction_list_ntbk
+  - caption: Clustering
+    chapters:
+    - file: gilbert/clustering_module
+    - file: issa/aggregation_to_util_matrix_final
+  - caption: ML Models
+    chapters:
+    - file: eloi/demo_notebook_iterative_model
+  - caption: Get Recommendations
+    chapters:
+    - file: basti/get_rec
+    - file: basti/get_rec_item
