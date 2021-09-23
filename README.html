@@ -312,31 +312,31 @@
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-    <span class="kn">from</span> <span class="nn">resype.resype</span> <span class="kn">import</span> <span class="n">Resype</span>
-    
-    <span class="c1"># load transaction list</span>
-    <span class="n">transaction_list</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;sample_data/ratings.csv&quot;</span><span class="p">)</span>
-    <span class="n">transaction_list</span> <span class="o">=</span> <span class="n">transaction_list</span><span class="p">[[</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]]</span>
-    <span class="n">transaction_list</span> <span class="o">=</span> <span class="n">transaction_list</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-    <span class="n">transaction_list</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
-    
-    <span class="n">re</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">transaction_list</span><span class="p">)</span>
-    
-    <span class="c1"># construct utlity matrix</span>
-    <span class="n">re</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
-    
-    <span class="c1"># import sklearn Model</span>
-    <span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span><span class="p">,</span> <span class="n">MLPRegressor</span>
-    <span class="n">mlp1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
-    
-    <span class="c1"># fit and predict</span>
-    <span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mlp1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
-    
-    <span class="c1"># recommend</span>
-    <span class="n">user_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c1"># indices</span>
-    <span class="n">top_n</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">re</span><span class="o">.</span><span class="n">get_rec</span><span class="p">(</span><span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">resype.resype</span> <span class="kn">import</span> <span class="n">Resype</span>
+
+<span class="c1"># load transaction list</span>
+<span class="n">transaction_list</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;sample_data/ratings.csv&quot;</span><span class="p">)</span>
+<span class="n">transaction_list</span> <span class="o">=</span> <span class="n">transaction_list</span><span class="p">[[</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]]</span>
+<span class="n">transaction_list</span> <span class="o">=</span> <span class="n">transaction_list</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">transaction_list</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
+
+<span class="n">re</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">transaction_list</span><span class="p">)</span>
+
+<span class="c1"># construct utlity matrix</span>
+<span class="n">re</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+
+<span class="c1"># import sklearn Model</span>
+<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span><span class="p">,</span> <span class="n">MLPRegressor</span>
+<span class="n">mlp1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+
+<span class="c1"># fit and predict</span>
+<span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mlp1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
+
+<span class="c1"># recommend</span>
+<span class="n">user_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c1"># indices</span>
+<span class="n">top_n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">re</span><span class="o">.</span><span class="n">get_rec</span><span class="p">(</span><span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
