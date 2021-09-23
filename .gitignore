@@ -1,4 +1,6 @@
+kmeans
 .DS_*
+
 # nbgrader stuff
 release/
 submitted/
