@@ -19,6 +19,7 @@ parts:
   - file: issa/assignment
 - caption: ML Models
   chapters:
+  - file: eloi/prediction_pipeline
   - file: eloi/demo_notebook_iterative_model
   - file: eloi/demo_notebook_clusterbased_iterative_model
   - file: eloi/demo_notebook_svd_model
