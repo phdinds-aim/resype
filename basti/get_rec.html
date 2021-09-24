@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>get_rec Function &#8212; ReSyPE</title>
+    <title>get_rec &#8212; ReSyPE</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="get_rec_item Function" href="get_rec_item.html" />
+    <link rel="next" title="get_rec_item" href="get_rec_item.html" />
     <link rel="prev" title="Utility Matrix" href="../eloi/demo_notebook_svd_model.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -162,7 +162,6 @@
      get_rec
     </span>
    </code>
-   Function
   </a>
  </li>
  <li class="toctree-l1">
@@ -172,7 +171,6 @@
      get_rec_item
     </span>
    </code>
-   Function
   </a>
  </li>
 </ul>
@@ -300,18 +298,8 @@
         
               <div>
                 
-  <div class="section" id="get-rec-function">
-<h1><code class="docutils literal notranslate"><span class="pre">get_rec</span></code> Function<a class="headerlink" href="#get-rec-function" title="Permalink to this headline">¶</a></h1>
-<p>Assumptions:</p>
-<ol class="simple">
-<li><p>Row indices of the utility matrix corresponds to the user_id</p></li>
-<li><p>Column indices of the utility matrix corresponds to the item_id</p></li>
-<li><p>id starts from 0</p></li>
-</ol>
-<p>Notes:</p>
-<ul class="simple">
-<li><p>I don’t seem to need the item ids</p></li>
-</ul>
+  <div class="section" id="get-rec">
+<h1><code class="docutils literal notranslate"><span class="pre">get_rec</span></code><a class="headerlink" href="#get-rec" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -335,6 +323,10 @@
 <span class="sd">                    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
+    <span class="c1"># Class stuff</span>
+    <span class="c1">#utility_matrix_o = self.utility_matrix.fillna(0).values</span>
+    <span class="c1">#utility_matrix = self.utility_matrix_preds.values</span>
+    
     <span class="c1"># Don&#39;t recommend items that are already rated</span>
     <span class="n">utility_matrix</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">utility_matrix_o</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
     
@@ -344,15 +336,24 @@
     <span class="c1"># Create recommendation table</span>
     <span class="n">df_rec</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
     <span class="n">df_rec</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_list</span>
-    
+                
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">top_n</span><span class="p">):</span>
         <span class="n">df_rec</span><span class="p">[</span><span class="s1">&#39;rank_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">df_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="k">if</span> <span class="n">uc_assignment</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_rec</span><span class="p">[</span><span class="n">user_list</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">top_n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_rec</span><span class="p">[</span><span class="n">uc_assignment</span><span class="p">[</span><span class="n">user_list</span><span class="p">[</span><span class="n">j</span><span class="p">]],</span> <span class="n">top_n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                
+                <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_rec</span><span class="p">[</span><span class="n">uc_assignment</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">user_list</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="n">top_n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="c1"># look-up tables</span>
+    <span class="k">if</span> <span class="n">uc_assignment</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">user_id_lookup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utility_matrix_preds</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">item_id_lookup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utility_matrix_preds</span><span class="o">.</span><span class="n">columns</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_id_lookup</span><span class="p">[</span><span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">top_n</span><span class="p">):</span>
+                <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">item_id_lookup</span><span class="p">[</span><span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">)]</span>
+    
     <span class="k">return</span> <span class="n">df_rec</span>
 </pre></div>
 </div>
@@ -385,6 +386,22 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([80, 84, 33, 81, 93, 17, 36, 82, 69, 65])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uc_assignment</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3, 4, 0, 1, 3, 0, 0, 1, 4, 4, 1, 2, 4, 2, 4, 3, 4, 2, 4, 2, 4, 1,
+       1, 0, 1, 1, 1, 1, 0, 4, 1, 0, 0, 3, 2, 1, 0, 3, 1, 1, 3, 4, 0, 1,
+       3, 4, 2, 4, 0, 3, 1, 2, 0, 4, 1, 2, 2, 1, 0, 1, 3, 4, 3, 1, 3, 0,
+       0, 2, 2, 1, 3, 4, 2, 0, 0, 1, 1, 3, 0, 0, 4, 2, 4, 3, 3, 0, 3, 4,
+       3, 4, 4, 4, 1, 0, 4, 2, 0, 2, 4, 1])
 </pre></div>
 </div>
 </div>
@@ -451,7 +468,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_rec</span> <span class="o">=</span> <span class="n">get_rec</span><span class="p">(</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">utility_matrix_o</span><span class="p">,</span> <span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="p">,</span> <span class="n">uc_assignment</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_rec</span> <span class="o">=</span> <span class="n">get_rec</span><span class="p">(</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">utility_matrix_o</span><span class="p">,</span> <span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">uc_assignment</span><span class="p">))</span>
 <span class="n">df_rec</span>
 </pre></div>
 </div>
@@ -580,7 +597,7 @@
         <span class="n">uc_assignment</span> <span class="o">=</span> <span class="n">random_user_cluster</span><span class="p">(</span><span class="n">n_user</span><span class="p">,</span> <span class="n">n_user_cluster</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span>
         <span class="n">utility_matrix_o</span><span class="p">,</span> <span class="n">utility_matrix</span> <span class="o">=</span> <span class="n">random_utility_matrix</span><span class="p">(</span><span class="n">n_user_cluster</span><span class="p">,</span> <span class="n">n_item_cluster</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span>
 
-        <span class="n">df_rec</span> <span class="o">=</span> <span class="n">get_rec</span><span class="p">(</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">utility_matrix_o</span><span class="p">,</span> <span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="p">,</span> <span class="n">uc_assignment</span><span class="p">)</span>
+        <span class="n">df_rec</span> <span class="o">=</span> <span class="n">get_rec</span><span class="p">(</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">utility_matrix_o</span><span class="p">,</span> <span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">uc_assignment</span><span class="p">))</span>
         
         <span class="n">test_case</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
             <span class="p">[</span><span class="mf">80.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">,</span>  <span class="mf">2.</span><span class="p">,</span>  <span class="mf">4.</span><span class="p">],</span>
@@ -612,7 +629,7 @@
         <span class="n">uc_assignment</span> <span class="o">=</span> <span class="n">random_user_cluster</span><span class="p">(</span><span class="n">n_user</span><span class="p">,</span> <span class="n">n_user_cluster</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span>
         <span class="n">utility_matrix_o</span><span class="p">,</span> <span class="n">utility_matrix</span> <span class="o">=</span> <span class="n">random_utility_matrix</span><span class="p">(</span><span class="n">n_user_cluster</span><span class="p">,</span> <span class="n">n_item_cluster</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">)</span>
 
-        <span class="n">df_rec</span> <span class="o">=</span> <span class="n">get_rec</span><span class="p">(</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">utility_matrix_o</span><span class="p">,</span> <span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="p">,</span> <span class="n">uc_assignment</span><span class="p">)</span>
+        <span class="n">df_rec</span> <span class="o">=</span> <span class="n">get_rec</span><span class="p">(</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">utility_matrix_o</span><span class="p">,</span> <span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">uc_assignment</span><span class="p">))</span>
         
         <span class="n">test_case</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
             <span class="p">[</span><span class="mf">80.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">,</span>  <span class="mf">2.</span><span class="p">,</span>  <span class="mf">4.</span><span class="p">],</span>
@@ -641,7 +658,7 @@ test_2 (__main__.TestGetRec) ... FAIL
 FAIL: test_2 (__main__.TestGetRec)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File &quot;&lt;ipython-input-9-8cdbf50c4ca3&gt;&quot;, line 67, in test_2
+  File &quot;&lt;ipython-input-14-3e80e6adab87&gt;&quot;, line 67, in test_2
     self.assertEqual(df_rec.to_numpy().tolist(), test_case.tolist())
 AssertionError: Lists differ: [[83.0, 2.0, 1.0, 4.0], [30.0, 4.0, 1.0, 2.0[180 chars]4.0]] != [[80.0, 1.0, 2.0, 4.0], [84.0, 3.0, 4.0, 1.0[181 chars]0.0]]
 
@@ -652,12 +669,12 @@ First differing element 0:
 Diff is 802 characters long. Set self.maxDiff to None to see it.
 
 ----------------------------------------------------------------------
-Ran 2 tests in 0.019s
+Ran 2 tests in 0.020s
 
 FAILED (failures=1)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x17429cef4c0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x12de02a9fa0&gt;
 </pre></div>
 </div>
 </div>
@@ -707,7 +724,7 @@ FAILED (failures=1)
         <a class="right-next" href="get_rec_item.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title"><code class="docutils literal notranslate"><span class="pre">get_rec_item</span></code> Function</p>
+                <p class="prevnext-title"><code class="docutils literal notranslate"><span class="pre">get_rec_item</span></code></p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
