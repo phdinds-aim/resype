@@ -628,13 +628,10 @@ class Resype:
 
         utility_matrix_o = self.utility_matrix.fillna(0).values
         utility_matrix = self.utility_matrix_preds.values
-
         # Don't recommend items that are already rated
         utility_matrix[np.where(utility_matrix_o != 0)] = -np.inf
-
         # Get top N per user cluster
         cluster_rec = utility_matrix.argsort()[:, -top_n:]
-
         # Create recommendation table
         df_rec = pd.DataFrame()
         df_rec['user_id'] = user_list
@@ -645,12 +642,67 @@ class Resype:
                 if uc_assignment is None:
                     df_rec.iloc[j, i+1] = cluster_rec[user_list[j], top_n-i-1]
                 else:
-                    df_rec.iloc[j, i+1] = cluster_rec[uc_assignment[user_list[j]], top_n-i-1]
+                    df_rec.iloc[j, i+1] = cluster_rec[uc_assignment.iloc[user_list[j], 0], top_n-i-1]
+
+        # look-up tables
+        if uc_assignment is None:
+            user_id_lookup = self.utility_matrix_preds.index
+            item_id_lookup = self.utility_matrix_preds.columns
+            for j in range(df_rec.shape[0]):
+                df_rec.iloc[j, 0] = user_id_lookup[df_rec.iloc[j, 0].astype('int32')]
+                for i in range(top_n):
+                    df_rec.iloc[j, i+1] = item_id_lookup[df_rec.iloc[j, i+1].astype('int32')]
 
         self.df_rec = df_rec
-        return df_rec    
+        return df_rec
     
-    
+    def get_rec_item(self, top_k):
+
+        """Returns the top K item recommendations for each user in the user list. 
+        Items are selected randomly from the top recommended item cluster, exhaustively. Left overs are taken from the next highest ranked item clusters in a cascading fashion.
+
+                Parameters:
+                        df_rec (pandas.DataFrame): Table containing the top N item cluster recommendations for each user in the user list
+                        ic_assignment (array-like): List containing the cluster assignment of each item
+                        top_n (int): Number of items to recommend
+
+                Returns:
+                        df_rec_item (pandas.DataFrame): Table containing the top K item recommendations for each user in the user list
+
+        """
+        df_rec = self.df_rec # recommendations after running get_rec()
+        ic_assignment = self.item_assignment # item-cluster assignment
+
+        # Create recommendation table
+        df_rec_item = pd.DataFrame()
+        df_rec_item['user_id'] = df_rec['user_id']  
+
+        for i in range(top_k):
+            df_rec_item['rank_'+str(i+1)] = np.zeros(df_rec_item.shape[0])
+
+        # Get items
+        for j in range(df_rec_item.shape[0]):
+            item_rec = []
+            rank = 0
+            while len(item_rec) < top_k:
+                if rank+1 >= df_rec.shape[1]:
+                    item_list = list(set(self.transaction_list['item_id'])-set(item_rec))
+                    item_rec = item_rec + list(np.random.choice(item_list, size=top_k-len(item_rec), replace=False))
+                    break
+                item_list = ic_assignment.index[np.where(ic_assignment == df_rec.iloc[j, rank+1])[0]]
+                if top_k-len(item_rec) > len(item_list):
+                    item_rec = item_rec + list(item_list)
+                    rank += 1
+                else:
+                    item_rec = item_rec + list(np.random.choice(item_list, size=top_k-len(item_rec), replace=False))
+            df_rec_item.iloc[j, 1:] = item_rec
+
+        # look-up tables
+        user_id_lookup = self.user_assignment.index
+        for j in range(df_rec_item.shape[0]):
+            df_rec_item.iloc[j, 0] = user_id_lookup[df_rec_item.iloc[j, 0].astype('int32')]
+
+        return df_rec_item    
     
     
 ### CLUSTERED VERSION
