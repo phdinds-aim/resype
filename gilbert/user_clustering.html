@@ -52,7 +52,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Item Clustering" href="item_clustering.html" />
-    <link rel="prev" title="Transaction Table" href="../francis/transaction_list_ntbk.html" />
+    <link rel="prev" title="User Feature Table" href="../francis/user_feature_ntbk.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -105,13 +105,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../francis/user_feature_ntbk.html">
-   User Feature Table
+  <a class="reference internal" href="../francis/transaction_list_ntbk.html">
+   Transaction Table
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../francis/transaction_list_ntbk.html">
-   Transaction Table
+  <a class="reference internal" href="../francis/user_feature_ntbk.html">
+   User Feature Table
   </a>
  </li>
 </ul>
@@ -272,6 +272,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code-for-testing">
+   Code for testing
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -280,17 +293,28 @@
         
               <div>
                 
-  <div class="cell docutils container">
+  <div class="section" id="user-clustering">
+<h1>User Clustering<a class="headerlink" href="#user-clustering" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;Data/user_movie.csv&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;user_movie.csv&#39;</span>
 <span class="n">state</span> <span class="o">=</span> <span class="mi">1337</span>
 <span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="user-clustering">
-<h1>User Clustering<a class="headerlink" href="#user-clustering" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="p">(</span><span class="n">KMeans</span><span class="p">,</span> <span class="n">SpectralClustering</span><span class="p">,</span>
+                             <span class="n">AgglomerativeClustering</span><span class="p">,</span> <span class="n">DBSCAN</span><span class="p">,</span> <span class="n">OPTICS</span><span class="p">,</span>
+                             <span class="n">cluster_optics_dbscan</span><span class="p">,</span> <span class="n">Birch</span><span class="p">)</span>
+
+<span class="n">model1</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">u_cluster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">model_fname</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">drop_cols</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">):</span>
@@ -357,6 +381,51 @@
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_u</span><span class="p">,</span><span class="n">y_u</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">u_cluster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="s1">&#39;u_cluster.pkl&#39;</span><span class="p">,</span><span class="n">model1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="code-for-testing">
+<h2>Code for testing<a class="headerlink" href="#code-for-testing" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="k">class</span> <span class="nc">TestGetRec</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+    <span class="k">def</span> <span class="nf">test_u_c</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="n">model1</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">)</span>
+        <span class="n">x_u</span><span class="p">,</span> <span class="n">y_u</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">u_cluster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;u_cluster.pkl&#39;</span><span class="p">,</span> <span class="n">model1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;u_cluster&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span> <span class="n">n_clusters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;u_cluster.pkl&#39;</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+        
+<span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_u_c (__main__.TestGetRec) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 13.403s
+
+OK
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x7f608f14a610&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -389,11 +458,11 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../francis/transaction_list_ntbk.html" title="previous page">
+        <a class="left-prev" href="../francis/user_feature_ntbk.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Transaction Table</p>
+                <p class="prevnext-title">User Feature Table</p>
             </div>
         </a>
     </div>
