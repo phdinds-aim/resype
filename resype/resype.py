@@ -494,16 +494,19 @@ class Resype:
         """
         U = U_df.copy()
 
-        known_index, missing_index = self.known_missing_split_U(
-            U, split_axis=1)
+        models_item = self.initialize_models_itemwise(
+            model=model_object, U=U, suffix='')
 
-        U = self.mean_filled_utilmat(U)
+        known_index, missing_index = self.known_missing_split_U(
+            U=U, split_axis=1, missing_val_filled=False)
+
         U_update = U.copy()
 
         models_item = self.initialize_models_itemwise(model=model_object, U=U, suffix='')
 
         for item in U.columns:
             U_temp = U.drop(item, axis=1)
+            U_temp = self.mean_filled_utilmat(U_temp)
             S = np.matmul(U_temp.T.values, U_temp.values)
             _, _, PT = svds(S, k=d)
             Pd = PT.T
@@ -513,6 +516,7 @@ class Resype:
             models_item[str(item)].fit(
                 U_svd.loc[known_index[item]],
                 U_update.loc[known_index[item], item])
+
             if len(missing_index[item]) > 0:
                 pred = models_item[str(item)].predict(
                     U_svd.loc[missing_index[item]])
@@ -527,17 +531,13 @@ class Resype:
             return U_update     
         
         
-  
-        
         
     def mean_filled_utilmat(self, U, axis=1):
         if axis:
             return U.T.fillna(U.mean(axis=axis)).T
         else:
             return U.fillna(U.mean(axis=axis))
-        
-        
-        
+       
         
     def train_model_iterative_cluster(self,
             Uc_df, model_object, n_synth_data=100, p=0.2, return_models=True):
@@ -584,29 +584,88 @@ class Resype:
 
         return self.utility_matrix_preds
 
+    def train_model_svd_cluster(self,
+            Uc_df, model_object, n_synth_data=100, d=10, p=0.2, return_models=True):
+        """Trains model iteratively for the cluster-based recommender system: 
+        (1) Given cluster-based utility matrix, create multiple synthetic data of 
+        missing ratings. Randomly drop matrix elements by setting them to NaN to 
+        create "missing" ratings. 
+        (2) For each set of synthetic data:
+            (2a) Estimates the missing entries of the utility matrix.
+            (2b) Each column/item is set as the target variable one at a time, and
+            the remaining columns are set as the feature matrix.
+            (2c) SVD is performed on the feature matrix before model training.
+            (2d) Rows with missing items are in the test set, while the rest are in 
+            the training set.
+            (2e) Process is repeated for all columns/items, yielding a completed 
+            utility matrix.
+        (3) Get mean of the completed utility matrix from all imputed synthetic data. 
+
+        Parameters:
+                Uc_df (DataFrame): output utility matrix from clustering
+                    (rows are users, columns are items) 
+                model_object: model object to use to fit the data
+                n_synth_data (int): number of synthetic datasets to be generated,
+                    default 100
+                p (float): percentage of matrix which will be set to NaN, 
+                    value ranges from 0 to 1, default 0.2         
+
+        Returns:
+                (DataFrame): updated cluster-based utility matrix 
+
+        """
+        # VARS
+        
+        synth_data = self.gen_missing_ratings(Uc_df, p=p, n_masks=n_synth_data)
+        um_output = []
+        for n in range(n_synth_data):
+            U_df = synth_data[n]
+            U_imputed, models = self.train_model_svd(
+                U_df, model_object, d=d, return_models=return_models)
+            um_output.append(U_imputed)
+        um_output = pd.concat(um_output)
+
+        # final preds
+        self.utility_matrix_preds = um_output.groupby(um_output.index).mean()
+
+        return self.utility_matrix_preds    
 
 
-    def fit(self, model_object, method="iterative", n_synth_data=5, p=0.1):
+
+    def fit(self, model_object, method="iterative", n_synth_data=5, p=0.1,
+            d=2, return_models=False):
         U_df_mc = self.mean_center_utilmat(self.utility_matrix, axis=1, fillna=False)
 
         if method == 'iterative':        
             if self.users_clustered or self.items_clustered: # if clustered
                 
                 self.utility_matrix_preds = self.train_model_iterative_cluster(
-                    self.utility_matrix, model_object=model_object, n_synth_data=n_synth_data, p=p)            
+                    self.utility_matrix, model_object=model_object, 
+                    n_synth_data=n_synth_data, p=p)            
 
             else: # if not clustered    
                 self.models_item = self.initialize_models_itemwise(
                     self.utility_matrix, model_object, suffix='')    
                 U_imputed, metrics, models = self.train_model_iterative(
-                    self.utility_matrix, model_object, return_models=True) 
+                    self.utility_matrix, model_object,
+                    return_models=return_models) 
                 self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
 
         # works for both clustered or unclustered?
         if method == 'svd':
-            self.models_item = self.initialize_models_itemwise(U_df_mc, model_object, suffix='')
-            U_imputed, models = self.train_model_svd(U_df_mc, model_object, d=2, return_models=True)        
-            self.utility_matrix_preds = U_imputed
+            if self.users_clustered or self.items_clustered: # if clustered
+
+                self.utility_matrix_preds = self.train_model_svd_cluster(
+                    self.utility_matrix, model_object=model_object, 
+                    n_synth_data=n_synth_data, p=p, d=d)     
+                
+            else: 
+                self.models_item = self.initialize_models_itemwise(
+                    self.utility_matrix, model_object, suffix='')
+                U_imputed, models = self.train_model_svd(
+                    self.utility_matrix, model_object, d=d, 
+                    return_models=return_models)        
+                self.utility_matrix_preds = U_imputed
 
         return None    
     
