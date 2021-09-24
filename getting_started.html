@@ -426,22 +426,22 @@
   </thead>
   <tbody>
     <tr>
-      <th>53403</th>
-      <td>352</td>
-      <td>73321</td>
+      <th>91090</th>
+      <td>590</td>
+      <td>6783</td>
       <td>3.5</td>
     </tr>
     <tr>
-      <th>53125</th>
-      <td>351</td>
-      <td>30707</td>
-      <td>3.5</td>
+      <th>2239</th>
+      <td>18</td>
+      <td>122920</td>
+      <td>3.0</td>
     </tr>
     <tr>
-      <th>89862</th>
-      <td>583</td>
-      <td>1721</td>
-      <td>4.0</td>
+      <th>62507</th>
+      <td>414</td>
+      <td>481</td>
+      <td>3.0</td>
     </tr>
   </tbody>
 </table>
@@ -474,26 +474,26 @@
   <thead>
     <tr style="text-align: right;">
       <th>item_id</th>
-      <th>785</th>
-      <th>924</th>
-      <th>1241</th>
-      <th>1721</th>
-      <th>1961</th>
-      <th>2140</th>
-      <th>2265</th>
-      <th>2273</th>
-      <th>2762</th>
-      <th>2795</th>
-      <th>3578</th>
-      <th>4242</th>
-      <th>4438</th>
-      <th>4720</th>
-      <th>5421</th>
-      <th>5541</th>
-      <th>6870</th>
-      <th>8934</th>
-      <th>30707</th>
-      <th>73321</th>
+      <th>481</th>
+      <th>780</th>
+      <th>783</th>
+      <th>788</th>
+      <th>1136</th>
+      <th>1196</th>
+      <th>1215</th>
+      <th>1288</th>
+      <th>1374</th>
+      <th>1882</th>
+      <th>1944</th>
+      <th>2427</th>
+      <th>2688</th>
+      <th>3247</th>
+      <th>4452</th>
+      <th>5989</th>
+      <th>6783</th>
+      <th>7438</th>
+      <th>122920</th>
+      <th>173535</th>
     </tr>
     <tr>
       <th>user_id</th>
@@ -521,7 +521,7 @@
   </thead>
   <tbody>
     <tr>
-      <th>41</th>
+      <th>18</th>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -533,6 +533,18 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>20</th>
       <td>NaN</td>
       <td>NaN</td>
       <td>3.5</td>
@@ -542,9 +554,6 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-    </tr>
-    <tr>
-      <th>88</th>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -553,23 +562,12 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>4.5</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>95</th>
-      <td>NaN</td>
-      <td>5.0</td>
+      <th>42</th>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -578,9 +576,11 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
+      <td>4.0</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
+      <td>4.0</td>
+      <td>3.0</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -610,30 +610,148 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fit and predict</span>
-<span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
 <span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_preds</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">6</span><span class="o">-</span><span class="mi">5</span><span class="n">ec820061d68</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># fit and predict</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_preds</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">~/git-repos/resype/resype/resype.py</span> in <span class="ni">fit</span><span class="nt">(self, model_object, method, n_synth_data, p, d, return_models)</span>
-<span class="g g-Whitespace">    </span><span class="mi">647</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">models_item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialize_models_itemwise</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">648</span>                     <span class="bp">self</span><span class="o">.</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">model_object</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>    
-<span class="ne">--&gt; </span><span class="mi">649</span>                 <span class="n">U_imputed</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">models</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_model_iterative</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">650</span>                     <span class="bp">self</span><span class="o">.</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">model_object</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">651</span>                     <span class="n">return_models</span><span class="o">=</span><span class="n">return_models</span><span class="p">)</span> 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="ne">ValueError</span>: not enough values to unpack (expected 3, got 2)
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>481</th>
+      <th>780</th>
+      <th>783</th>
+      <th>788</th>
+      <th>1136</th>
+      <th>1196</th>
+      <th>1215</th>
+      <th>1288</th>
+      <th>1374</th>
+      <th>1882</th>
+      <th>1944</th>
+      <th>2427</th>
+      <th>2688</th>
+      <th>3247</th>
+      <th>4452</th>
+      <th>5989</th>
+      <th>6783</th>
+      <th>7438</th>
+      <th>122920</th>
+      <th>173535</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>18</th>
+      <td>0.5</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.333333</td>
+      <td>-0.5</td>
+      <td>0.000000e+00</td>
+      <td>0.333333</td>
+      <td>-0.666667</td>
+      <td>0.5</td>
+      <td>-0.5</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>0.5</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.333333</td>
+      <td>-0.5</td>
+      <td>0.000000e+00</td>
+      <td>0.333333</td>
+      <td>-0.666667</td>
+      <td>0.5</td>
+      <td>-0.5</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>0.5</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+      <td>0.333333</td>
+      <td>-0.5</td>
+      <td>1.480297e-16</td>
+      <td>0.333333</td>
+      <td>-0.666667</td>
+      <td>0.5</td>
+      <td>-0.5</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+      <td>1.480297e-16</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -645,6 +763,84 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>rank_1</th>
+      <th>rank_2</th>
+      <th>rank_3</th>
+      <th>rank_4</th>
+      <th>rank_5</th>
+      <th>rank_6</th>
+      <th>rank_7</th>
+      <th>rank_8</th>
+      <th>rank_9</th>
+      <th>rank_10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>18</td>
+      <td>481.0</td>
+      <td>3247.0</td>
+      <td>1374.0</td>
+      <td>2427.0</td>
+      <td>780.0</td>
+      <td>783.0</td>
+      <td>788.0</td>
+      <td>1136.0</td>
+      <td>1196.0</td>
+      <td>1215.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20</td>
+      <td>481.0</td>
+      <td>3247.0</td>
+      <td>1374.0</td>
+      <td>2427.0</td>
+      <td>780.0</td>
+      <td>788.0</td>
+      <td>1136.0</td>
+      <td>1196.0</td>
+      <td>1215.0</td>
+      <td>1288.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>42</td>
+      <td>481.0</td>
+      <td>3247.0</td>
+      <td>122920.0</td>
+      <td>780.0</td>
+      <td>783.0</td>
+      <td>788.0</td>
+      <td>1136.0</td>
+      <td>1196.0</td>
+      <td>1215.0</td>
+      <td>1288.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 </div>
@@ -670,6 +866,93 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>i_cluster</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+    </tr>
+    <tr>
+      <th>u_cluster</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.666667</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.330357</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -680,6 +963,93 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>i_cluster</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+    </tr>
+    <tr>
+      <th>u_cluster</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-0.411481</td>
+      <td>-0.397742</td>
+      <td>3.255185</td>
+      <td>-0.381283</td>
+      <td>-0.411481</td>
+      <td>-0.181846</td>
+      <td>-0.411481</td>
+      <td>-0.411481</td>
+      <td>0.171945</td>
+      <td>-0.411481</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.448889</td>
+      <td>-0.448889</td>
+      <td>-0.315947</td>
+      <td>-0.429701</td>
+      <td>-0.448889</td>
+      <td>-0.448889</td>
+      <td>-0.199500</td>
+      <td>-0.448889</td>
+      <td>3.551111</td>
+      <td>-0.369698</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.410967</td>
+      <td>-0.089033</td>
+      <td>-0.079824</td>
+      <td>0.241324</td>
+      <td>-0.089033</td>
+      <td>-0.089033</td>
+      <td>-0.058418</td>
+      <td>-0.089033</td>
+      <td>0.151372</td>
+      <td>-0.089033</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -690,6 +1060,64 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>rank_1</th>
+      <th>rank_2</th>
+      <th>rank_3</th>
+      <th>rank_4</th>
+      <th>rank_5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>2.0</td>
+      <td>9.0</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>2.0</td>
+      <td>9.0</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>8.0</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>9.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -699,6 +1127,64 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>rank_1</th>
+      <th>rank_2</th>
+      <th>rank_3</th>
+      <th>rank_4</th>
+      <th>rank_5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>18</td>
+      <td>1944.0</td>
+      <td>173535.0</td>
+      <td>1374.0</td>
+      <td>2688.0</td>
+      <td>2427.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20</td>
+      <td>1944.0</td>
+      <td>173535.0</td>
+      <td>2427.0</td>
+      <td>2688.0</td>
+      <td>1374.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>42</td>
+      <td>1944.0</td>
+      <td>1215.0</td>
+      <td>1288.0</td>
+      <td>4452.0</td>
+      <td>481.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </div>
 <div class="toctree-wrapper compound">
