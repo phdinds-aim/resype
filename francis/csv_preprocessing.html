@@ -348,7 +348,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">item_table</span> <span class="o">=</span> <span class="n">item_list</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">item_table</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;movieId&#39;</span><span class="p">)</span>
+    <span class="n">item_table</span> <span class="o">=</span> <span class="n">item_table</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;movieId&#39;</span><span class="p">)</span>
     <span class="n">item_table</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">item_table</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item_table</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">item_table</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item_table</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
@@ -399,7 +399,6 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>movieId</th>
       <th>title</th>
       <th>genres</th>
       <th>year</th>
@@ -409,6 +408,7 @@
       <th>Animation</th>
       <th>Children</th>
       <th>Comedy</th>
+      <th>Crime</th>
       <th>...</th>
       <th>Film-Noir</th>
       <th>Horror</th>
@@ -448,8 +448,7 @@
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>1</td>
+      <th>1</th>
       <td>Toy Story (1995)</td>
       <td>[Adventure, Animation, Children, Comedy, Fantasy]</td>
       <td>1995</td>
@@ -458,29 +457,6 @@
       <td>1</td>
       <td>1</td>
       <td>1</td>
-      <td>1</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>Jumanji (1995)</td>
-      <td>[Adventure, Children, Fantasy]</td>
-      <td>1995</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>...</td>
@@ -497,7 +473,30 @@
     </tr>
     <tr>
       <th>2</th>
-      <td>3</td>
+      <td>Jumanji (1995)</td>
+      <td>[Adventure, Children, Fantasy]</td>
+      <td>1995</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
       <td>Grumpier Old Men (1995)</td>
       <td>[Comedy, Romance]</td>
       <td>1995</td>
@@ -507,30 +506,7 @@
       <td>0</td>
       <td>0</td>
       <td>1</td>
-      <td>...</td>
       <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>Waiting to Exhale (1995)</td>
-      <td>[Comedy, Drama, Romance]</td>
-      <td>1995</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -545,7 +521,30 @@
     </tr>
     <tr>
       <th>4</th>
-      <td>5</td>
+      <td>Waiting to Exhale (1995)</td>
+      <td>[Comedy, Drama, Romance]</td>
+      <td>1995</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
       <td>Father of the Bride Part II (1995)</td>
       <td>[Comedy]</td>
       <td>1995</td>
@@ -555,6 +554,7 @@
       <td>0</td>
       <td>0</td>
       <td>1</td>
+      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -569,7 +569,7 @@
     </tr>
   </tbody>
 </table>
-<p>5 rows × 24 columns</p>
+<p>5 rows × 23 columns</p>
 </div></div></div>
 </div>
 </div>
