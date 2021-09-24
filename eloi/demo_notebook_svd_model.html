@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Utility Matrix &#8212; ReSyPE</title>
+    <title>Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions &#8212; ReSyPE</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -155,7 +155,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Utility Matrix
+   Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions
   </a>
  </li>
 </ul>
@@ -288,9 +288,68 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#build-models">
-   Build Models
+  <a class="reference internal nav-link" href="#prepare-data">
+   Prepare data
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-resype">
+   Load resype
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-model-using-train-model-svd">
+   Train model using
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     train_model_svd
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-model-object-load-from-sklearn">
+     Create model object (load from sklearn)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-model">
+     Train model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prediction">
+     Prediction
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-iterative-model-using-fit">
+   Train iterative model using
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     fit
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Create model object (load from sklearn)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Train model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Prediction
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -303,33 +362,46 @@
         
               <div>
                 
-  <div class="cell docutils container">
+  <div class="section" id="demo-ml-based-collaborative-filtering-on-utility-matrix-with-reduced-dimensions">
+<h1>Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions<a class="headerlink" href="#demo-ml-based-collaborative-filtering-on-utility-matrix-with-reduced-dimensions" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;../resype&#39;</span><span class="p">)</span>
 <span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2 
 </pre></div>
 </div>
 </div>
 </div>
+<div class="section" id="prepare-data">
+<h2>Prepare data<a class="headerlink" href="#prepare-data" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">preprocess_utility_matrix</span> <span class="k">as</span> <span class="n">um</span>
-<span class="kn">from</span> <span class="nn">method1</span> <span class="kn">import</span> <span class="n">build_svd_model</span> <span class="k">as</span> <span class="n">sm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">202109</span><span class="p">)</span>
+<span class="n">rating_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]])</span>
+<span class="n">userids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">itemids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">random_ratings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">rating_vals</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">userids</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">itemids</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;M1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-                          <span class="s1">&#39;M2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
-                          <span class="s1">&#39;M3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
-                          <span class="s1">&#39;M4&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">]},</span>
-                         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;U</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)])</span>
-<span class="n">movies_df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transactions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="n">userids</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">itemids</span><span class="p">)),</span>
+     <span class="s1">&#39;item_id&#39;</span><span class="p">:</span> <span class="n">itemids</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">userids</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+     <span class="s1">&#39;rating&#39;</span><span class="p">:</span> <span class="n">random_ratings</span><span class="p">})</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transactions</span>
 </pre></div>
 </div>
 </div>
@@ -352,65 +424,104 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
+      <th>user_id</th>
+      <th>item_id</th>
+      <th>rating</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>U1</th>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
       <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>1</td>
       <td>NaN</td>
-      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>2</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>3</td>
       <td>5.0</td>
     </tr>
     <tr>
-      <th>U2</th>
-      <td>NaN</td>
-      <td>1.0</td>
+      <th>4</th>
+      <td>0</td>
+      <td>4</td>
       <td>4.0</td>
-      <td>4.0</td>
     </tr>
     <tr>
-      <th>U3</th>
-      <td>3.0</td>
-      <td>NaN</td>
-      <td>1.0</td>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>995</th>
+      <td>9</td>
+      <td>95</td>
       <td>NaN</td>
     </tr>
     <tr>
-      <th>U4</th>
+      <th>996</th>
+      <td>9</td>
+      <td>96</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>997</th>
+      <td>9</td>
+      <td>97</td>
       <td>NaN</td>
+    </tr>
+    <tr>
+      <th>998</th>
+      <td>9</td>
+      <td>98</td>
       <td>5.0</td>
-      <td>1.0</td>
-      <td>NaN</td>
     </tr>
     <tr>
-      <th>U5</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U6</th>
-      <td>5.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.0</td>
+      <th>999</th>
+      <td>9</td>
+      <td>99</td>
+      <td>2.0</td>
     </tr>
   </tbody>
 </table>
+<p>1000 rows × 3 columns</p>
 </div></div></div>
 </div>
-<div class="section" id="utility-matrix">
-<h1>Utility Matrix<a class="headerlink" href="#utility-matrix" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="load-resype">
+<h2>Load resype<a class="headerlink" href="#load-resype" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">U_df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">resype</span> <span class="kn">import</span> <span class="n">Resype</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">transactions</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+<span class="n">utility_matrix</span>
 </pre></div>
 </div>
 </div>
@@ -432,64 +543,337 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>90</th>
+      <th>91</th>
+      <th>92</th>
+      <th>93</th>
+      <th>94</th>
+      <th>95</th>
+      <th>96</th>
+      <th>97</th>
+      <th>98</th>
+      <th>99</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
       <th></th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>U1</th>
+      <th>0</th>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>...</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>2.0</td>
       <td>2.0</td>
       <td>NaN</td>
       <td>5.0</td>
       <td>5.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>U2</th>
+      <th>8</th>
+      <td>1.0</td>
       <td>NaN</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>...</td>
+      <td>5.0</td>
       <td>1.0</td>
       <td>4.0</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>U3</th>
+      <td>2.0</td>
       <td>3.0</td>
       <td>NaN</td>
-      <td>1.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U4</th>
+      <td>2.0</td>
       <td>NaN</td>
       <td>5.0</td>
-      <td>1.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U5</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U6</th>
-      <td>5.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.0</td>
+      <td>2.0</td>
     </tr>
   </tbody>
 </table>
+<p>10 rows × 100 columns</p>
 </div></div></div>
+</div>
+</div>
+<div class="section" id="train-model-using-train-model-svd">
+<h2>Train model using <code class="docutils literal notranslate"><span class="pre">train_model_svd</span></code><a class="headerlink" href="#train-model-using-train-model-svd" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-model-object-load-from-sklearn">
+<h3>Create model object (load from sklearn)<a class="headerlink" href="#create-model-object-load-from-sklearn" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="train-model">
+<h3>Train model<a class="headerlink" href="#train-model" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">202109</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df_m</span> <span class="o">=</span> <span class="n">um</span><span class="o">.</span><span class="n">mean_filled_utilmat</span><span class="p">(</span><span class="n">U_df</span><span class="p">)</span>
-<span class="n">U_df_m</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix_imputed</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">train_model_svd</span><span class="p">(</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">rs_model1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="prediction">
+<h3>Prediction<a class="headerlink" href="#prediction" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix_imputed</span>
 </pre></div>
 </div>
 </div>
@@ -511,99 +895,323 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>90</th>
+      <th>91</th>
+      <th>92</th>
+      <th>93</th>
+      <th>94</th>
+      <th>95</th>
+      <th>96</th>
+      <th>97</th>
+      <th>98</th>
+      <th>99</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
       <th></th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>U1</th>
-      <td>2.0</td>
+      <th>0</th>
+      <td>2.00</td>
+      <td>2.99</td>
+      <td>3.01</td>
+      <td>5.0</td>
+      <td>4.00</td>
       <td>4.0</td>
+      <td>3.00</td>
+      <td>4.00</td>
+      <td>4.00</td>
+      <td>3.00</td>
+      <td>...</td>
+      <td>4.0</td>
+      <td>2.50</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>2.81</td>
+      <td>4.00</td>
       <td>5.0</td>
       <td>5.0</td>
+      <td>1.00</td>
+      <td>5.00</td>
     </tr>
     <tr>
-      <th>U2</th>
-      <td>3.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>U3</th>
-      <td>3.0</td>
+      <th>1</th>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>5.00</td>
       <td>2.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-    </tr>
-    <tr>
-      <th>U4</th>
-      <td>3.0</td>
+      <td>2.31</td>
       <td>5.0</td>
-      <td>1.0</td>
-      <td>3.0</td>
-    </tr>
-    <tr>
-      <th>U5</th>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>3.00</td>
+      <td>3.00</td>
+      <td>1.00</td>
+      <td>3.82</td>
+      <td>...</td>
       <td>4.0</td>
-      <td>2.0</td>
+      <td>4.00</td>
+      <td>3.00</td>
+      <td>2.07</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>3.00</td>
+      <td>4.00</td>
     </tr>
     <tr>
-      <th>U6</th>
+      <th>2</th>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>4.0</td>
+      <td>5.00</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>5.00</td>
+      <td>...</td>
       <td>5.0</td>
+      <td>2.00</td>
+      <td>5.00</td>
+      <td>4.00</td>
+      <td>2.00</td>
+      <td>4.00</td>
       <td>3.0</td>
+      <td>1.9</td>
+      <td>2.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5.00</td>
+      <td>5.00</td>
+      <td>4.00</td>
+      <td>5.0</td>
+      <td>2.00</td>
+      <td>4.0</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>1.00</td>
+      <td>4.00</td>
+      <td>...</td>
+      <td>4.0</td>
+      <td>2.00</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>4.00</td>
+      <td>3.00</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>1.00</td>
+      <td>5.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4.00</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>3.0</td>
+      <td>2.00</td>
+      <td>2.0</td>
+      <td>2.33</td>
+      <td>5.00</td>
+      <td>2.44</td>
+      <td>4.00</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>2.76</td>
+      <td>2.63</td>
+      <td>4.00</td>
+      <td>2.18</td>
+      <td>3.00</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.75</td>
+      <td>3.61</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1.00</td>
+      <td>5.00</td>
+      <td>3.09</td>
+      <td>4.0</td>
+      <td>2.00</td>
+      <td>4.0</td>
+      <td>3.00</td>
+      <td>2.86</td>
+      <td>2.00</td>
+      <td>3.55</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>4.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>5.00</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>3.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>4.00</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>4.0</td>
+      <td>1.00</td>
+      <td>5.0</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>3.00</td>
+      <td>3.21</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>5.00</td>
+      <td>5.00</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>2.00</td>
+      <td>3.61</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2.71</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>2.0</td>
+      <td>2.91</td>
+      <td>5.0</td>
+      <td>5.00</td>
+      <td>5.00</td>
+      <td>4.00</td>
+      <td>5.00</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>4.00</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>3.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>3.66</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1.00</td>
+      <td>2.91</td>
+      <td>2.00</td>
+      <td>2.0</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>2.23</td>
+      <td>3.00</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>2.00</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>4.00</td>
       <td>3.0</td>
       <td>1.0</td>
+      <td>1.00</td>
+      <td>3.05</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>3.0</td>
+      <td>4.00</td>
+      <td>2.0</td>
+      <td>2.56</td>
+      <td>3.32</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>1.00</td>
+      <td>4.00</td>
+      <td>2.00</td>
+      <td>3.00</td>
+      <td>3.53</td>
+      <td>2.0</td>
+      <td>2.3</td>
+      <td>5.00</td>
+      <td>2.00</td>
     </tr>
   </tbody>
 </table>
+<p>10 rows × 100 columns</p>
 </div></div></div>
 </div>
-<div class="section" id="build-models">
-<h2>Build Models<a class="headerlink" href="#build-models" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="train-iterative-model-using-fit">
+<h2>Train iterative model using <code class="docutils literal notranslate"><span class="pre">fit</span></code><a class="headerlink" href="#train-iterative-model-using-fit" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Create model object (load from sklearn)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id2">
+<h3>Train model<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span><span class="p">,</span> <span class="n">MLPRegressor</span>
-<span class="n">mlp1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rs_model2</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+<span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rs_model2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;svd&#39;</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="id3">
+<h3>Prediction<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">U_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">model_object</span> <span class="o">=</span> <span class="n">mlp1</span>
-
-<span class="n">models_item</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">initialize_models_itemwise</span><span class="p">(</span><span class="n">model_object</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="n">models_item</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;M1&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
- &#39;M2&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
- &#39;M3&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
- &#39;M4&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300)}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span><span class="p">,</span> <span class="n">models</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">train_model_svd</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">mlp1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_preds</span>
 </pre></div>
 </div>
 </div>
@@ -625,385 +1233,299 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>90</th>
+      <th>91</th>
+      <th>92</th>
+      <th>93</th>
+      <th>94</th>
+      <th>95</th>
+      <th>96</th>
+      <th>97</th>
+      <th>98</th>
+      <th>99</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
       <th></th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>U1</th>
+      <th>0</th>
+      <td>2.00</td>
+      <td>3.05</td>
+      <td>3.00</td>
+      <td>5.0</td>
+      <td>4.00</td>
+      <td>4.0</td>
+      <td>3.00</td>
+      <td>4.00</td>
+      <td>4.00</td>
+      <td>3.00</td>
+      <td>...</td>
+      <td>4.0</td>
+      <td>2.54</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>2.80</td>
+      <td>4.00</td>
+      <td>5.0</td>
+      <td>5.00</td>
+      <td>1.00</td>
+      <td>5.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>5.00</td>
       <td>2.0</td>
-      <td>NaN</td>
+      <td>2.41</td>
       <td>5.0</td>
-      <td>5.0</td>
+      <td>3.00</td>
+      <td>3.00</td>
+      <td>1.00</td>
+      <td>3.83</td>
+      <td>...</td>
+      <td>4.0</td>
+      <td>4.00</td>
+      <td>3.00</td>
+      <td>2.06</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>4.0</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>4.00</td>
     </tr>
     <tr>
-      <th>U2</th>
-      <td>NaN</td>
-      <td>1.0</td>
+      <th>2</th>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>2.00</td>
       <td>4.0</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>U3</th>
+      <td>5.00</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>5.00</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>2.00</td>
+      <td>5.00</td>
+      <td>4.00</td>
+      <td>2.00</td>
+      <td>4.00</td>
       <td>3.0</td>
-      <td>NaN</td>
-      <td>1.0</td>
-      <td>NaN</td>
+      <td>1.93</td>
+      <td>2.00</td>
+      <td>2.00</td>
     </tr>
     <tr>
-      <th>U4</th>
-      <td>NaN</td>
+      <th>3</th>
+      <td>5.00</td>
+      <td>5.00</td>
+      <td>4.00</td>
       <td>5.0</td>
-      <td>1.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U5</th>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>2.00</td>
       <td>4.0</td>
-      <td>NaN</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>1.00</td>
+      <td>4.00</td>
+      <td>...</td>
+      <td>4.0</td>
+      <td>2.00</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>4.00</td>
+      <td>3.00</td>
+      <td>4.0</td>
+      <td>4.00</td>
+      <td>1.00</td>
+      <td>5.00</td>
     </tr>
     <tr>
-      <th>U6</th>
-      <td>5.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <th>4</th>
+      <td>4.00</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>3.0</td>
+      <td>2.00</td>
+      <td>2.0</td>
+      <td>2.35</td>
+      <td>5.00</td>
+      <td>2.40</td>
+      <td>4.00</td>
+      <td>...</td>
       <td>1.0</td>
+      <td>2.73</td>
+      <td>2.63</td>
+      <td>4.00</td>
+      <td>2.18</td>
+      <td>3.00</td>
+      <td>3.0</td>
+      <td>2.00</td>
+      <td>1.75</td>
+      <td>3.58</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1.00</td>
+      <td>5.00</td>
+      <td>3.09</td>
+      <td>4.0</td>
+      <td>2.00</td>
+      <td>4.0</td>
+      <td>3.00</td>
+      <td>2.84</td>
+      <td>2.00</td>
+      <td>3.54</td>
+      <td>...</td>
+      <td>2.0</td>
+      <td>4.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>5.00</td>
+      <td>4.0</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>4.00</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>4.0</td>
+      <td>1.00</td>
+      <td>5.0</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>3.00</td>
+      <td>3.19</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>5.00</td>
+      <td>5.00</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>4.0</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>3.62</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2.63</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>2.0</td>
+      <td>2.94</td>
+      <td>5.0</td>
+      <td>5.00</td>
+      <td>5.00</td>
+      <td>4.00</td>
+      <td>5.00</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>2.00</td>
+      <td>4.00</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>3.00</td>
+      <td>1.0</td>
+      <td>1.00</td>
+      <td>2.00</td>
+      <td>3.67</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1.00</td>
+      <td>2.88</td>
+      <td>2.00</td>
+      <td>2.0</td>
+      <td>1.00</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>2.23</td>
+      <td>3.00</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>2.00</td>
+      <td>3.00</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>4.00</td>
+      <td>3.0</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>3.12</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2.00</td>
+      <td>1.00</td>
+      <td>3.00</td>
+      <td>3.0</td>
+      <td>4.00</td>
+      <td>2.0</td>
+      <td>2.56</td>
+      <td>3.33</td>
+      <td>2.00</td>
+      <td>2.00</td>
+      <td>...</td>
+      <td>5.0</td>
+      <td>1.00</td>
+      <td>4.00</td>
+      <td>2.00</td>
+      <td>3.00</td>
+      <td>3.51</td>
+      <td>2.0</td>
+      <td>2.35</td>
+      <td>5.00</td>
+      <td>2.00</td>
     </tr>
   </tbody>
 </table>
+<p>10 rows × 100 columns</p>
 </div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>U1</th>
-      <td>2.000000</td>
-      <td>0.795419</td>
-      <td>5.000000</td>
-      <td>5.000000</td>
-    </tr>
-    <tr>
-      <th>U2</th>
-      <td>0.834251</td>
-      <td>1.000000</td>
-      <td>4.000000</td>
-      <td>4.000000</td>
-    </tr>
-    <tr>
-      <th>U3</th>
-      <td>3.000000</td>
-      <td>5.643720</td>
-      <td>1.000000</td>
-      <td>-0.503295</td>
-    </tr>
-    <tr>
-      <th>U4</th>
-      <td>3.317594</td>
-      <td>5.000000</td>
-      <td>1.000000</td>
-      <td>-1.351086</td>
-    </tr>
-    <tr>
-      <th>U5</th>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>4.000000</td>
-      <td>3.574352</td>
-    </tr>
-    <tr>
-      <th>U6</th>
-      <td>5.000000</td>
-      <td>9.026146</td>
-      <td>-0.815015</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>U1</th>
-      <td>2.000000</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>5.000000</td>
-    </tr>
-    <tr>
-      <th>U2</th>
-      <td>1.000000</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>4.000000</td>
-    </tr>
-    <tr>
-      <th>U3</th>
-      <td>3.000000</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>U4</th>
-      <td>3.317594</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>U5</th>
-      <td>1.000000</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>3.574352</td>
-    </tr>
-    <tr>
-      <th>U6</th>
-      <td>5.000000</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>U1</th>
-      <td>2.0</td>
-      <td>1.0</td>
-      <td>5.0</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>U2</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>U3</th>
-      <td>3.0</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>U4</th>
-      <td>3.0</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>U5</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>U6</th>
-      <td>5.0</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df_m</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>U1</th>
-      <td>2.0</td>
-      <td>4.0</td>
-      <td>5.0</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>U2</th>
-      <td>3.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>U3</th>
-      <td>3.0</td>
-      <td>2.0</td>
-      <td>1.0</td>
-      <td>2.0</td>
-    </tr>
-    <tr>
-      <th>U4</th>
-      <td>3.0</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>3.0</td>
-    </tr>
-    <tr>
-      <th>U5</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>2.0</td>
-    </tr>
-    <tr>
-      <th>U6</th>
-      <td>5.0</td>
-      <td>3.0</td>
-      <td>3.0</td>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">models</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;M1&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
- &#39;M2&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
- &#39;M3&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
- &#39;M4&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300)}
-</pre></div>
-</div>
 </div>
 </div>
 </div>

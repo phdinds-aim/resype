@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering &#8212; ReSyPE</title>
+    <title>Utility Matrix &#8212; ReSyPE</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,6 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions" href="demo_notebook_svd_model.html" />
-    <link rel="prev" title="Cluster Assignments" href="../issa/assignment.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -147,9 +145,9 @@
   ML Models
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="demo_notebook_iterative_model.html">
    Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering
   </a>
  </li>
@@ -224,7 +222,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/eloi/demo_notebook_iterative_model.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/eloi/demo_notebook_svd_model-old.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -244,7 +242,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Feloi/demo_notebook_iterative_model.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Feloi/demo_notebook_svd_model-old.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -265,7 +263,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/eloi/demo_notebook_iterative_model.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/eloi/demo_notebook_svd_model-old.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -288,73 +286,9 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#prepare-data">
-   Prepare data
+  <a class="reference internal nav-link" href="#build-models">
+   Build Models
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#load-resype">
-   Load resype
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-iterative-model-using-train-model-iterative">
-   Train iterative model using
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     train_model_iterative
-    </span>
-   </code>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#create-model-object-load-from-sklearn">
-     Create model object (load from sklearn)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#train-model">
-     Train model
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#prediction">
-     Prediction
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#convert-to-scale-of-original-ratings">
-     Convert to scale of original ratings
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-iterative-model-using-fit">
-   Train iterative model using
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     fit
-    </span>
-   </code>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Create model object (load from sklearn)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     Train model
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     Prediction
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -367,22 +301,25 @@
         
               <div>
                 
-  <div class="section" id="demo-iterative-approach-to-ml-based-item-wise-collaborative-filtering">
-<h1>Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering<a class="headerlink" href="#demo-iterative-approach-to-ml-based-item-wise-collaborative-filtering" title="Permalink to this headline">¶</a></h1>
-<div class="cell docutils container">
+  <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;../resype&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2 
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="prepare-data">
-<h2>Prepare data<a class="headerlink" href="#prepare-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">preprocess_utility_matrix</span> <span class="k">as</span> <span class="n">um</span>
+<span class="kn">from</span> <span class="nn">method1</span> <span class="kn">import</span> <span class="n">build_svd_model</span> <span class="k">as</span> <span class="n">sm</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;M1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -466,19 +403,12 @@
 </table>
 </div></div></div>
 </div>
+<div class="section" id="utility-matrix">
+<h1>Utility Matrix<a class="headerlink" href="#utility-matrix" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movie_transactions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
-    <span class="n">movies_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">],</span> 
-    <span class="n">value_vars</span><span class="o">=</span><span class="n">movies_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">movie_transactions</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movie_transactions</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">U_df</span>
 </pre></div>
 </div>
 </div>
@@ -501,262 +431,10 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>user_id</th>
-      <th>item_id</th>
-      <th>rating</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>U1</td>
-      <td>M1</td>
-      <td>2.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>U3</td>
-      <td>M1</td>
-      <td>3.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>U5</td>
-      <td>M1</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>U6</td>
-      <td>M1</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>U2</td>
-      <td>M2</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>U4</td>
-      <td>M2</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>U5</td>
-      <td>M2</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>U1</td>
-      <td>M3</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>U2</td>
-      <td>M3</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>U3</td>
-      <td>M3</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>U4</td>
-      <td>M3</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>U5</td>
-      <td>M3</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>U1</td>
-      <td>M4</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>U2</td>
-      <td>M4</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>U6</td>
-      <td>M4</td>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-</div>
-<div class="section" id="load-resype">
-<h2>Load resype<a class="headerlink" href="#load-resype" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">resype</span> <span class="kn">import</span> <span class="n">Resype</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
-<span class="n">utility_matrix</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>item_id</th>
       <th>M1</th>
       <th>M2</th>
       <th>M3</th>
       <th>M4</th>
-    </tr>
-    <tr>
-      <th>user_id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>U1</th>
-      <td>2.0</td>
-      <td>NaN</td>
-      <td>5.0</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>U2</th>
-      <td>NaN</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>U3</th>
-      <td>3.0</td>
-      <td>NaN</td>
-      <td>1.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U4</th>
-      <td>NaN</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U5</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U6</th>
-      <td>5.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-</div>
-<div class="section" id="train-iterative-model-using-train-model-iterative">
-<h2>Train iterative model using <code class="docutils literal notranslate"><span class="pre">train_model_iterative</span></code><a class="headerlink" href="#train-iterative-model-using-train-model-iterative" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="create-model-object-load-from-sklearn">
-<h3>Create model object (load from sklearn)<a class="headerlink" href="#create-model-object-load-from-sklearn" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPRegressor</span>
-<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span>
-    <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="train-model">
-<h3>Train model<a class="headerlink" href="#train-model" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>item_id</th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
-    </tr>
-    <tr>
-      <th>user_id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -808,18 +486,8 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix_imputed</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">trained_model</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">train_model_iterative</span><span class="p">(</span>
-    <span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">rs_model1</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="prediction">
-<h3>Prediction<a class="headerlink" href="#prediction" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix_imputed</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df_m</span> <span class="o">=</span> <span class="n">um</span><span class="o">.</span><span class="n">mean_filled_utilmat</span><span class="p">(</span><span class="n">U_df</span><span class="p">)</span>
+<span class="n">U_df_m</span>
 </pre></div>
 </div>
 </div>
@@ -841,73 +509,99 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th>item_id</th>
+      <th></th>
       <th>M1</th>
       <th>M2</th>
       <th>M3</th>
       <th>M4</th>
     </tr>
-    <tr>
-      <th>user_id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
   </thead>
   <tbody>
     <tr>
       <th>U1</th>
-      <td>-2.000000</td>
-      <td>0.230921</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>0.559151</td>
-      <td>-2.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
     </tr>
     <tr>
       <th>U3</th>
-      <td>1.000000</td>
-      <td>-2.136505</td>
-      <td>-1.000000</td>
-      <td>-4.841558</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>-3.153587</td>
-      <td>2.000000</td>
-      <td>-2.000000</td>
-      <td>-7.782911</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
     </tr>
     <tr>
       <th>U5</th>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>2.000000</td>
-      <td>3.791436</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
     </tr>
     <tr>
       <th>U6</th>
-      <td>2.000000</td>
-      <td>-3.237528</td>
-      <td>-0.047203</td>
-      <td>-2.000000</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="convert-to-scale-of-original-ratings">
-<h3>Convert to scale of original ratings<a class="headerlink" href="#convert-to-scale-of-original-ratings" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="build-models">
+<h2>Build Models<a class="headerlink" href="#build-models" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix_imputed</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span><span class="p">,</span> <span class="n">MLPRegressor</span>
+<span class="n">mlp1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">U_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">model_object</span> <span class="o">=</span> <span class="n">mlp1</span>
+
+<span class="n">models_item</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">initialize_models_itemwise</span><span class="p">(</span><span class="n">model_object</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">models_item</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;M1&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
+ &#39;M2&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
+ &#39;M3&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
+ &#39;M4&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300)}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span><span class="p">,</span> <span class="n">models</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">train_model_svd</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">mlp1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df</span>
 </pre></div>
 </div>
 </div>
@@ -929,31 +623,102 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th>item_id</th>
+      <th></th>
       <th>M1</th>
       <th>M2</th>
       <th>M3</th>
       <th>M4</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <th>user_id</th>
+      <th>U1</th>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>U2</th>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>U3</th>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>U4</th>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>U5</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>U6</th>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
       <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+      <th>M4</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>U1</th>
       <td>2.000000</td>
-      <td>4.230921</td>
+      <td>0.795419</td>
       <td>5.000000</td>
       <td>5.000000</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>3.559151</td>
+      <td>0.834251</td>
       <td>1.000000</td>
       <td>4.000000</td>
       <td>4.000000</td>
@@ -961,57 +726,38 @@
     <tr>
       <th>U3</th>
       <td>3.000000</td>
-      <td>-0.136505</td>
+      <td>5.643720</td>
       <td>1.000000</td>
-      <td>-2.841558</td>
+      <td>-0.503295</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>-0.153587</td>
+      <td>3.317594</td>
       <td>5.000000</td>
       <td>1.000000</td>
-      <td>-4.782911</td>
+      <td>-1.351086</td>
     </tr>
     <tr>
       <th>U5</th>
       <td>1.000000</td>
       <td>1.000000</td>
       <td>4.000000</td>
-      <td>5.791436</td>
+      <td>3.574352</td>
     </tr>
     <tr>
       <th>U6</th>
       <td>5.000000</td>
-      <td>-0.237528</td>
-      <td>2.952797</td>
+      <td>9.026146</td>
+      <td>-0.815015</td>
       <td>1.000000</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</div>
-</div>
-<div class="section" id="train-iterative-model-using-fit">
-<h2>Train iterative model using <code class="docutils literal notranslate"><span class="pre">fit</span></code><a class="headerlink" href="#train-iterative-model-using-fit" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Create model object (load from sklearn)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="id2">
-<h3>Train model<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rs_model1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="id3">
-<h3>Prediction<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_preds</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1033,66 +779,229 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th>item_id</th>
+      <th></th>
       <th>M1</th>
       <th>M2</th>
       <th>M3</th>
       <th>M4</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <th>user_id</th>
+      <th>U1</th>
+      <td>2.000000</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>5.000000</td>
+    </tr>
+    <tr>
+      <th>U2</th>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.000000</td>
+    </tr>
+    <tr>
+      <th>U3</th>
+      <td>3.000000</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>U4</th>
+      <td>3.317594</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>U5</th>
+      <td>1.000000</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>3.574352</td>
+    </tr>
+    <tr>
+      <th>U6</th>
+      <td>5.000000</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
       <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+      <th>M4</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>U1</th>
-      <td>-2.000000</td>
-      <td>0.230921</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>0.559151</td>
-      <td>-2.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
     </tr>
     <tr>
       <th>U3</th>
-      <td>1.000000</td>
-      <td>-2.136505</td>
-      <td>-1.000000</td>
-      <td>-4.841558</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>-3.153587</td>
-      <td>2.000000</td>
-      <td>-2.000000</td>
-      <td>-7.782911</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
     </tr>
     <tr>
       <th>U5</th>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>2.000000</td>
-      <td>3.791436</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
     </tr>
     <tr>
       <th>U6</th>
-      <td>2.000000</td>
-      <td>-3.237528</td>
-      <td>-0.047203</td>
-      <td>-2.000000</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df_m</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+      <th>M4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>U1</th>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>U2</th>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>U3</th>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>U4</th>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>U5</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>U6</th>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">models</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;M1&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
+ &#39;M2&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
+ &#39;M3&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300),
+ &#39;M4&#39;: MLPRegressor(hidden_layer_sizes=(100, 100), max_iter=300)}
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -1127,24 +1036,6 @@
 
 <div class='prev-next-bottom'>
     
-    <div id="prev">
-        <a class="left-prev" href="../issa/assignment.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Cluster Assignments</p>
-            </div>
-        </a>
-    </div>
-     <div id="next">
-        <a class="right-next" href="demo_notebook_svd_model.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
 
 </div>
         
