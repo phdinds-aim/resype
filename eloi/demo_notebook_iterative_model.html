@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Demo: Iterative approach to Model-based item-wise collaborative filtering &#8212; ReSyPE</title>
+    <title>Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering &#8212; ReSyPE</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -140,7 +140,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Demo: Iterative approach to Model-based item-wise collaborative filtering
+   Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering
   </a>
  </li>
  <li class="toctree-l1">
@@ -357,8 +357,8 @@
         
               <div>
                 
-  <div class="section" id="demo-iterative-approach-to-model-based-item-wise-collaborative-filtering">
-<h1>Demo: Iterative approach to Model-based item-wise collaborative filtering<a class="headerlink" href="#demo-iterative-approach-to-model-based-item-wise-collaborative-filtering" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="demo-iterative-approach-to-ml-based-item-wise-collaborative-filtering">
+<h1>Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering<a class="headerlink" href="#demo-iterative-approach-to-ml-based-item-wise-collaborative-filtering" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -702,7 +702,8 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPRegressor</span>
-<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;identity&#39;</span><span class="p">)</span>
+<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span>
+    <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -848,13 +849,13 @@
     <tr>
       <th>U1</th>
       <td>-2.000000</td>
-      <td>-2.369122</td>
+      <td>0.230921</td>
       <td>1.000000</td>
       <td>1.000000</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>-1.760895</td>
+      <td>0.559151</td>
       <td>-2.000000</td>
       <td>1.000000</td>
       <td>1.000000</td>
@@ -862,29 +863,29 @@
     <tr>
       <th>U3</th>
       <td>1.000000</td>
-      <td>2.038087</td>
+      <td>-2.136505</td>
       <td>-1.000000</td>
-      <td>-0.545798</td>
+      <td>-4.841558</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>0.936376</td>
+      <td>-3.153587</td>
       <td>2.000000</td>
       <td>-2.000000</td>
-      <td>-1.008511</td>
+      <td>-7.782911</td>
     </tr>
     <tr>
       <th>U5</th>
       <td>-1.000000</td>
       <td>-1.000000</td>
       <td>2.000000</td>
-      <td>1.265477</td>
+      <td>3.791436</td>
     </tr>
     <tr>
       <th>U6</th>
       <td>2.000000</td>
-      <td>3.592141</td>
-      <td>-3.495122</td>
+      <td>-3.237528</td>
+      <td>-0.047203</td>
       <td>-2.000000</td>
     </tr>
   </tbody>
@@ -936,13 +937,13 @@
     <tr>
       <th>U1</th>
       <td>2.000000</td>
-      <td>1.630878</td>
+      <td>4.230921</td>
       <td>5.000000</td>
       <td>5.000000</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>1.239105</td>
+      <td>3.559151</td>
       <td>1.000000</td>
       <td>4.000000</td>
       <td>4.000000</td>
@@ -950,29 +951,29 @@
     <tr>
       <th>U3</th>
       <td>3.000000</td>
-      <td>4.038087</td>
+      <td>-0.136505</td>
       <td>1.000000</td>
-      <td>1.454202</td>
+      <td>-2.841558</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>3.936376</td>
+      <td>-0.153587</td>
       <td>5.000000</td>
       <td>1.000000</td>
-      <td>1.991489</td>
+      <td>-4.782911</td>
     </tr>
     <tr>
       <th>U5</th>
       <td>1.000000</td>
       <td>1.000000</td>
       <td>4.000000</td>
-      <td>3.265477</td>
+      <td>5.791436</td>
     </tr>
     <tr>
       <th>U6</th>
       <td>5.000000</td>
-      <td>6.592141</td>
-      <td>-0.495122</td>
+      <td>-0.237528</td>
+      <td>2.952797</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -985,19 +986,12 @@
 <h2>Train iterative model using <code class="docutils literal notranslate"><span class="pre">fit</span></code><a class="headerlink" href="#train-iterative-model-using-fit" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
 <h3>Create model object (load from sklearn)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rs_model2</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;identity&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 <div class="section" id="id2">
 <h3>Train model<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rs_model2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rs_model1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1047,43 +1041,43 @@
     <tr>
       <th>U1</th>
       <td>-2.000000</td>
-      <td>-2.266500</td>
-      <td>1.00000</td>
+      <td>0.230921</td>
+      <td>1.000000</td>
       <td>1.000000</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>-1.719377</td>
+      <td>0.559151</td>
       <td>-2.000000</td>
-      <td>1.00000</td>
+      <td>1.000000</td>
       <td>1.000000</td>
     </tr>
     <tr>
       <th>U3</th>
       <td>1.000000</td>
-      <td>1.621206</td>
-      <td>-1.00000</td>
-      <td>-0.911281</td>
+      <td>-2.136505</td>
+      <td>-1.000000</td>
+      <td>-4.841558</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>1.216474</td>
+      <td>-3.153587</td>
       <td>2.000000</td>
-      <td>-2.00000</td>
-      <td>-1.437237</td>
+      <td>-2.000000</td>
+      <td>-7.782911</td>
     </tr>
     <tr>
       <th>U5</th>
       <td>-1.000000</td>
       <td>-1.000000</td>
-      <td>2.00000</td>
-      <td>1.095181</td>
+      <td>2.000000</td>
+      <td>3.791436</td>
     </tr>
     <tr>
       <th>U6</th>
       <td>2.000000</td>
-      <td>2.935264</td>
-      <td>-3.05629</td>
+      <td>-3.237528</td>
+      <td>-0.047203</td>
       <td>-2.000000</td>
     </tr>
   </tbody>
