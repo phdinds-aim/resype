@@ -8,8 +8,8 @@ parts:
   chapters:
 #   - file: francis/csv_preprocessing
   - file: francis/item_feature_ntbk
-  - file: francis/user_feature_ntbk
   - file: francis/transaction_list_ntbk
+  - file: francis/user_feature_ntbk
 - caption: Clustering
   chapters:
 #   - file: gilbert/clustering_module
