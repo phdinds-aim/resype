@@ -51,8 +51,6 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Item Feature Table" href="item_feature_ntbk.html" />
-    <link rel="prev" title="Getting Started" href="../getting_started.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -98,12 +96,7 @@
   Preprocessing
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Item Feature Table
-  </a>
- </li>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="item_feature_ntbk.html">
    Item Feature Table
@@ -117,23 +110,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="transaction_list_ntbk.html">
    Transaction Table
-  </a>
- </li>
-</ul>
-<p class="caption">
- <span class="caption-text">
-  Clustering
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../gilbert/clustering_module.html">
-   User Clustering
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../issa/aggregation_to_util_matrix_final.html">
-   User Clustering
   </a>
  </li>
 </ul>
@@ -348,7 +324,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">item_table</span> <span class="o">=</span> <span class="n">item_list</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">item_table</span> <span class="o">=</span> <span class="n">item_table</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;movieId&#39;</span><span class="p">)</span>
+    <span class="n">item_table</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;movieId&#39;</span><span class="p">)</span>
     <span class="n">item_table</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">item_table</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item_table</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">item_table</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item_table</span><span class="p">[</span><span class="s1">&#39;genres&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
@@ -399,6 +375,7 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>movieId</th>
       <th>title</th>
       <th>genres</th>
       <th>year</th>
@@ -408,7 +385,6 @@
       <th>Animation</th>
       <th>Children</th>
       <th>Comedy</th>
-      <th>Crime</th>
       <th>...</th>
       <th>Film-Noir</th>
       <th>Horror</th>
@@ -448,7 +424,8 @@
   </thead>
   <tbody>
     <tr>
-      <th>1</th>
+      <th>0</th>
+      <td>1</td>
       <td>Toy Story (1995)</td>
       <td>[Adventure, Animation, Children, Comedy, Fantasy]</td>
       <td>1995</td>
@@ -457,6 +434,29 @@
       <td>1</td>
       <td>1</td>
       <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Jumanji (1995)</td>
+      <td>[Adventure, Children, Fantasy]</td>
+      <td>1995</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>...</td>
@@ -473,30 +473,7 @@
     </tr>
     <tr>
       <th>2</th>
-      <td>Jumanji (1995)</td>
-      <td>[Adventure, Children, Fantasy]</td>
-      <td>1995</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
+      <td>3</td>
       <td>Grumpier Old Men (1995)</td>
       <td>[Comedy, Romance]</td>
       <td>1995</td>
@@ -506,7 +483,30 @@
       <td>0</td>
       <td>0</td>
       <td>1</td>
+      <td>...</td>
       <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Waiting to Exhale (1995)</td>
+      <td>[Comedy, Drama, Romance]</td>
+      <td>1995</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -521,30 +521,7 @@
     </tr>
     <tr>
       <th>4</th>
-      <td>Waiting to Exhale (1995)</td>
-      <td>[Comedy, Drama, Romance]</td>
-      <td>1995</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>5</th>
+      <td>5</td>
       <td>Father of the Bride Part II (1995)</td>
       <td>[Comedy]</td>
       <td>1995</td>
@@ -554,7 +531,6 @@
       <td>0</td>
       <td>0</td>
       <td>1</td>
-      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -569,7 +545,7 @@
     </tr>
   </tbody>
 </table>
-<p>5 rows × 23 columns</p>
+<p>5 rows × 24 columns</p>
 </div></div></div>
 </div>
 </div>
@@ -1029,24 +1005,6 @@
 
 <div class='prev-next-bottom'>
     
-    <div id="prev">
-        <a class="left-prev" href="../getting_started.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Getting Started</p>
-            </div>
-        </a>
-    </div>
-     <div id="next">
-        <a class="right-next" href="item_feature_ntbk.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Item Feature Table</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
 
 </div>
         
