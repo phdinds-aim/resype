@@ -20,7 +20,9 @@ parts:
 - caption: ML Models
   chapters:
   - file: eloi/demo_notebook_iterative_model
+  - file: eloi/demo_notebook_clusterbased_iterative_model
   - file: eloi/demo_notebook_svd_model
+  - file: eloi/demo_notebook_clusterbased_svd_model
 - caption: Get Recommendations
   chapters:
   - file: basti/get_rec
