@@ -633,7 +633,8 @@ class Resype:
 
 
     def fit(self, model_object, method="iterative", n_synth_data=5, p=0.1,
-            d=2, return_models=False):
+            d=2):
+        return_models=False
         U_df_mc = self.mean_center_utilmat(self.utility_matrix, axis=1, fillna=False)
 
         if method == 'iterative':        
@@ -646,7 +647,7 @@ class Resype:
             else: # if not clustered    
                 self.models_item = self.initialize_models_itemwise(
                     self.utility_matrix, model_object, suffix='')    
-                U_imputed, metrics, models = self.train_model_iterative(
+                U_imputed, metrics = self.train_model_iterative(
                     self.utility_matrix, model_object,
                     return_models=return_models) 
                 self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
@@ -662,7 +663,7 @@ class Resype:
             else: 
                 self.models_item = self.initialize_models_itemwise(
                     self.utility_matrix, model_object, suffix='')
-                U_imputed, models = self.train_model_svd(
+                U_imputed = self.train_model_svd(
                     self.utility_matrix, model_object, d=d, 
                     return_models=return_models)        
                 self.utility_matrix_preds = U_imputed
