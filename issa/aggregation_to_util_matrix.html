@@ -1,0 +1,775 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Clustering &#8212; ReSyPE</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">ReSyPE</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html">
+   Getting Started
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Preprocessing
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../francis/item_feature_ntbk.html">
+   Item Feature Table
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../francis/user_feature_ntbk.html">
+   User Feature Table
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../francis/transaction_list_ntbk.html">
+   Transaction Table
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Clustering
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gilbert/user_clustering.html">
+   User Clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gilbert/item_clustering.html">
+   Item Clustering
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  ML Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eloi/demo_notebook_iterative_model.html">
+   Demo: Iterative approach to Model-based item-wise collaborative filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eloi/demo_notebook_svd_model.html">
+   Utility Matrix
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Get Recommendations
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../basti/get_rec.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     get_rec
+    </span>
+   </code>
+   Function
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../basti/get_rec_item.html">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     get_rec_item
+    </span>
+   </code>
+   Function
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/issa/aggregation_to_util_matrix.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/phdinds-aim/resype"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fissa/aggregation_to_util_matrix.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/issa/aggregation_to_util_matrix.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   User Clustering
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#item-clustering">
+   Item Clustering
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#aggregation">
+   Aggregation
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <p>This notebook continues from VP Gilbert’s output in clustering. I just modified his outputs in functions <strong>u_cluster</strong> and <strong>i_cluster</strong> to include the dataframes. The addditions to his notebook start from function <strong>cluster_assignment</strong>. The functions that are commented out are used for unit_testing.</p>
+<p>September 24, 2021</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fname = &#39;user_movie.csv&#39;</span>
+<span class="c1"># state = 1337</span>
+<span class="c1"># drop_cols = [&#39;userId&#39;]</span>
+
+<span class="c1"># u_clusters = 5</span>
+<span class="c1"># i_clusters = 5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="user-clustering">
+<h1>User Clustering<a class="headerlink" href="#user-clustering" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># def u_cluster(fname, model_fname, random_state=state, drop_cols=drop_cols, </span>
+<span class="c1">#               u_clusters=5, u_method=&#39;kmeans&#39;, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     pre_cluster</span>
+
+<span class="c1">#     Perform item-wise and user-wise clustering</span>
+
+
+<span class="c1">#     fname        : pandas DataFrame or string</span>
+<span class="c1">#                    The initial utility matrix with each row corresponding </span>
+<span class="c1">#                    to a user and the columns be </span>
+
+<span class="c1">#     random_state : int</span>
+<span class="c1">#                    The state to be used by the clustering algorithm to ensure</span>
+<span class="c1">#                    the consistency of results across runs</span>
+
+<span class="c1">#     drop_cols    : list</span>
+<span class="c1">#                    Columns to be dropped in fname</span>
+
+<span class="c1">#     u_clusters   : int</span>
+<span class="c1">#                    Number of clusters to be used for hard clustering of users</span>
+
+<span class="c1">#     Returns</span>
+<span class="c1">#     -------</span>
+<span class="c1">#     utility_matrix : pandas DataFrame</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     import pandas as pd</span>
+<span class="c1">#     import numpy as np</span>
+<span class="c1">#     from sklearn.cluster import (KMeans, SpectralClustering,</span>
+<span class="c1">#                                  AgglomerativeClustering, DBSCAN, OPTICS,</span>
+<span class="c1">#                                  cluster_optics_dbscan, Birch)</span>
+<span class="c1">#     import pickle</span>
+<span class="c1">#     # Aggregation through tables</span>
+
+<span class="c1">#     if isinstance(fname, str):</span>
+<span class="c1">#         df = pd.read_csv(fname)</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         df = fname</span>
+
+<span class="c1">#     if drop_cols != None:</span>
+<span class="c1">#         df = df.drop(columns=drop_cols)</span>
+
+<span class="c1">#     if u_method == &#39;kmeans&#39;:</span>
+<span class="c1">#         u_clusterer = KMeans(n_clusters=u_clusters, random_state=state)</span>
+<span class="c1">#     if u_method == &#39;spectral&#39;:</span>
+<span class="c1">#         u_clusterer = SpectralClustering(u_clusters, random_state=state)</span>
+<span class="c1">#     if u_method == &#39;ward&#39;:</span>
+<span class="c1">#         u_clusterer = AgglomerativeClustering(n_clusters=u_clusters,</span>
+<span class="c1">#                                               **kwargs)</span>
+<span class="c1">#     if u_method == &#39;single&#39;:</span>
+<span class="c1">#         u_clusterer = AgglomerativeClustering(n_clusters=u_clusters,</span>
+<span class="c1">#                                               linkage=&#39;single&#39;, **kwargs)</span>
+<span class="c1">#     if u_method == &#39;complete&#39;:</span>
+<span class="c1">#         u_clusterer = AgglomerativeClustering(n_clusters=u_clusters,</span>
+<span class="c1">#                                               linkage=&#39;complete&#39;, **kwargs)</span>
+<span class="c1">#     if u_method == &#39;average&#39;:</span>
+<span class="c1">#         u_clusterer = AgglomerativeClustering(n_clusters=u_clusters,</span>
+<span class="c1">#                                               linkage=&#39;average&#39;, **kwargs)</span>
+<span class="c1">#     if u_method == &#39;dbscan&#39;:</span>
+<span class="c1">#         u_clusterer = DBScan(**kwargs)</span>
+<span class="c1">#     if u_method == &#39;optics&#39;:</span>
+<span class="c1">#         u_clusterer = OPTICS(**kwargs)</span>
+<span class="c1">#     if u_method == &#39;birch&#39;:</span>
+<span class="c1">#         u_clusterer = Birch(n_clusters=u_clusters, **kwargs)</span>
+
+<span class="c1">#     u_predict = u_clusterer.fit_predict(df)</span>
+<span class="c1">#     df[&#39;u_cluster&#39;] = u_predict</span>
+
+<span class="c1">#     model = u_clusterer</span>
+<span class="c1">#     result = dict(df[&#39;u_cluster&#39;])</span>
+<span class="c1">#     with open(model_fname,&#39;wb&#39;) as f:</span>
+<span class="c1">#         pickle.dump(model, f)</span>
+<span class="c1">#     return model, result, df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="item-clustering">
+<h1>Item Clustering<a class="headerlink" href="#item-clustering" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># def i_cluster(fname, model_fname, random_state=state, drop_cols=drop_cols,</span>
+<span class="c1">#               i_clusters=5, i_method=&#39;kmeans&#39;, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     pre_cluster</span>
+
+<span class="c1">#     Perform item-wise and user-wise clustering</span>
+
+
+<span class="c1">#     fname        : pandas DataFrame or string</span>
+<span class="c1">#                    The initial utility matrix with each row corresponding </span>
+<span class="c1">#                    to a user and the columns be </span>
+
+<span class="c1">#     random_state : int</span>
+<span class="c1">#                    The state to be used by the clustering algorithm to ensure</span>
+<span class="c1">#                    the consistency of results across runs</span>
+
+<span class="c1">#     drop_cols    : list</span>
+<span class="c1">#                    Columns to be dropped in fname</span>
+
+<span class="c1">#     i_clusters   : int</span>
+<span class="c1">#                    Number of clusters to be used for hard clustering of items</span>
+
+<span class="c1">#     Returns</span>
+<span class="c1">#     -------</span>
+<span class="c1">#     model         : sklearn model</span>
+
+<span class="c1">#     result        : dict</span>
+
+<span class="c1">#     &quot;&quot;&quot;</span>
+    
+    
+    
+<span class="c1">#     import pandas as pd</span>
+<span class="c1">#     import numpy as np</span>
+<span class="c1">#     from sklearn.cluster import (KMeans, SpectralClustering, </span>
+<span class="c1">#                                  AgglomerativeClustering, DBSCAN, OPTICS, </span>
+<span class="c1">#                                  cluster_optics_dbscan, Birch)</span>
+<span class="c1">#     import pickle</span>
+<span class="c1">#     if isinstance(fname, str):</span>
+<span class="c1">#         df = pd.read_csv(fname)</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         df = fname</span>
+
+<span class="c1">#     if drop_cols != None:</span>
+<span class="c1">#         df = df.drop(columns=drop_cols)</span>
+
+<span class="c1">#     df_items = df.T</span>
+
+<span class="c1">#     if i_method == &#39;kmeans&#39;:</span>
+<span class="c1">#         i_clusterer = KMeans(n_clusters=i_clusters, random_state=state)</span>
+<span class="c1">#     if i_method == &#39;spectral&#39;:</span>
+<span class="c1">#         i_clusterer = SpectralClustering(i_clusters, random_state=state)</span>
+<span class="c1">#     if i_method == &#39;ward&#39;:</span>
+<span class="c1">#         i_clusterer = AgglomerativeClustering(n_clusters=i_clusters,</span>
+<span class="c1">#                                               **kwargs)</span>
+<span class="c1">#     if i_method == &#39;single&#39;:</span>
+<span class="c1">#         i_clusterer = AgglomerativeClustering(n_clusters=i_clusters,</span>
+<span class="c1">#                                               linkage=&#39;single&#39;, **kwargs)</span>
+<span class="c1">#     if i_method == &#39;complete&#39;:</span>
+<span class="c1">#         i_clusterer = AgglomerativeClustering(n_clusters=i_clusters,</span>
+<span class="c1">#                                               linkage=&#39;complete&#39;, **kwargs)</span>
+<span class="c1">#     if i_method == &#39;average&#39;:</span>
+<span class="c1">#         i_clusterer = AgglomerativeClustering(n_clusters=i_clusters,</span>
+<span class="c1">#                                               linkage=&#39;average&#39;, **kwargs)</span>
+<span class="c1">#     if i_method == &#39;dbscan&#39;:</span>
+<span class="c1">#         i_clusterer = DBScan(**kwargs)</span>
+<span class="c1">#     if i_method == &#39;optics&#39;:</span>
+<span class="c1">#         i_clusterer = OPTICS(**kwargs)</span>
+<span class="c1">#     if i_method == &#39;birch&#39;:</span>
+<span class="c1">#         i_clusterer = Birch(n_clusters=i_clusters, **kwargs)</span>
+
+<span class="c1">#     i_predict = i_clusterer.fit_predict(df_items)</span>
+<span class="c1">#     df_items[&#39;i_cluster&#39;] = i_predict</span>
+
+<span class="c1">#     model = i_clusterer</span>
+<span class="c1">#     result = dict(df_items[&#39;i_cluster&#39;])</span>
+<span class="c1">#     with open(model_fname,&#39;wb&#39;) as f:</span>
+<span class="c1">#         pickle.dump(model, f)</span>
+<span class="c1">#     return model, result, df_items</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># x_u,y_u, df_u = u_cluster(fname,&#39;u_cluster.pkl&#39;, u_method=&#39;ward&#39;)</span>
+<span class="c1"># x_i,y_i, df_i = i_cluster(fname,&#39;i_cluster.pkl&#39;, u_method=&#39;ward&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="aggregation">
+<h1>Aggregation<a class="headerlink" href="#aggregation" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">util_mat_agg</span><span class="p">(</span><span class="n">df_u</span><span class="p">,</span> <span class="n">df_i</span><span class="p">,</span> <span class="n">u_agg</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">i_agg</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Aggregates the results of the clustering with respect to item clusters and user clusters.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df_u    : pandas DataFrame</span>
+<span class="sd">              Dataframe of the user_ids with cluster assignments and</span>
+<span class="sd">              item ratings of users from the original matrix</span>
+<span class="sd">    </span>
+<span class="sd">    df_i    : pandas DataFrame</span>
+<span class="sd">              Dataframe of the item_ids with cluster assignments and </span>
+<span class="sd">              item ratings of users from the original matrix</span>
+<span class="sd">    </span>
+<span class="sd">    u_agg   : str</span>
+<span class="sd">              Aggregration method to be used for users through &#39;sum&#39; or &#39;mean&#39; </span>
+<span class="sd">    </span>
+<span class="sd">    i_agg   : str</span>
+<span class="sd">              Aggregration method to be used for items through &#39;sum&#39; or &#39;mean&#39; </span>
+<span class="sd">              </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    util_mat   : pandas DataFrame</span>
+<span class="sd">                 utility matrix consisting of the aggregrated user </span>
+<span class="sd">                 clusters as rows and aggregated item clusters as columns</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    
+    <span class="n">u_series</span> <span class="o">=</span> <span class="n">df_u</span><span class="p">[</span><span class="s1">&#39;u_cluster&#39;</span><span class="p">]</span>
+    <span class="n">i_series</span> <span class="o">=</span> <span class="n">df_i</span><span class="p">[</span><span class="s1">&#39;i_cluster&#39;</span><span class="p">]</span>
+
+    <span class="n">u_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">u_series</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">i_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">i_series</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> 
+
+    <span class="n">u_feats</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">u_id</span> <span class="ow">in</span> <span class="n">u_ids</span><span class="p">:</span> <span class="c1">#u_ids are clusters of u_id</span>
+        <span class="n">sub_df</span> <span class="o">=</span> <span class="n">df_u</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;u_cluster&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span>
+            <span class="n">u_id</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;u_cluster&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">sub_df</span> <span class="o">=</span> <span class="n">sub_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">i_series</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">u_agg</span> <span class="o">==</span> <span class="s1">&#39;sum&#39;</span><span class="p">:</span>
+            <span class="n">df_grp</span> <span class="o">=</span> <span class="n">sub_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;i_cluster&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">u_agg</span> <span class="o">==</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span>
+            <span class="n">df_grp</span> <span class="o">=</span> <span class="n">sub_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;i_cluster&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">u_agg</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+            <span class="n">df_grp</span> <span class="o">=</span> <span class="n">sub_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;i_cluster&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">u_agg</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="n">i_agg</span> <span class="o">==</span> <span class="s1">&#39;sum&#39;</span><span class="p">:</span>
+            <span class="n">df_grp</span> <span class="o">=</span> <span class="n">df_grp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i_agg</span> <span class="o">==</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span>
+            <span class="n">df_grp</span> <span class="o">=</span> <span class="n">df_grp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i_agg</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+            <span class="n">df_grp</span> <span class="o">=</span> <span class="n">df_grp</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">i_agg</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="n">u_feats</span><span class="p">[</span><span class="n">u_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_grp</span>
+    
+
+    <span class="n">u_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">u_feats</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">u_matrix</span> <span class="o">=</span> <span class="n">u_matrix</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">,</span>
+                                  <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">util_mat</span> <span class="o">=</span> <span class="n">u_matrix</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">util_mat</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;u_cluster&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">util_mat</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">util_mat_agg</span><span class="p">(</span><span class="n">df_u</span><span class="p">,</span> <span class="n">df_i</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>i_cluster</th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+    <tr>
+      <th>u_cluster</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.155453</td>
+      <td>0.531532</td>
+      <td>0.944444</td>
+      <td>0.727240</td>
+      <td>0.894180</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.001109</td>
+      <td>0.010294</td>
+      <td>0.054167</td>
+      <td>0.016229</td>
+      <td>0.187710</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.006609</td>
+      <td>0.095030</td>
+      <td>0.302757</td>
+      <td>0.054039</td>
+      <td>0.259259</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.034548</td>
+      <td>0.415233</td>
+      <td>0.727517</td>
+      <td>0.235731</td>
+      <td>0.658730</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.027294</td>
+      <td>0.056212</td>
+      <td>0.516762</td>
+      <td>0.298726</td>
+      <td>0.580766</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Aggregation by sum(or mean):</p>
+<ol class="simple">
+<li><p>Users are identified to belong to their respective user clusters. Membership is limited to one user cluster per user.</p></li>
+<li><p>Within that user cluster, the items rated are identified and labeled with their respective item clusters.</p></li>
+<li><p>The first step of aggregation is done within each cluster where users are grouped according to the clusters of the items.</p></li>
+<li><p>The second step is to get the “sum” (“mean”) of each item clusters.</p></li>
+<li><p>Steps 3 and 4 are repeated for all clusters.</p></li>
+</ol>
+<p>The following diagrams show sample clusters of users, where columns are the users in the cluster and rows are their ratings of the items.
+<img src = "cluster0.png" width = "500"/>
+<img src = "cluster1.png" width = "500"/>
+<img src = "cluster2.png" width = "500"/></p>
+<ol class="simple">
+<li><p>The result of step 5 for all clusters are aggregated into a final utility matrix.
+<img src = "aggregated.png" width = "500"/></p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas._testing</span> <span class="kn">import</span> <span class="n">assert_frame_equal</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">class</span> <span class="nc">Test_util_matrix_agg</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">test_util_mat_agg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">arru</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="n">df_ut</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">arru</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+        <span class="n">df_ut</span><span class="p">[</span><span class="s1">&#39;u_cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="n">arri</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">arru</span><span class="p">)</span>
+        <span class="n">df_it</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">arri</span><span class="p">)</span>
+        <span class="n">df_it</span><span class="p">[</span><span class="s1">&#39;i_cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="n">agg_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="n">agg_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="n">df_a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">agg_arr</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">df_a</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;u_cluster&#39;</span>
+        <span class="n">df_a</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+        
+        <span class="n">umt</span><span class="o">=</span> <span class="n">util_mat_agg</span><span class="p">(</span><span class="n">df_ut</span><span class="p">,</span> <span class="n">df_it</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+        <span class="n">assert_frame_equal</span><span class="p">(</span><span class="n">df_a</span><span class="p">,</span> <span class="n">umt</span><span class="p">,</span> <span class="n">check_dtype</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_names</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+<span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_util_mat_agg (__main__.Test_util_matrix_agg) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.027s
+
+OK
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x7f3aac133f40&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./issa"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By AIM PhDDS2023<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
