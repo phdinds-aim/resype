@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Preprocess Utility Matrix &#8212; ReSyPE</title>
+    <title>Demo: Iterative approach to Model-based item-wise collaborative filtering &#8212; ReSyPE</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -145,7 +145,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Preprocess Utility Matrix
+   Demo: Iterative approach to Model-based item-wise collaborative filtering
   </a>
  </li>
  <li class="toctree-l1">
@@ -285,14 +285,73 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#build-models">
-   Build Models
+  <a class="reference internal nav-link" href="#prepare-data">
+   Prepare data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cluster-based-item-wise-iterative-model">
-   Cluster based item-wise iterative model
+  <a class="reference internal nav-link" href="#load-resype">
+   Load resype
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-iterative-model-using-train-model-iterative">
+   Train iterative model using
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     train_model_iterative
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-model-object-load-from-sklearn">
+     Create model object (load from sklearn)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-model">
+     Train model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prediction">
+     Prediction
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convert-to-scale-of-original-ratings">
+     Convert to scale of original ratings
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-iterative-model-using-fit">
+   Train iterative model using
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     fit
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Create model object (load from sklearn)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Train model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Prediction
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -305,25 +364,22 @@
         
               <div>
                 
-  <div class="cell docutils container">
+  <div class="section" id="demo-iterative-approach-to-model-based-item-wise-collaborative-filtering">
+<h1>Demo: Iterative approach to Model-based item-wise collaborative filtering<a class="headerlink" href="#demo-iterative-approach-to-model-based-item-wise-collaborative-filtering" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;../resype&#39;</span><span class="p">)</span>
 <span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2 
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">preprocess_utility_matrix</span> <span class="k">as</span> <span class="n">um</span>
-<span class="kn">from</span> <span class="nn">method2</span> <span class="kn">import</span> <span class="n">build_iterative_model</span> <span class="k">as</span> <span class="n">im</span>
-</pre></div>
-</div>
-</div>
-</div>
+<div class="section" id="prepare-data">
+<h2>Prepare data<a class="headerlink" href="#prepare-data" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;M1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
@@ -407,12 +463,19 @@
 </table>
 </div></div></div>
 </div>
-<div class="section" id="preprocess-utility-matrix">
-<h1>Preprocess Utility Matrix<a class="headerlink" href="#preprocess-utility-matrix" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">U_df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movie_transactions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+    <span class="n">movies_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">],</span> 
+    <span class="n">value_vars</span><span class="o">=</span><span class="n">movies_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">movie_transactions</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movie_transactions</span>
 </pre></div>
 </div>
 </div>
@@ -435,10 +498,261 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>user_id</th>
+      <th>item_id</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>U1</td>
+      <td>M1</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>U3</td>
+      <td>M1</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>U5</td>
+      <td>M1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>U6</td>
+      <td>M1</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>U2</td>
+      <td>M2</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>U4</td>
+      <td>M2</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>U5</td>
+      <td>M2</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>U1</td>
+      <td>M3</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>U2</td>
+      <td>M3</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>U3</td>
+      <td>M3</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>U4</td>
+      <td>M3</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>U5</td>
+      <td>M3</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>U1</td>
+      <td>M4</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>U2</td>
+      <td>M4</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>U6</td>
+      <td>M4</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="load-resype">
+<h2>Load resype<a class="headerlink" href="#load-resype" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">resype</span> <span class="kn">import</span> <span class="n">Resype</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+<span class="n">utility_matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item_id</th>
       <th>M1</th>
       <th>M2</th>
       <th>M3</th>
       <th>M4</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>U1</th>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>U2</th>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>U3</th>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>U4</th>
+      <td>NaN</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>U5</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>U6</th>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="train-iterative-model-using-train-model-iterative">
+<h2>Train iterative model using <code class="docutils literal notranslate"><span class="pre">train_model_iterative</span></code><a class="headerlink" href="#train-iterative-model-using-train-model-iterative" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-model-object-load-from-sklearn">
+<h3>Create model object (load from sklearn)<a class="headerlink" href="#create-model-object-load-from-sklearn" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPRegressor</span>
+<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;identity&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="train-model">
+<h3>Train model<a class="headerlink" href="#train-model" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>item_id</th>
+      <th>M1</th>
+      <th>M2</th>
+      <th>M3</th>
+      <th>M4</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -490,8 +804,18 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_df_mc</span> <span class="o">=</span> <span class="n">um</span><span class="o">.</span><span class="n">mean_center_utilmat</span><span class="p">(</span><span class="n">U_df</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fillna</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fill_val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">U_df_mc</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix_imputed</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">trained_model</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">train_model_iterative</span><span class="p">(</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">rs_model1</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="prediction">
+<h3>Prediction<a class="headerlink" href="#prediction" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix_imputed</span>
 </pre></div>
 </div>
 </div>
@@ -513,138 +837,73 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
+      <th>item_id</th>
       <th>M1</th>
       <th>M2</th>
       <th>M3</th>
       <th>M4</th>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>U1</th>
-      <td>-2.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>-2.000000</td>
+      <td>-2.369122</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>0.0</td>
-      <td>-2.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>-1.760895</td>
+      <td>-2.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
     </tr>
     <tr>
       <th>U3</th>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>-1.0</td>
-      <td>0.0</td>
+      <td>1.000000</td>
+      <td>2.038087</td>
+      <td>-1.000000</td>
+      <td>-0.545798</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>0.0</td>
-      <td>2.0</td>
-      <td>-2.0</td>
-      <td>0.0</td>
+      <td>0.936376</td>
+      <td>2.000000</td>
+      <td>-2.000000</td>
+      <td>-1.008511</td>
     </tr>
     <tr>
       <th>U5</th>
-      <td>-1.0</td>
-      <td>-1.0</td>
-      <td>2.0</td>
-      <td>0.0</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>2.000000</td>
+      <td>1.265477</td>
     </tr>
     <tr>
       <th>U6</th>
-      <td>2.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-2.0</td>
+      <td>2.000000</td>
+      <td>3.592141</td>
+      <td>-3.495122</td>
+      <td>-2.000000</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="convert-to-scale-of-original-ratings">
+<h3>Convert to scale of original ratings<a class="headerlink" href="#convert-to-scale-of-original-ratings" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">known_index</span><span class="p">,</span> <span class="n">missing_index</span> <span class="o">=</span> <span class="n">um</span><span class="o">.</span><span class="n">known_missing_split_U</span><span class="p">(</span>
-    <span class="n">U_df_mc</span><span class="p">,</span> <span class="n">split_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">missing_val_filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">known_index</span><span class="p">,</span> <span class="n">missing_index</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>({&#39;M1&#39;: Index([&#39;U1&#39;, &#39;U3&#39;, &#39;U5&#39;, &#39;U6&#39;], dtype=&#39;object&#39;),
-  &#39;M2&#39;: Index([&#39;U2&#39;, &#39;U4&#39;, &#39;U5&#39;], dtype=&#39;object&#39;),
-  &#39;M3&#39;: Index([&#39;U1&#39;, &#39;U2&#39;, &#39;U3&#39;, &#39;U4&#39;, &#39;U5&#39;], dtype=&#39;object&#39;),
-  &#39;M4&#39;: Index([&#39;U1&#39;, &#39;U2&#39;, &#39;U6&#39;], dtype=&#39;object&#39;)},
- {&#39;M1&#39;: Index([&#39;U2&#39;, &#39;U4&#39;], dtype=&#39;object&#39;),
-  &#39;M2&#39;: Index([&#39;U1&#39;, &#39;U3&#39;, &#39;U6&#39;], dtype=&#39;object&#39;),
-  &#39;M3&#39;: Index([&#39;U6&#39;], dtype=&#39;object&#39;),
-  &#39;M4&#39;: Index([&#39;U3&#39;, &#39;U4&#39;, &#39;U5&#39;], dtype=&#39;object&#39;)})
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="build-models">
-<h2>Build Models<a class="headerlink" href="#build-models" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span><span class="p">,</span> <span class="n">MLPRegressor</span>
-<span class="n">mlp1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U</span> <span class="o">=</span> <span class="n">U_df_mc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">model_object</span> <span class="o">=</span> <span class="n">mlp1</span>
-
-<span class="n">models_item</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">initialize_models_itemwise</span><span class="p">(</span><span class="n">model_object</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="n">models_item</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;M1&#39;: MLPRegressor(hidden_layer_sizes=(100, 100)),
- &#39;M2&#39;: MLPRegressor(hidden_layer_sizes=(100, 100)),
- &#39;M3&#39;: MLPRegressor(hidden_layer_sizes=(100, 100)),
- &#39;M4&#39;: MLPRegressor(hidden_layer_sizes=(100, 100))}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">models</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">train_model_itemwise</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">mlp1</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2.6606449824444933, 0.33328486734034646, 0.04097416915601879]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">movies_df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">utility_matrix_imputed</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -666,141 +925,96 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
+      <th>item_id</th>
       <th>M1</th>
       <th>M2</th>
       <th>M3</th>
       <th>M4</th>
     </tr>
-  </thead>
-  <tbody>
     <tr>
-      <th>U1</th>
-      <td>2.0</td>
-      <td>NaN</td>
-      <td>5.0</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>U2</th>
-      <td>NaN</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>U3</th>
-      <td>3.0</td>
-      <td>NaN</td>
-      <td>1.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U4</th>
-      <td>NaN</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U5</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>U6</th>
-      <td>5.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">movies_df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
+      <th>user_id</th>
       <th></th>
-      <th>M1</th>
-      <th>M2</th>
-      <th>M3</th>
-      <th>M4</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>U1</th>
       <td>2.000000</td>
-      <td>1.732974</td>
-      <td>5.00000</td>
+      <td>1.630878</td>
+      <td>5.000000</td>
       <td>5.000000</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>1.325105</td>
+      <td>1.239105</td>
       <td>1.000000</td>
-      <td>4.00000</td>
+      <td>4.000000</td>
       <td>4.000000</td>
     </tr>
     <tr>
       <th>U3</th>
       <td>3.000000</td>
-      <td>2.742979</td>
-      <td>1.00000</td>
-      <td>0.535444</td>
+      <td>4.038087</td>
+      <td>1.000000</td>
+      <td>1.454202</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>5.634996</td>
+      <td>3.936376</td>
       <td>5.000000</td>
-      <td>1.00000</td>
-      <td>0.011292</td>
+      <td>1.000000</td>
+      <td>1.991489</td>
     </tr>
     <tr>
       <th>U5</th>
       <td>1.000000</td>
       <td>1.000000</td>
-      <td>4.00000</td>
-      <td>2.490220</td>
+      <td>4.000000</td>
+      <td>3.265477</td>
     </tr>
     <tr>
       <th>U6</th>
       <td>5.000000</td>
-      <td>4.504799</td>
-      <td>1.46964</td>
+      <td>6.592141</td>
+      <td>-0.495122</td>
       <td>1.000000</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+</div>
+</div>
+<div class="section" id="train-iterative-model-using-fit">
+<h2>Train iterative model using <code class="docutils literal notranslate"><span class="pre">fit</span></code><a class="headerlink" href="#train-iterative-model-using-fit" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Create model object (load from sklearn)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">U_imputed</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">movies_df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rs_model2</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;identity&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Train model<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rs_model2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Prediction<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">utility_matrix_preds</span>
 </pre></div>
 </div>
 </div>
@@ -822,477 +1036,66 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
+      <th>item_id</th>
       <th>M1</th>
       <th>M2</th>
       <th>M3</th>
       <th>M4</th>
     </tr>
+    <tr>
+      <th>user_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
       <th>U1</th>
-      <td>2.0</td>
-      <td>2.0</td>
-      <td>5.0</td>
-      <td>5.0</td>
+      <td>-2.000000</td>
+      <td>-2.266500</td>
+      <td>1.00000</td>
+      <td>1.000000</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
+      <td>-1.719377</td>
+      <td>-2.000000</td>
+      <td>1.00000</td>
+      <td>1.000000</td>
     </tr>
     <tr>
       <th>U3</th>
-      <td>3.0</td>
-      <td>3.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>1.000000</td>
+      <td>1.621206</td>
+      <td>-1.00000</td>
+      <td>-0.911281</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>6.0</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
+      <td>1.216474</td>
+      <td>2.000000</td>
+      <td>-2.00000</td>
+      <td>-1.437237</td>
     </tr>
     <tr>
       <th>U5</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>2.0</td>
+      <td>-1.000000</td>
+      <td>-1.000000</td>
+      <td>2.00000</td>
+      <td>1.095181</td>
     </tr>
     <tr>
       <th>U6</th>
-      <td>5.0</td>
-      <td>5.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
+      <td>2.000000</td>
+      <td>2.935264</td>
+      <td>-3.05629</td>
+      <td>-2.000000</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">models</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;M1&#39;: MLPRegressor(hidden_layer_sizes=(100, 100)),
- &#39;M2&#39;: MLPRegressor(hidden_layer_sizes=(100, 100)),
- &#39;M3&#39;: MLPRegressor(hidden_layer_sizes=(100, 100)),
- &#39;M4&#39;: MLPRegressor(hidden_layer_sizes=(100, 100))}
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="cluster-based-item-wise-iterative-model">
-<h2>Cluster based item-wise iterative model<a class="headerlink" href="#cluster-based-item-wise-iterative-model" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345678</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nc</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">nr</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">sample_util_mat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="n">nr</span><span class="p">,</span> <span class="n">nc</span><span class="p">)),</span> <span class="n">columns</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nc</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span>
-                               <span class="n">index</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nr</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">sample_util_mat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>10</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>1.98</td>
-      <td>3.39</td>
-      <td>2.44</td>
-      <td>2.52</td>
-      <td>1.10</td>
-      <td>1.95</td>
-      <td>2.55</td>
-      <td>3.72</td>
-      <td>4.36</td>
-      <td>4.04</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1.89</td>
-      <td>1.25</td>
-      <td>4.12</td>
-      <td>3.89</td>
-      <td>1.78</td>
-      <td>3.05</td>
-      <td>1.28</td>
-      <td>2.58</td>
-      <td>4.93</td>
-      <td>2.22</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4.13</td>
-      <td>3.94</td>
-      <td>4.35</td>
-      <td>1.49</td>
-      <td>4.47</td>
-      <td>3.24</td>
-      <td>4.35</td>
-      <td>3.96</td>
-      <td>4.14</td>
-      <td>3.73</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>4.66</td>
-      <td>1.89</td>
-      <td>3.29</td>
-      <td>3.52</td>
-      <td>1.05</td>
-      <td>2.05</td>
-      <td>3.92</td>
-      <td>4.16</td>
-      <td>2.30</td>
-      <td>2.11</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>1.49</td>
-      <td>2.64</td>
-      <td>4.81</td>
-      <td>1.96</td>
-      <td>1.04</td>
-      <td>1.08</td>
-      <td>3.64</td>
-      <td>3.73</td>
-      <td>3.80</td>
-      <td>3.80</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Uc</span> <span class="o">=</span> <span class="n">sample_util_mat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">Uc_arr</span> <span class="o">=</span> <span class="n">Uc</span><span class="o">.</span><span class="n">values</span>
-<span class="n">Uc_arr</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100, 10)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">nan_mask</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
-    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">U</span><span class="p">))</span>
-    <span class="n">random_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">size</span><span class="o">*</span><span class="n">p</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">mask</span><span class="p">)[</span><span class="n">random_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-    <span class="k">return</span> <span class="n">U</span><span class="o">*</span><span class="n">mask</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_missing_ratings</span><span class="p">(</span><span class="n">U_df</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">n_masks</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">cols</span> <span class="o">=</span> <span class="n">U_df</span><span class="o">.</span><span class="n">columns</span>
-    <span class="n">idx</span> <span class="o">=</span> <span class="n">U_df</span><span class="o">.</span><span class="n">index</span>
-    <span class="n">U_arr</span> <span class="o">=</span> <span class="n">U_df</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">masked_um</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_masks</span><span class="p">):</span>
-        <span class="n">masked_um</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nan_mask</span><span class="p">(</span><span class="n">U_arr</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">),</span>
-                                      <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span>
-                                      <span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">masked_um</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train_model_itemwise_cluster</span><span class="p">(</span><span class="n">Uc_df</span><span class="p">,</span> <span class="n">n_synth_data</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
-    <span class="n">synth_data</span> <span class="o">=</span> <span class="n">gen_missing_ratings</span><span class="p">(</span><span class="n">Uc_df</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">n_masks</span><span class="o">=</span><span class="n">n_synth_data</span><span class="p">)</span>
-    <span class="n">um_output</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_synth_data</span><span class="p">):</span>
-<span class="c1">#         print(n)</span>
-        <span class="n">U_df</span> <span class="o">=</span> <span class="n">synth_data</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-        <span class="n">U_df_mc</span> <span class="o">=</span> <span class="n">um</span><span class="o">.</span><span class="n">mean_center_utilmat</span><span class="p">(</span><span class="n">U_df</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fillna</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fill_val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">U_imputed</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">models</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">train_model_itemwise</span><span class="p">(</span>
-            <span class="n">U_df_mc</span><span class="p">,</span> <span class="n">mlp1</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">um_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">U_imputed</span><span class="p">)</span>
-    <span class="n">um_output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">um_output</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">um_output</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">um_output</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
-<span class="n">Uc_df_output</span> <span class="o">=</span> <span class="n">train_model_itemwise_cluster</span><span class="p">(</span><span class="n">Uc</span><span class="p">,</span> <span class="n">n_synth_data</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 2min 28s, sys: 17.8 s, total: 2min 46s
-Wall time: 42.2 s
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Uc_df_output</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>10</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>-0.564879</td>
-      <td>0.444075</td>
-      <td>0.099880</td>
-      <td>-0.032477</td>
-      <td>-0.814170</td>
-      <td>-0.549418</td>
-      <td>-0.264714</td>
-      <td>0.386276</td>
-      <td>0.732103</td>
-      <td>0.825674</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-0.276745</td>
-      <td>-0.770119</td>
-      <td>0.668810</td>
-      <td>0.628158</td>
-      <td>-0.515408</td>
-      <td>0.117801</td>
-      <td>-0.222044</td>
-      <td>-0.076345</td>
-      <td>1.029355</td>
-      <td>0.032829</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.019099</td>
-      <td>0.119873</td>
-      <td>0.324212</td>
-      <td>-0.759468</td>
-      <td>0.357400</td>
-      <td>-0.281754</td>
-      <td>0.284988</td>
-      <td>-0.060430</td>
-      <td>0.119311</td>
-      <td>-0.119509</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.831349</td>
-      <td>-0.284369</td>
-      <td>0.084006</td>
-      <td>0.538948</td>
-      <td>-1.174975</td>
-      <td>-0.667267</td>
-      <td>0.395567</td>
-      <td>0.950257</td>
-      <td>-0.339734</td>
-      <td>-0.274686</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>-0.584715</td>
-      <td>0.132368</td>
-      <td>1.358636</td>
-      <td>-0.784919</td>
-      <td>-0.818388</td>
-      <td>-0.769652</td>
-      <td>0.439653</td>
-      <td>0.186520</td>
-      <td>0.627836</td>
-      <td>0.711734</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>96</th>
-      <td>-0.628261</td>
-      <td>0.974417</td>
-      <td>0.038752</td>
-      <td>-0.683515</td>
-      <td>0.384567</td>
-      <td>-0.633225</td>
-      <td>-0.237920</td>
-      <td>-0.723705</td>
-      <td>0.788922</td>
-      <td>0.547416</td>
-    </tr>
-    <tr>
-      <th>97</th>
-      <td>-0.178800</td>
-      <td>-0.247348</td>
-      <td>-0.576279</td>
-      <td>-0.117154</td>
-      <td>0.518521</td>
-      <td>-0.190281</td>
-      <td>0.795683</td>
-      <td>0.168475</td>
-      <td>-0.122528</td>
-      <td>-0.120398</td>
-    </tr>
-    <tr>
-      <th>98</th>
-      <td>-0.557627</td>
-      <td>0.543934</td>
-      <td>0.895406</td>
-      <td>-0.866473</td>
-      <td>0.174473</td>
-      <td>-0.028557</td>
-      <td>-0.603036</td>
-      <td>-0.618714</td>
-      <td>0.125142</td>
-      <td>0.868991</td>
-    </tr>
-    <tr>
-      <th>99</th>
-      <td>-0.108538</td>
-      <td>-0.041217</td>
-      <td>0.128019</td>
-      <td>0.298424</td>
-      <td>-0.437466</td>
-      <td>-0.358596</td>
-      <td>-0.386778</td>
-      <td>-0.312278</td>
-      <td>0.672422</td>
-      <td>0.537355</td>
-    </tr>
-    <tr>
-      <th>100</th>
-      <td>0.119480</td>
-      <td>-0.913355</td>
-      <td>-0.180284</td>
-      <td>0.830303</td>
-      <td>-0.121085</td>
-      <td>0.601957</td>
-      <td>0.466102</td>
-      <td>0.329433</td>
-      <td>-0.168438</td>
-      <td>-0.807765</td>
-    </tr>
-  </tbody>
-</table>
-<p>100 rows × 10 columns</p>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">item</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">Uc</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;original&#39;</span><span class="p">)</span>
-<span class="n">Uc_df_output</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;model_output&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f8bcedf0340&gt;
-</pre></div>
-</div>
-<img alt="../_images/demo_notebook_iterative_model_27_1.png" src="../_images/demo_notebook_iterative_model_27_1.png" />
 </div>
 </div>
 </div>
