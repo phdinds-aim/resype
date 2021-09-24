@@ -15,7 +15,8 @@ parts:
 #   - file: gilbert/clustering_module
   - file: gilbert/user_clustering
   - file: gilbert/item_clustering
-#   - file: issa/aggregation_to_util_matrix_final
+  - file: issa/aggregation_to_util_matrix
+  - file: issa/cluster_assignment
 - caption: ML Models
   chapters:
   - file: eloi/demo_notebook_iterative_model
