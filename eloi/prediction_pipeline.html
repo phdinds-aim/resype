@@ -375,7 +375,7 @@
 <h2>Training on Large Datasets<a class="headerlink" href="#training-on-large-datasets" title="Permalink to this headline">¶</a></h2>
 <p>The diagram below shows the flowchart of the proposed method for model training. If the dataset is small (left branch), we use the two approaches metioned above and apply them to the raw utility matrix. Since we are training one model per item, a limitation of these methods is that they are computationally expensive especially when the iterative approach is used. Hence we need a more scalable solution. One way to do this assigning users and/or items into clusters and deriving a new utility matrix that contains the representative ratings per cluster.</p>
 <p>After clustering, the cluster-based utility matrix contains the aggregate ratings of each cluster. The collaborative filtering problem is now reduced to prediction of ratings per user- or item-cluster instead of predicting the ratings for all users and items.</p>
-<p><img src="../training_pipeline.png" width=800></img></p>
+<p><img alt="flowchart" src="../_images/training_pipeline.png" /></p>
 <div class="section" id="model-training-for-clustered-data">
 <h3>Model training for clustered data<a class="headerlink" href="#model-training-for-clustered-data" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
