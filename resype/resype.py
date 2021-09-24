@@ -206,7 +206,7 @@ class Resype:
         return known_idx, missing_idx
     
     
-    def nan_mask(p=0.2):
+    def nan_mask(self, U, p=0.2):
         """Randomly sets values of the utility matrix to NaN
 
         Parameters:
@@ -217,16 +217,13 @@ class Resype:
         Returns:
                 U*mask (numpy.array): utility matrix masked with NaNs
         """    
-        # VARS
-        U = self.utility_matrix
-
         mask = np.ones(np.shape(U))
         random_index = np.random.choice(U.size, size=int(U.size*p), replace=False)
         np.ravel(mask)[random_index] = np.nan
-        return U*mask    
+        return U*mask     
     
     
-    def gen_missing_ratings(U_df, p=0.2, n_masks=10):
+    def gen_missing_ratings(self, U_df, p=0.2, n_masks=10):
         """Generates multiple sets of masked utility matrix 
 
         Parameters:
@@ -244,7 +241,7 @@ class Resype:
         U_arr = U_df.values
         masked_um = []
         for n in range(n_masks):
-            masked_um.append(pd.DataFrame(nan_mask(U_arr, p=p),
+            masked_um.append(pd.DataFrame(self.nan_mask(U_arr, p=p),
                                           columns=cols,
                                           index=idx))
         return masked_um    
@@ -267,7 +264,7 @@ class Resype:
         return models
 
 
-    def initialize_models_userwise(U, model, suffix='_model'):
+    def initialize_models_userwise(self, U, model, suffix='_model'):
         """Initializes classifier/regressor per user to be predicted
 
         Parameters:
@@ -375,7 +372,7 @@ class Resype:
         return metric, stop_train
 
 
-    def train_model_itemwise(self,
+    def train_model_iterative(self,
             U_df, model_object, return_models=True, max_iter=100,
             stopping_criterion='mse', mse_threshold=0.1, stdev_threshold=None,
             scaled=False, scaling_method='max', rating_min=None, rating_max=None):
@@ -424,7 +421,7 @@ class Resype:
             model=model_object, U=U, suffix='')
 
         known_index, missing_index = self.known_missing_split_U(
-            U=U, split_axis=1, missing_val_filled=True)
+            U=U, split_axis=1, missing_val_filled=False)
 
         len_missing_vals = len(sum([i.tolist()
                                     for i in missing_index.values()], []))
@@ -527,7 +524,10 @@ class Resype:
         if return_models:
             return U_update, models_item
         else:
-            return U_update        
+            return U_update     
+        
+        
+  
         
         
     def mean_filled_utilmat(self, U, axis=1):
@@ -535,22 +535,80 @@ class Resype:
             return U.T.fillna(U.mean(axis=axis)).T
         else:
             return U.fillna(U.mean(axis=axis))
+        
+        
+        
+        
+    def train_model_iterative_cluster(self,
+            model_object, n_synth_data=100, p=0.2, return_models=True):
+        """Trains model iteratively for the cluster-based recommender system: 
+        (1) Given cluster-based utility matrix, create multiple synthetic data of 
+        missing ratings. Randomly drop matrix elements by setting them to NaN to 
+        create "missing" ratings. 
+        (2) For each set of synthetic data:
+            (2a) Estimate the missing entries of each column/item by setting it as 
+            the target variable and the remaining columns as the feature variables. 
+            (2b) For the remaining columns, the current set of filled in values are 
+            used to create a complete matrix of feature variables. 
+            (2c) The observed ratings in the target column are used for training. 
+            (2d) The missing entries are updated based on the prediction of the 
+            model on each target column. 
+        (3) Get mean of the completed utility matrix from all imputed synthetic data. 
+
+        Parameters:
+                Uc_df (DataFrame): output utility matrix from clustering
+                    (rows are users, columns are items) 
+                model_object: model object to use to fit the data
+                n_synth_data (int): number of synthetic datasets to be generated,
+                    default 100
+                p (float): percentage of matrix which will be set to NaN, 
+                    value ranges from 0 to 1, default 0.2         
+
+        Returns:
+                (DataFrame): updated cluster-based utility matrix 
+
+        """
+        # VARS
+        Uc_df = self.utility_matrix
 
 
-    def fit(self, model_object, method="iterative"):
+        synth_data = self.gen_missing_ratings(Uc_df, p=p, n_masks=n_synth_data)
+        um_output = []
+        for n in range(n_synth_data):
+            U_df = synth_data[n]
+            U_df_mc = self.mean_center_utilmat(U_df, axis=1, fillna=True, fill_val=0)
+            U_imputed, metrics, models = self.train_model_iterative(
+                U_df_mc, model_object, return_models=return_models)
+            um_output.append(U_imputed)
+        um_output = pd.concat(um_output)
+
+        # final preds
+        self.utility_matrix_preds = um_output.groupby(um_output.index).mean()
+
+        return self.utility_matrix_preds
+
+
+
+    def fit(self, model_object, method="iterative", n_synth_data=5, p=0.1):
         U_df_mc = self.mean_center_utilmat(self.utility_matrix, axis=1, fillna=False)
 
-        if method == 'iterative':
-            self.models_item = self.initialize_models_itemwise(U_df_mc, model_object, suffix='')    
-            U_imputed, metrics, models = self.train_model_itemwise(U_df_mc, model_object, return_models=True) 
-            self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
+        if method == 'iterative':        
+            if self.users_clustered or self.items_clustered: # if clustered
+                self.utility_matrix_preds = self.train_model_iterative_cluster(model_object=model_object,
+                                                                              n_synth_data=n_synth_data, p=p)            
 
+            else: # if not clustered    
+                self.models_item = self.initialize_models_itemwise(U_df_mc, model_object, suffix='')    
+                U_imputed, metrics, models = self.train_model_iterative(U_df_mc, model_object, return_models=True) 
+                self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
+
+        # works for both clustered or unclustered?
         if method == 'svd':
             self.models_item = self.initialize_models_itemwise(U_df_mc, model_object, suffix='')
             U_imputed, models = self.train_model_svd(U_df_mc, model_object, d=2, return_models=True)        
             self.utility_matrix_preds = U_imputed
 
-        return None      
+        return None    
     
     def get_rec(self, user_list, top_n, uc_assignment=None):
 
@@ -591,3 +649,195 @@ class Resype:
 
         self.df_rec = df_rec
         return df_rec    
+    
+    
+    
+    
+### CLUSTERED VERSION
+
+    def cluster_users(self, model):
+        """
+        Perform user-wise clustering and assign each user to a cluster.
+
+        Paramters
+        ---------                  
+        model        : an sklearn model object
+                       An object with a fit_predict method. Used to cluster the
+                       users into groups with similar ratings of items.
+
+        Returns
+        -------
+        model         : an sklearn model object
+                        The fitted version of the model input used to predict the
+                        clusters of users from fname
+
+        result        : dict
+                        A mapping of each user's cluster with the keys being the
+                        user_id and the values their cluster membership
+
+        df            : pandas DataFrame
+                        Utility matrix derived from fname with the final column
+                        corresponding to the cluster membership of that user
+        """
+
+        # SOME VARIABLES
+        df = self.utility_matrix # utility matrix    
+        df = df.fillna(0) # fillna with 0
+
+        # Aggregation through tables
+        u_clusterer = model
+        u_predict = u_clusterer.fit_predict(df)
+        df['u_cluster'] = u_predict
+
+        model = u_clusterer
+        result = dict(df['u_cluster'])
+
+        # Output variables
+        self.user_cluster_model = model # attach the user_cluster_model to the class
+        self.utility_matrix_w_user_clusters = df # utility matrix with user clusters
+        self.user_cluster_mapping_dict = result # mapping of users and cluster labels
+        self.users_clustered = True # tag that we clustered the users
+
+        return model, result, df
+    
+    
+    
+    def cluster_items(self, model):
+
+        # WE MIGHT WANT TO FIX TO DROP COLS AS HARD CODED INSTEAD OF AN ARGUMENT
+        # SO LONG AS WE STANDARDIZE THE INPUT
+
+        """
+        Perform item-wise clustering and assign each item to a cluster of similar
+        items based on the users that 
+
+        Paramters
+        ---------
+
+        model        : an sklearn model object
+                       An object with a fit_predict method. Used to cluster the
+                       users into groups with similar ratings of items.
+
+        Returns
+        -------
+        model         : an sklearn model object
+                        The fitted version of the model input used to predict the
+                        clusters of items from fname
+
+        result        : dict
+                        A mapping of each item's cluster with the keys being the
+                        item_id and the values their cluster membership
+
+        df_items      : pandas DataFrame
+                        Utility matrix derived from fname with the final column
+                        corresponding to the cluster membership of that item
+        """
+
+        # SOME VARIABLES
+        df = self.utility_matrix # utility matrix      
+        df = self.utility_matrix # utility matrix    
+        df = df.fillna(0) # fillna with 0
+
+        df_items = df.T
+        i_clusterer = model
+
+        i_predict = i_clusterer.fit_predict(df_items)
+        df_items['i_cluster'] = i_predict
+
+        model = i_clusterer
+        result = dict(df_items['i_cluster'])
+
+        # Output variables
+        self.item_cluster_model = model # attach the item_cluster_model to the class
+        self.utility_matrix_w_item_clusters = df_items # utility matrix with item clusters
+        self.item_cluster_mapping_dict = result # mapping of users and cluster labels    
+        self.items_clustered = True # tag that we clustered the items
+
+        return model, result, df_items    
+    
+    
+    def cluster_assignment(self):
+
+        """
+        Converts the dictionary containing user_id and user_cluster assignment  
+        to a pandas data frame 
+
+        Returns
+        -------
+        result        : dataframe of cluster assignments
+
+        """
+
+        if self.users_clustered: # if we ran the cluster_users method: 
+            data_name='user_id'        
+            cluster_name='u_cluster'        
+            self.user_assignment = pd.DataFrame(list(self.user_cluster_mapping_dict.items()), columns=[data_name, cluster_name])
+            self.user_assignment.set_index(data_name, inplace=True)
+
+        if self.items_clustered: # if we ran the cluster_users method: 
+            data_name='item_id'        
+            cluster_name='i_cluster'        
+            self.item_assignment = pd.DataFrame(list(self.item_cluster_mapping_dict.items()), columns=[data_name, cluster_name])
+            self.item_assignment.set_index(data_name, inplace=True)
+
+        return None
+
+    def utility_matrix_agg(self, u_agg='mean', i_agg='mean'):
+        """
+        Aggregates the results of the clustering with respect to item clusters and user clusters. 
+        ------
+        Methods : two possible ways to aggregate the results of cluster assignments in df_u and df_i are 'sum' and 'mean'
+        u_agg   : aggregration method to be used for users
+
+        i_agg   : aggregation method to be used for items
+
+        -----
+        Returns : utility matrix consisting of the aggregrated user clusters as rows and aggregated item clusters as columns
+
+        """
+
+        # GET utility matrices with cluster labels
+        df_u = self.utility_matrix_w_user_clusters
+        df_i = self.utility_matrix_w_item_clusters
+
+        u_series = df_u['u_cluster']
+        i_series = df_i['i_cluster']
+
+        u_ids = np.unique(u_series.values)
+        i_ids = np.unique(i_series.values) 
+
+        u_feats = {}
+        for u_id in u_ids: #u_ids are clusters of u_id
+            sub_df = df_u.groupby('u_cluster').get_group(
+                u_id).drop(columns=['u_cluster']).T
+            sub_df = sub_df.merge(i_series, left_index=True, right_index=True)
+
+            if u_agg == 'sum':
+                df_grp = sub_df.groupby('i_cluster').sum()
+            if u_agg == 'mean':
+                df_grp = sub_df.groupby('i_cluster').mean()
+            if not isinstance(u_agg,str):
+                df_grp = sub_df.groupby('i_cluster').apply(u_agg)
+
+            if i_agg == 'sum':
+                df_grp = df_grp.sum(axis=1)
+            if i_agg == 'mean':
+                df_grp = df_grp.mean(axis=1)
+            if not isinstance(i_agg,str):
+                df_grp = df_grp.apply(i_agg, axis=1)
+
+            u_feats[u_id] = df_grp
+
+
+        u_matrix = pd.DataFrame()
+        for k, v in u_feats.items():
+            u_matrix = u_matrix.merge(v.rename(k), how='outer',
+                                      left_index=True, right_index=True)
+
+        # UPDATE THE UTILITY MATRIX
+        self.utility_matrix = u_matrix.fillna(0).T 
+        self.utility_matrix.index.rename('u_cluster', inplace=True)
+        return self.utility_matrix   
+    
+    
+    
