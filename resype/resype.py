@@ -372,7 +372,7 @@ class Resype:
         return metric, stop_train
 
 
-    def train_model_itemwise(self,
+    def train_model_iterative(self,
             U_df, model_object, return_models=True, max_iter=100,
             stopping_criterion='mse', mse_threshold=0.1, stdev_threshold=None,
             scaled=False, scaling_method='max', rating_min=None, rating_max=None):
@@ -421,7 +421,7 @@ class Resype:
             model=model_object, U=U, suffix='')
 
         known_index, missing_index = self.known_missing_split_U(
-            U=U, split_axis=1, missing_val_filled=True)
+            U=U, split_axis=1, missing_val_filled=False)
 
         len_missing_vals = len(sum([i.tolist()
                                     for i in missing_index.values()], []))
@@ -539,7 +539,7 @@ class Resype:
         
         
         
-    def train_model_itemwise_cluster(self,
+    def train_model_iterative_cluster(self,
             model_object, n_synth_data=100, p=0.2, return_models=True):
         """Trains model iteratively for the cluster-based recommender system: 
         (1) Given cluster-based utility matrix, create multiple synthetic data of 
@@ -577,7 +577,7 @@ class Resype:
         for n in range(n_synth_data):
             U_df = synth_data[n]
             U_df_mc = self.mean_center_utilmat(U_df, axis=1, fillna=True, fill_val=0)
-            U_imputed, metrics, models = self.train_model_itemwise(
+            U_imputed, metrics, models = self.train_model_iterative(
                 U_df_mc, model_object, return_models=return_models)
             um_output.append(U_imputed)
         um_output = pd.concat(um_output)
@@ -594,12 +594,12 @@ class Resype:
 
         if method == 'iterative':        
             if self.users_clustered or self.items_clustered: # if clustered
-                self.utility_matrix_preds = self.train_model_itemwise_cluster(model_object=model_object,
+                self.utility_matrix_preds = self.train_model_iterative_cluster(model_object=model_object,
                                                                               n_synth_data=n_synth_data, p=p)            
 
             else: # if not clustered    
                 self.models_item = self.initialize_models_itemwise(U_df_mc, model_object, suffix='')    
-                U_imputed, metrics, models = self.train_model_itemwise(U_df_mc, model_object, return_models=True) 
+                U_imputed, metrics, models = self.train_model_iterative(U_df_mc, model_object, return_models=True) 
                 self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
 
         # works for both clustered or unclustered?
