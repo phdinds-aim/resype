@@ -494,16 +494,19 @@ class Resype:
         """
         U = U_df.copy()
 
-        known_index, missing_index = self.known_missing_split_U(
-            U, split_axis=1)
+        models_item = self.initialize_models_itemwise(
+            model=model_object, U=U, suffix='')
 
-        U = self.mean_filled_utilmat(U)
+        known_index, missing_index = self.known_missing_split_U(
+            U=U, split_axis=1, missing_val_filled=False)
+
         U_update = U.copy()
 
         models_item = self.initialize_models_itemwise(model=model_object, U=U, suffix='')
 
         for item in U.columns:
             U_temp = U.drop(item, axis=1)
+            U_temp = self.mean_filled_utilmat(U_temp)
             S = np.matmul(U_temp.T.values, U_temp.values)
             _, _, PT = svds(S, k=d)
             Pd = PT.T
@@ -513,6 +516,7 @@ class Resype:
             models_item[str(item)].fit(
                 U_svd.loc[known_index[item]],
                 U_update.loc[known_index[item], item])
+
             if len(missing_index[item]) > 0:
                 pred = models_item[str(item)].predict(
                     U_svd.loc[missing_index[item]])
@@ -527,20 +531,16 @@ class Resype:
             return U_update     
         
         
-  
-        
         
     def mean_filled_utilmat(self, U, axis=1):
         if axis:
             return U.T.fillna(U.mean(axis=axis)).T
         else:
             return U.fillna(U.mean(axis=axis))
-        
-        
-        
+       
         
     def train_model_iterative_cluster(self,
-            model_object, n_synth_data=100, p=0.2, return_models=True):
+            Uc_df, model_object, n_synth_data=100, p=0.2, return_models=True):
         """Trains model iteratively for the cluster-based recommender system: 
         (1) Given cluster-based utility matrix, create multiple synthetic data of 
         missing ratings. Randomly drop matrix elements by setting them to NaN to 
@@ -569,16 +569,13 @@ class Resype:
 
         """
         # VARS
-        Uc_df = self.utility_matrix
-
-
+        
         synth_data = self.gen_missing_ratings(Uc_df, p=p, n_masks=n_synth_data)
         um_output = []
         for n in range(n_synth_data):
             U_df = synth_data[n]
-            U_df_mc = self.mean_center_utilmat(U_df, axis=1, fillna=True, fill_val=0)
             U_imputed, metrics, models = self.train_model_iterative(
-                U_df_mc, model_object, return_models=return_models)
+                U_df, model_object, return_models=return_models)
             um_output.append(U_imputed)
         um_output = pd.concat(um_output)
 
@@ -587,26 +584,89 @@ class Resype:
 
         return self.utility_matrix_preds
 
+    def train_model_svd_cluster(self,
+            Uc_df, model_object, n_synth_data=100, d=10, p=0.2, return_models=True):
+        """Trains model iteratively for the cluster-based recommender system: 
+        (1) Given cluster-based utility matrix, create multiple synthetic data of 
+        missing ratings. Randomly drop matrix elements by setting them to NaN to 
+        create "missing" ratings. 
+        (2) For each set of synthetic data:
+            (2a) Estimates the missing entries of the utility matrix.
+            (2b) Each column/item is set as the target variable one at a time, and
+            the remaining columns are set as the feature matrix.
+            (2c) SVD is performed on the feature matrix before model training.
+            (2d) Rows with missing items are in the test set, while the rest are in 
+            the training set.
+            (2e) Process is repeated for all columns/items, yielding a completed 
+            utility matrix.
+        (3) Get mean of the completed utility matrix from all imputed synthetic data. 
+
+        Parameters:
+                Uc_df (DataFrame): output utility matrix from clustering
+                    (rows are users, columns are items) 
+                model_object: model object to use to fit the data
+                n_synth_data (int): number of synthetic datasets to be generated,
+                    default 100
+                p (float): percentage of matrix which will be set to NaN, 
+                    value ranges from 0 to 1, default 0.2         
+
+        Returns:
+                (DataFrame): updated cluster-based utility matrix 
+
+        """
+        # VARS
+        
+        synth_data = self.gen_missing_ratings(Uc_df, p=p, n_masks=n_synth_data)
+        um_output = []
+        for n in range(n_synth_data):
+            U_df = synth_data[n]
+            U_imputed, models = self.train_model_svd(
+                U_df, model_object, d=d, return_models=return_models)
+            um_output.append(U_imputed)
+        um_output = pd.concat(um_output)
+
+        # final preds
+        self.utility_matrix_preds = um_output.groupby(um_output.index).mean()
+
+        return self.utility_matrix_preds    
 
 
-    def fit(self, model_object, method="iterative", n_synth_data=5, p=0.1):
+
+    def fit(self, model_object, method="iterative", n_synth_data=5, p=0.1,
+            d=2):
+        return_models=False
         U_df_mc = self.mean_center_utilmat(self.utility_matrix, axis=1, fillna=False)
 
         if method == 'iterative':        
             if self.users_clustered or self.items_clustered: # if clustered
-                self.utility_matrix_preds = self.train_model_iterative_cluster(model_object=model_object,
-                                                                              n_synth_data=n_synth_data, p=p)            
+                
+                self.utility_matrix_preds = self.train_model_iterative_cluster(
+                    self.utility_matrix, model_object=model_object, 
+                    n_synth_data=n_synth_data, p=p)            
 
             else: # if not clustered    
-                self.models_item = self.initialize_models_itemwise(U_df_mc, model_object, suffix='')    
-                U_imputed, metrics, models = self.train_model_iterative(U_df_mc, model_object, return_models=True) 
+                self.models_item = self.initialize_models_itemwise(
+                    self.utility_matrix, model_object, suffix='')    
+                U_imputed, metrics = self.train_model_iterative(
+                    self.utility_matrix, model_object,
+                    return_models=return_models) 
                 self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
 
         # works for both clustered or unclustered?
         if method == 'svd':
-            self.models_item = self.initialize_models_itemwise(U_df_mc, model_object, suffix='')
-            U_imputed, models = self.train_model_svd(U_df_mc, model_object, d=2, return_models=True)        
-            self.utility_matrix_preds = U_imputed
+            if self.users_clustered or self.items_clustered: # if clustered
+
+                self.utility_matrix_preds = self.train_model_svd_cluster(
+                    self.utility_matrix, model_object=model_object, 
+                    n_synth_data=n_synth_data, p=p, d=d)     
+                
+            else: 
+                self.models_item = self.initialize_models_itemwise(
+                    self.utility_matrix, model_object, suffix='')
+                U_imputed = self.train_model_svd(
+                    self.utility_matrix, model_object, d=d, 
+                    return_models=return_models)        
+                self.utility_matrix_preds = U_imputed
 
         return None    
     
@@ -628,13 +688,10 @@ class Resype:
 
         utility_matrix_o = self.utility_matrix.fillna(0).values
         utility_matrix = self.utility_matrix_preds.values
-
         # Don't recommend items that are already rated
         utility_matrix[np.where(utility_matrix_o != 0)] = -np.inf
-
         # Get top N per user cluster
         cluster_rec = utility_matrix.argsort()[:, -top_n:]
-
         # Create recommendation table
         df_rec = pd.DataFrame()
         df_rec['user_id'] = user_list
@@ -645,12 +702,67 @@ class Resype:
                 if uc_assignment is None:
                     df_rec.iloc[j, i+1] = cluster_rec[user_list[j], top_n-i-1]
                 else:
-                    df_rec.iloc[j, i+1] = cluster_rec[uc_assignment[user_list[j]], top_n-i-1]
+                    df_rec.iloc[j, i+1] = cluster_rec[uc_assignment.iloc[user_list[j], 0], top_n-i-1]
+
+        # look-up tables
+        if uc_assignment is None:
+            user_id_lookup = self.utility_matrix_preds.index
+            item_id_lookup = self.utility_matrix_preds.columns
+            for j in range(df_rec.shape[0]):
+                df_rec.iloc[j, 0] = user_id_lookup[df_rec.iloc[j, 0].astype('int32')]
+                for i in range(top_n):
+                    df_rec.iloc[j, i+1] = item_id_lookup[df_rec.iloc[j, i+1].astype('int32')]
 
         self.df_rec = df_rec
-        return df_rec    
+        return df_rec
     
-    
+    def get_rec_item(self, top_k):
+
+        """Returns the top K item recommendations for each user in the user list. 
+        Items are selected randomly from the top recommended item cluster, exhaustively. Left overs are taken from the next highest ranked item clusters in a cascading fashion.
+
+                Parameters:
+                        df_rec (pandas.DataFrame): Table containing the top N item cluster recommendations for each user in the user list
+                        ic_assignment (array-like): List containing the cluster assignment of each item
+                        top_n (int): Number of items to recommend
+
+                Returns:
+                        df_rec_item (pandas.DataFrame): Table containing the top K item recommendations for each user in the user list
+
+        """
+        df_rec = self.df_rec # recommendations after running get_rec()
+        ic_assignment = self.item_assignment # item-cluster assignment
+
+        # Create recommendation table
+        df_rec_item = pd.DataFrame()
+        df_rec_item['user_id'] = df_rec['user_id']  
+
+        for i in range(top_k):
+            df_rec_item['rank_'+str(i+1)] = np.zeros(df_rec_item.shape[0])
+
+        # Get items
+        for j in range(df_rec_item.shape[0]):
+            item_rec = []
+            rank = 0
+            while len(item_rec) < top_k:
+                if rank+1 >= df_rec.shape[1]:
+                    item_list = list(set(self.transaction_list['item_id'])-set(item_rec))
+                    item_rec = item_rec + list(np.random.choice(item_list, size=top_k-len(item_rec), replace=False))
+                    break
+                item_list = ic_assignment.index[np.where(ic_assignment == df_rec.iloc[j, rank+1])[0]]
+                if top_k-len(item_rec) > len(item_list):
+                    item_rec = item_rec + list(item_list)
+                    rank += 1
+                else:
+                    item_rec = item_rec + list(np.random.choice(item_list, size=top_k-len(item_rec), replace=False))
+            df_rec_item.iloc[j, 1:] = item_rec
+
+        # look-up tables
+        user_id_lookup = self.user_assignment.index
+        for j in range(df_rec_item.shape[0]):
+            df_rec_item.iloc[j, 0] = user_id_lookup[df_rec_item.iloc[j, 0].astype('int32')]
+
+        return df_rec_item    
     
     
 ### CLUSTERED VERSION

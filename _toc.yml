@@ -8,18 +8,22 @@ parts:
   chapters:
 #   - file: francis/csv_preprocessing
   - file: francis/item_feature_ntbk
-  - file: francis/user_feature_ntbk
   - file: francis/transaction_list_ntbk
+  - file: francis/user_feature_ntbk
 - caption: Clustering
   chapters:
 #   - file: gilbert/clustering_module
   - file: gilbert/user_clustering
   - file: gilbert/item_clustering
-#   - file: issa/aggregation_to_util_matrix_final
+  - file: issa/aggregation
+  - file: issa/assignment
 - caption: ML Models
   chapters:
+  - file: eloi/prediction_pipeline
   - file: eloi/demo_notebook_iterative_model
+  - file: eloi/demo_notebook_clusterbased_iterative_model
   - file: eloi/demo_notebook_svd_model
+  - file: eloi/demo_notebook_clusterbased_svd_model
 - caption: Get Recommendations
   chapters:
   - file: basti/get_rec
