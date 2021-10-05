@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Splitting transaction table randomly to create train and test sets &#8212; ReSyPE</title>
+    <title>Splitting transaction table chronologically to train and test sets &#8212; ReSyPE</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -237,7 +237,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/issa/split_train_test_random.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/issa/split_train_test_chronological.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -257,7 +257,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fissa/split_train_test_random.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fissa/split_train_test_chronological.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -278,7 +278,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/issa/split_train_test_random.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/issa/split_train_test_chronological.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -302,12 +302,12 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Splitting transaction table randomly to create train and test sets
+   Splitting transaction table chronologically to train and test sets
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#splitting">
-   Splitting
+  <a class="reference internal nav-link" href="#splitting-chronologically">
+   Splitting chronologically
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -326,9 +326,9 @@
         
               <div>
                 
-  <div class="section" id="splitting-transaction-table-randomly-to-create-train-and-test-sets">
-<h1>Splitting transaction table randomly to create train and test sets<a class="headerlink" href="#splitting-transaction-table-randomly-to-create-train-and-test-sets" title="Permalink to this headline">¶</a></h1>
-<p>This notebook contains the first function:</p>
+  <div class="section" id="splitting-transaction-table-chronologically-to-train-and-test-sets">
+<h1>Splitting transaction table chronologically to train and test sets<a class="headerlink" href="#splitting-transaction-table-chronologically-to-train-and-test-sets" title="Permalink to this headline">¶</a></h1>
+<p>This notebook contains the first function but with inclusion of the timestamp of the ratings:</p>
 <ol class="simple">
 <li><p>split_train_test: creates train and test sets by splitting the raw data ‘user_feature.csv’.</p></li>
 <li><p>evaluate: calculates the mse and mae of the final recommendations to the actual recommendations based on the test set.</p></li>
@@ -346,7 +346,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data = pd.read_csv(&#39;user_feature.csv&#39;)</span>
-<span class="c1"># features = [&#39;userId&#39;, &#39;movieId&#39;, &#39;rating&#39;]</span>
+<span class="c1"># features = [&#39;userId&#39;, &#39;movieId&#39;, &#39;rating&#39;, &#39;timestamp&#39;]</span>
 <span class="c1"># # data</span>
 <span class="c1"># new_data=data[features]</span>
 <span class="c1"># new_data</span>
@@ -375,6 +375,7 @@
       <th>userId</th>
       <th>movieId</th>
       <th>rating</th>
+      <th>timestamp</th>
     </tr>
   </thead>
   <tbody>
@@ -383,33 +384,39 @@
       <td>1</td>
       <td>1</td>
       <td>4.0</td>
+      <td>964982703</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1</td>
       <td>3</td>
       <td>4.0</td>
+      <td>964981247</td>
     </tr>
     <tr>
       <th>2</th>
       <td>1</td>
       <td>6</td>
       <td>4.0</td>
+      <td>964982224</td>
     </tr>
     <tr>
       <th>3</th>
       <td>1</td>
       <td>47</td>
       <td>5.0</td>
+      <td>964983815</td>
     </tr>
     <tr>
       <th>4</th>
       <td>1</td>
       <td>50</td>
       <td>5.0</td>
+      <td>964982931</td>
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -419,46 +426,51 @@
       <td>610</td>
       <td>166534</td>
       <td>4.0</td>
+      <td>1493848402</td>
     </tr>
     <tr>
       <th>100832</th>
       <td>610</td>
       <td>168248</td>
       <td>5.0</td>
+      <td>1493850091</td>
     </tr>
     <tr>
       <th>100833</th>
       <td>610</td>
       <td>168250</td>
       <td>5.0</td>
+      <td>1494273047</td>
     </tr>
     <tr>
       <th>100834</th>
       <td>610</td>
       <td>168252</td>
       <td>5.0</td>
+      <td>1493846352</td>
     </tr>
     <tr>
       <th>100835</th>
       <td>610</td>
       <td>170875</td>
       <td>3.0</td>
+      <td>1493846415</td>
     </tr>
   </tbody>
 </table>
-<p>100836 rows × 3 columns</p>
+<p>100836 rows × 4 columns</p>
 </div></div></div>
 </div>
 </div>
-<div class="section" id="splitting">
-<h1>Splitting<a class="headerlink" href="#splitting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="splitting-chronologically">
+<h1>Splitting chronologically<a class="headerlink" href="#splitting-chronologically" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="k">def</span> <span class="nf">split_train_test</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">train_ratio</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">split_train_test_chronological</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">train_ratio</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Splits the transaction data into train and test sets.</span>
+<span class="sd">    Splits the transaction data into train and test sets based on chronological order.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -478,6 +490,13 @@
 <span class="sd">                   index=column[0], columns=itemId, values=rating.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
+    <span class="c1"># 1. check if the data has timestamp</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;timestamp&#39;</span>
+    <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="c1">#     print(&#39;column does not exist&#39;)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;could not find </span><span class="si">%s</span><span class="s1"> in </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)))</span>
+    
+    <span class="c1"># 2. split data into train and test. test set is automatically the last 30% of the data set</span>
     <span class="n">list_df_train</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">list_df_test</span> <span class="o">=</span> <span class="p">[]</span>
     
@@ -490,35 +509,152 @@
             <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
             <span class="n">list_df_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             
-        <span class="k">else</span><span class="p">:</span>            
-            <span class="n">df_train</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="n">train_ratio</span><span class="p">)</span>  
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">df_train</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">train_ratio</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">])),:]</span>
+            
             <span class="n">ind</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">index</span>
             <span class="n">df_test</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+            
             <span class="n">list_df_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span> 
             <span class="n">list_df_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
 
-    <span class="c1"># 2. merge selected train set per user to a single dataframe</span>
+    <span class="c1"># 3. merge selected train set per user to a single dataframe</span>
     <span class="n">df_train_fin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">list_df_train</span><span class="p">)</span>
     <span class="n">df_test_fin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">list_df_test</span><span class="p">)</span>
     
-    <span class="c1"># 3. Option to pivot it to create the utility matrix ready as input for recsys</span>
+    <span class="c1"># 4. Option to pivot it to create the utility matrix ready as input for recsys</span>
     <span class="n">df_test_um</span> <span class="o">=</span> <span class="n">df_test_fin</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">df_test_fin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">df_test_fin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="n">df_test_fin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
     
-    <span class="c1"># 4. get indices of train and test sets</span>
+    <span class="c1"># 5. get indices of train and test sets</span>
     <span class="n">indx_train</span> <span class="o">=</span> <span class="n">df_train_fin</span><span class="o">.</span><span class="n">index</span>
     <span class="n">indx_test</span> <span class="o">=</span> <span class="n">df_test_fin</span><span class="o">.</span><span class="n">index</span>
 
-    <span class="k">return</span> <span class="n">df_train_fin</span><span class="p">,</span> <span class="n">df_test_fin</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="c1">#return indices</span>
+    <span class="k">return</span> <span class="n">df_train_fin</span><span class="p">,</span> <span class="n">df_test_fin</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> 
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">ind_train</span><span class="p">,</span> <span class="n">ind_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">ind_train</span><span class="p">,</span> <span class="n">ind_test</span> <span class="o">=</span> <span class="n">split_train_test_chronological</span><span class="p">(</span><span class="n">new_data</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>movieId</th>
+      <th>rating</th>
+      <th>timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>73</th>
+      <td>1</td>
+      <td>1210</td>
+      <td>5.0</td>
+      <td>964980499</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>1</td>
+      <td>804</td>
+      <td>4.0</td>
+      <td>964980499</td>
+    </tr>
+    <tr>
+      <th>120</th>
+      <td>1</td>
+      <td>2018</td>
+      <td>5.0</td>
+      <td>964980523</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>1</td>
+      <td>2628</td>
+      <td>4.0</td>
+      <td>964980523</td>
+    </tr>
+    <tr>
+      <th>183</th>
+      <td>1</td>
+      <td>2826</td>
+      <td>4.0</td>
+      <td>964980523</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>100610</th>
+      <td>610</td>
+      <td>101112</td>
+      <td>3.0</td>
+      <td>1493847967</td>
+    </tr>
+    <tr>
+      <th>100022</th>
+      <td>610</td>
+      <td>7369</td>
+      <td>2.5</td>
+      <td>1493847980</td>
+    </tr>
+    <tr>
+      <th>100603</th>
+      <td>610</td>
+      <td>100163</td>
+      <td>3.0</td>
+      <td>1493847984</td>
+    </tr>
+    <tr>
+      <th>99808</th>
+      <td>610</td>
+      <td>4153</td>
+      <td>3.0</td>
+      <td>1493847986</td>
+    </tr>
+    <tr>
+      <th>100565</th>
+      <td>610</td>
+      <td>95558</td>
+      <td>3.5</td>
+      <td>1493847991</td>
+    </tr>
+  </tbody>
+</table>
+<p>70312 rows × 4 columns</p>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="unittest">
@@ -531,8 +667,8 @@
 <span class="k">class</span> <span class="nc">Test_split</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
     
     <span class="k">def</span> <span class="nf">test_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;u&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="s1">&#39;i&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">:[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">]})</span> 
-        <span class="n">df_train1</span><span class="p">,</span> <span class="n">df_test1</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">ind_train</span><span class="p">,</span> <span class="n">ind_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;u&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="s1">&#39;i&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">:[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">]})</span> 
+        <span class="n">df_train1</span><span class="p">,</span> <span class="n">df_test1</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">ind_train</span><span class="p">,</span> <span class="n">ind_test</span> <span class="o">=</span> <span class="n">split_train_test_chronological</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">)</span>
         <span class="n">cdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_train1</span><span class="p">,</span> <span class="n">df_test1</span><span class="p">])</span>
         <span class="n">s1</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">s2</span><span class="o">=</span><span class="n">cdf</span><span class="o">.</span><span class="n">shape</span>
@@ -555,12 +691,12 @@
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ok
 
 ----------------------------------------------------------------------
-Ran 1 test in 0.021s
+Ran 1 test in 0.011s
 
 OK
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x7fcb61ec35e0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x7f9e61734220&gt;
 </pre></div>
 </div>
 </div>
