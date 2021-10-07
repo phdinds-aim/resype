@@ -314,7 +314,7 @@
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
-<span class="sd">    df                    : the data to be split in the form of vanilla transaction table (uid, iid, rating, timestamp)</span>
+<span class="sd">    df                    : the data to be split in the form of vanilla/transaction++ table (uid, iid, rating, timestamp)</span>
 <span class="sd">    </span>
 <span class="sd">    k                     : the number of times splitting and learning with the model is desired</span>
 <span class="sd">    </span>
@@ -337,15 +337,15 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
 
             <span class="c1"># 1. split</span>
-            <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+            <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
 
             <span class="c1"># 2. train with model</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predic</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
 
 
-            <span class="c1"># 3. evaluate results</span>
-            <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df_test</span><span class="p">)</span>
+            <span class="c1"># 3. evaluate results (result is in the form of utility matrix)</span>
+            <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">)</span>
 
             <span class="n">mse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse_i</span><span class="p">)</span>
             <span class="n">mae</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_i</span><span class="p">)</span>
@@ -356,15 +356,15 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
 
             <span class="c1"># 1. split</span>
-            <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span> <span class="o">=</span> <span class="n">split_train_test_chronological</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+            <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test_chronological</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
 
             <span class="c1"># 2. train with model</span>
             <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
 
 
-            <span class="c1"># 3. evaluate results</span>
-            <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df_test</span><span class="p">)</span>
+            <span class="c1"># 3. evaluate results (result is in the form of utility matrix)</span>
+            <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">)</span>
 
             <span class="n">mse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse_i</span><span class="p">)</span>
             <span class="n">mae</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_i</span><span class="p">)</span>
