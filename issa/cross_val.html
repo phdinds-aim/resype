@@ -286,71 +286,80 @@
 <p>This notebook contains the function that performs cross validation tests. This is a dummy function that can be tested with the model/s.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cross_val</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">split_method</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cross_val</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">split_method</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Performs cross-validation for different train and test sets.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
 <span class="sd">    df                    : the data to be split in the form of vanilla/transaction++ table (uid, iid, rating, timestamp)</span>
-<span class="sd">    </span>
+
 <span class="sd">    k                     : the number of times splitting and learning with the model is desired</span>
 <span class="sd">    </span>
+<span class="sd">    model                 : an unfitted sklearn model</span>
+
 <span class="sd">    split_method          : &#39;random&#39; splitting or &#39;chronological&#39; splitting of the data</span>
-<span class="sd">    </span>
-<span class="sd">    model/model_result    : result of the collaborative recsys or content-based recsys</span>
-<span class="sd">    </span>
-<span class="sd">    </span>
+
+
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
 <span class="sd">    mse and mae           : error metrics using sklearn</span>
-<span class="sd">    </span>
-<span class="sd">    </span>
+
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mse</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">mae</span> <span class="o">=</span> <span class="p">[]</span>
-    
+
     <span class="k">if</span> <span class="n">split_method</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
-        
+
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-
+            <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="c1"># 1. split</span>
-            <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
-
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting splitting&#39;</span><span class="p">)</span>
+            <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span>
+                <span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished splitting&#39;</span><span class="p">)</span>
             <span class="c1"># 2. train with model</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predic</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
-
-
+            <span class="n">model_clone</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting training&#39;</span><span class="p">)</span>
+            <span class="n">model_clone_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">model_clone</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished training&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting completing matrix&#39;</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_test</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_clone_fit</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished completing matrix&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting computing MAE and MSE&#39;</span><span class="p">)</span>
             <span class="c1"># 3. evaluate results (result is in the form of utility matrix)</span>
             <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished computing MAE and MSE&#39;</span><span class="p">)</span>
 
             <span class="n">mse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse_i</span><span class="p">)</span>
             <span class="n">mae</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_i</span><span class="p">)</span>
-    
-    
+
     <span class="k">elif</span> <span class="n">split_method</span> <span class="o">==</span> <span class="s1">&#39;chronological&#39;</span><span class="p">:</span>
-        
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
 
-            <span class="c1"># 1. split</span>
-            <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test_chronological</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+        <span class="c1"># 1. split</span>
+        <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test_chronological</span><span class="p">(</span>
+            <span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
 
-            <span class="c1"># 2. train with model</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting splitting&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished splitting&#39;</span><span class="p">)</span>
+        <span class="c1"># 2. train with model</span>
+        <span class="n">model_clone</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting training&#39;</span><span class="p">)</span>
+        <span class="n">model_clone_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">model_clone</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished training&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting completing matrix&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_test</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_clone_fit</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished completing matrix&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting computing MAE and MSE&#39;</span><span class="p">)</span>
+        <span class="c1"># 3. evaluate results (result is in the form of utility matrix)</span>
+        <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished computing MAE and MSE&#39;</span><span class="p">)</span>
 
-
-            <span class="c1"># 3. evaluate results (result is in the form of utility matrix)</span>
-            <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">)</span>
-
-            <span class="n">mse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse_i</span><span class="p">)</span>
-            <span class="n">mae</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_i</span><span class="p">)</span>
-    
+        <span class="n">mse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse_i</span><span class="p">)</span>
+        <span class="n">mae</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_i</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">mse</span><span class="p">,</span> <span class="n">mae</span>
-        
-        
 </pre></div>
 </div>
 </div>
