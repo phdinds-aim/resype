@@ -347,6 +347,16 @@
      Prediction
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trained-models">
+     Trained models
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unit-test">
+     Unit test
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -704,9 +714,8 @@
 <h3>Create model object (load from sklearn)<a class="headerlink" href="#create-model-object-load-from-sklearn" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPRegressor</span>
-<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span>
-    <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -851,45 +860,45 @@
   <tbody>
     <tr>
       <th>U1</th>
-      <td>-2.000000</td>
-      <td>0.230921</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
+      <td>-2.00</td>
+      <td>-1.45</td>
+      <td>1.00</td>
+      <td>1.00</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>0.559151</td>
-      <td>-2.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
+      <td>-1.45</td>
+      <td>-2.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
     </tr>
     <tr>
       <th>U3</th>
-      <td>1.000000</td>
-      <td>-2.136505</td>
-      <td>-1.000000</td>
-      <td>-4.841558</td>
+      <td>1.00</td>
+      <td>1.14</td>
+      <td>-1.00</td>
+      <td>-1.16</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>-3.153587</td>
-      <td>2.000000</td>
-      <td>-2.000000</td>
-      <td>-7.782911</td>
+      <td>1.22</td>
+      <td>2.00</td>
+      <td>-2.00</td>
+      <td>-1.16</td>
     </tr>
     <tr>
       <th>U5</th>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>2.000000</td>
-      <td>3.791436</td>
+      <td>-1.00</td>
+      <td>-1.00</td>
+      <td>2.00</td>
+      <td>0.91</td>
     </tr>
     <tr>
       <th>U6</th>
-      <td>2.000000</td>
-      <td>-3.237528</td>
-      <td>-0.047203</td>
-      <td>-2.000000</td>
+      <td>2.00</td>
+      <td>1.14</td>
+      <td>-1.15</td>
+      <td>-2.00</td>
     </tr>
   </tbody>
 </table>
@@ -939,45 +948,45 @@
   <tbody>
     <tr>
       <th>U1</th>
-      <td>2.000000</td>
-      <td>4.230921</td>
-      <td>5.000000</td>
-      <td>5.000000</td>
+      <td>2.00</td>
+      <td>2.55</td>
+      <td>5.00</td>
+      <td>5.00</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>3.559151</td>
-      <td>1.000000</td>
-      <td>4.000000</td>
-      <td>4.000000</td>
+      <td>1.55</td>
+      <td>1.00</td>
+      <td>4.00</td>
+      <td>4.00</td>
     </tr>
     <tr>
       <th>U3</th>
-      <td>3.000000</td>
-      <td>-0.136505</td>
-      <td>1.000000</td>
-      <td>-2.841558</td>
+      <td>3.00</td>
+      <td>3.14</td>
+      <td>1.00</td>
+      <td>0.84</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>-0.153587</td>
-      <td>5.000000</td>
-      <td>1.000000</td>
-      <td>-4.782911</td>
+      <td>4.22</td>
+      <td>5.00</td>
+      <td>1.00</td>
+      <td>1.84</td>
     </tr>
     <tr>
       <th>U5</th>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>4.000000</td>
-      <td>5.791436</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>4.00</td>
+      <td>2.91</td>
     </tr>
     <tr>
       <th>U6</th>
-      <td>5.000000</td>
-      <td>-0.237528</td>
-      <td>2.952797</td>
-      <td>1.000000</td>
+      <td>5.00</td>
+      <td>4.14</td>
+      <td>1.85</td>
+      <td>1.00</td>
     </tr>
   </tbody>
 </table>
@@ -994,7 +1003,7 @@
 <h3>Train model<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rs_model1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rs_model1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1043,49 +1052,214 @@
   <tbody>
     <tr>
       <th>U1</th>
-      <td>-2.000000</td>
-      <td>0.230921</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
+      <td>-2.00</td>
+      <td>-1.45</td>
+      <td>1.00</td>
+      <td>1.00</td>
     </tr>
     <tr>
       <th>U2</th>
-      <td>0.559151</td>
-      <td>-2.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
+      <td>-1.45</td>
+      <td>-2.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
     </tr>
     <tr>
       <th>U3</th>
-      <td>1.000000</td>
-      <td>-2.136505</td>
-      <td>-1.000000</td>
-      <td>-4.841558</td>
+      <td>1.00</td>
+      <td>1.14</td>
+      <td>-1.00</td>
+      <td>-1.16</td>
     </tr>
     <tr>
       <th>U4</th>
-      <td>-3.153587</td>
-      <td>2.000000</td>
-      <td>-2.000000</td>
-      <td>-7.782911</td>
+      <td>1.22</td>
+      <td>2.00</td>
+      <td>-2.00</td>
+      <td>-1.16</td>
     </tr>
     <tr>
       <th>U5</th>
-      <td>-1.000000</td>
-      <td>-1.000000</td>
-      <td>2.000000</td>
-      <td>3.791436</td>
+      <td>-1.00</td>
+      <td>-1.00</td>
+      <td>2.00</td>
+      <td>0.91</td>
     </tr>
     <tr>
       <th>U6</th>
-      <td>2.000000</td>
-      <td>-3.237528</td>
-      <td>-0.047203</td>
-      <td>-2.000000</td>
+      <td>2.00</td>
+      <td>1.14</td>
+      <td>-1.15</td>
+      <td>-2.00</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
+</div>
+</div>
+<div class="section" id="trained-models">
+<h3>Trained models<a class="headerlink" href="#trained-models" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">trained_models</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;M1&#39;: RandomForestRegressor(random_state=202109),
+ &#39;M2&#39;: RandomForestRegressor(random_state=202109),
+ &#39;M3&#39;: RandomForestRegressor(random_state=202109),
+ &#39;M4&#39;: RandomForestRegressor(random_state=202109)}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="unit-test">
+<h3>Unit test<a class="headerlink" href="#unit-test" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas._testing</span> <span class="kn">import</span> <span class="n">assert_index_equal</span>
+<span class="kn">from</span> <span class="nn">pandas._testing</span> <span class="kn">import</span> <span class="n">assert_frame_equal</span>
+
+
+<span class="k">class</span> <span class="nc">TestTrainIterativeModel</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">resype</span> <span class="kn">import</span> <span class="n">Resype</span>
+    <span class="n">movies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;M1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                              <span class="s1">&#39;M2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+                              <span class="s1">&#39;M3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+                              <span class="s1">&#39;M4&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">]},</span>
+                             <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;U</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)])</span>
+    <span class="n">movie_transactions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+        <span class="n">movies_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">],</span>
+        <span class="n">value_vars</span><span class="o">=</span><span class="n">movies_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">movie_transactions</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">test_initialize_models_itemwise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">re_test</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
+        <span class="n">um</span> <span class="o">=</span> <span class="n">re_test</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+        <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span>
+            <span class="n">re_test</span><span class="o">.</span><span class="n">initialize_models_itemwise</span><span class="p">(</span><span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">)),</span> <span class="n">um</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertListEqual</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">um</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span>
+                             <span class="nb">sorted</span><span class="p">(</span><span class="n">re_test</span><span class="o">.</span><span class="n">initialize_models_itemwise</span><span class="p">(</span>
+                                 <span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">um</span><span class="o">.</span><span class="n">columns</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;model&#39;</span><span class="p">,</span>
+                         <span class="nb">sorted</span><span class="p">(</span><span class="n">re_test</span><span class="o">.</span><span class="n">initialize_models_itemwise</span><span class="p">(</span>
+                             <span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">test_initialize_models_userwise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">re_test</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
+        <span class="n">um</span> <span class="o">=</span> <span class="n">re_test</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+        <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span>
+            <span class="n">re_test</span><span class="o">.</span><span class="n">initialize_models_userwise</span><span class="p">(</span><span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">)),</span> <span class="n">um</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertListEqual</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">um</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
+                             <span class="nb">sorted</span><span class="p">(</span><span class="n">re_test</span><span class="o">.</span><span class="n">initialize_models_userwise</span><span class="p">(</span>
+                                 <span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">um</span><span class="o">.</span><span class="n">index</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;model&#39;</span><span class="p">,</span>
+                         <span class="nb">sorted</span><span class="p">(</span><span class="n">re_test</span><span class="o">.</span><span class="n">initialize_models_userwise</span><span class="p">(</span>
+                             <span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">test_eval_convergence_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+        <span class="n">re_test</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
+        <span class="n">um</span> <span class="o">=</span> <span class="n">re_test</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+        <span class="n">pred_curr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">pred_prev</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">pred_curr2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">),</span>
+                               <span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+                                   <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span>
+            <span class="n">mse_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span>
+            <span class="n">mse_threshold</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_curr2</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span>
+            <span class="n">mse_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_curr2</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span>  <span class="n">scaled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rating_max</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span>  <span class="n">scaled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rating_max</span><span class="o">=</span><span class="mi">5</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_curr</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;stdev_abs&#39;</span><span class="p">,</span>
+            <span class="n">stdev_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;stdev_abs&#39;</span><span class="p">,</span>
+            <span class="n">stdev_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;stdev_abs&#39;</span><span class="p">,</span>
+            <span class="n">stdev_threshold</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">eval_convergence_criterion</span><span class="p">(</span>
+            <span class="n">pred_curr</span><span class="p">,</span> <span class="n">pred_prev</span><span class="p">,</span> <span class="n">stopping_criterion</span><span class="o">=</span><span class="s1">&#39;stdev_abs&#39;</span><span class="p">,</span>
+            <span class="n">stdev_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">scaled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">scaling_method</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">rating_max</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">test_train_model_iterative</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">re_test</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
+        <span class="n">um</span> <span class="o">=</span> <span class="n">re_test</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+        <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">re_test</span><span class="o">.</span><span class="n">train_model_iterative</span><span class="p">(</span><span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">re_test</span><span class="o">.</span><span class="n">train_model_iterative</span><span class="p">(</span><span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">re_test</span><span class="o">.</span><span class="n">train_model_iterative</span><span class="p">(</span><span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">2</span><span class="p">]),</span>
+            <span class="n">um</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">re_test</span><span class="o">.</span><span class="n">train_model_iterative</span><span class="p">(</span><span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">um</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                         <span class="n">re_test</span><span class="o">.</span><span class="n">train_model_iterative</span><span class="p">(</span>
+                             <span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">um</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                         <span class="n">re_test</span><span class="o">.</span><span class="n">train_model_iterative</span><span class="p">(</span>
+                             <span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">re_test</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
+        <span class="n">um</span> <span class="o">=</span> <span class="n">re_test</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+        <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+        <span class="n">re_test</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
+        <span class="n">um_preds</span> <span class="o">=</span> <span class="n">re_test</span><span class="o">.</span><span class="n">utility_matrix_preds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">um_preds</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">())</span>
+        
+        <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+        <span class="n">re_test</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">um_preds</span> <span class="o">=</span> <span class="n">re_test</span><span class="o">.</span><span class="n">utility_matrix_preds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">um_preds</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">re_test</span><span class="o">.</span><span class="n">trained_models</span><span class="p">),</span> <span class="n">um</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_eval_convergence_criterion (__main__.TestTrainIterativeModel) ... ok
+test_fit (__main__.TestTrainIterativeModel) ... ok
+test_initialize_models_itemwise (__main__.TestTrainIterativeModel) ... ok
+test_initialize_models_userwise (__main__.TestTrainIterativeModel) ... ok
+test_train_model_iterative (__main__.TestTrainIterativeModel) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 4.889s
+
+OK
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x7fbf4c2f1940&gt;
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
