@@ -264,7 +264,7 @@ class Resype:
         return models
 
 
-    def initialize_models_userwise(self, U, model, suffix='_model'):
+    def initialize_models_userwise(self, U, model, suffix='model'):
         """Initializes classifier/regressor per user to be predicted
 
         Parameters:
@@ -342,7 +342,7 @@ class Resype:
                 print('Threshold for calculating standard deviation of absolute '
                       'error is not defined. Input threshold value.')
 
-            metric = np.std(np.abs(pred_curr-pred_prev))
+            metric = np.std(np.abs(np.array(pred_curr)-np.array(pred_prev)))
 
             if scaled:
                 if scaling_method == 'max':
@@ -632,9 +632,8 @@ class Resype:
 
 
 
-    def fit(self, model_object, method="iterative", n_synth_data=5, p=0.1,
-            d=2):
-        return_models=False
+    def fit(self, model_object, method="iterative", n_synth_data=5,
+            p=0.1, d=2, return_models=False):
         U_df_mc = self.mean_center_utilmat(self.utility_matrix, axis=1, fillna=False)
 
         if method == 'iterative':        
@@ -646,11 +645,20 @@ class Resype:
 
             else: # if not clustered    
                 self.models_item = self.initialize_models_itemwise(
-                    self.utility_matrix, model_object, suffix='')    
-                U_imputed, metrics = self.train_model_iterative(
-                    self.utility_matrix, model_object,
-                    return_models=return_models) 
-                self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
+                    self.utility_matrix, model_object, suffix='')
+                if return_models:
+                    U_imputed, metrics, trained = self.train_model_iterative(
+                        self.utility_matrix, model_object,
+                        return_models=return_models) 
+                    self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
+                    self.trained_models = trained
+                else:
+                    U_imputed, metrics = self.train_model_iterative(
+                        self.utility_matrix, model_object,
+                        return_models=return_models) 
+                    self.utility_matrix_preds = U_imputed.add(U_df_mc.mean(axis=1), axis=0)
+                    self.trained_models = {}
+
 
         # works for both clustered or unclustered?
         if method == 'svd':
