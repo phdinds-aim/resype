@@ -468,7 +468,7 @@ class Resype:
         
         
     def train_model_svd(self,
-            U_df, model_object, d, return_models=True):
+            U_df, model_object, d=2, return_models=True):
         """
         Trains model with dimensionality reduction (SVD): 
         (1) Estimates the missing entries of the utility matrix.
@@ -671,10 +671,18 @@ class Resype:
             else: 
                 self.models_item = self.initialize_models_itemwise(
                     self.utility_matrix, model_object, suffix='')
-                U_imputed = self.train_model_svd(
-                    self.utility_matrix, model_object, d=d, 
-                    return_models=return_models)        
-                self.utility_matrix_preds = U_imputed
+                
+                if return_models:
+                    U_imputed, trained = self.train_model_svd(
+                        self.utility_matrix, model_object, d=d,
+                        return_models=return_models) 
+                    self.utility_matrix_preds = U_imputed
+                    self.trained_models = trained                   
+                else:
+                    U_imputed  = self.train_model_svd(
+                        self.utility_matrix, model_object, d=d, 
+                        return_models=return_models)        
+                    self.utility_matrix_preds = U_imputed
 
         return None    
     
@@ -690,7 +698,8 @@ class Resype:
                         top_n (int): Number of item clusters to recommend
 
                 Returns:
-                        df_rec (pandas.DataFrame): Table containing the top N item cluster recommendations for each user in the user list
+                        df_rec (pandas.DataFrame): Table containing the top N item cluster 
+                        recommendations for each user in the user list
 
         """
 
