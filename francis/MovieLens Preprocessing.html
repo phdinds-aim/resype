@@ -766,6 +766,7 @@
     <span class="c1"># drop movies with NaN synopsis</span>
     <span class="n">metadata</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
     <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;tmdbId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;tmdbId&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tmdbId&#39;</span><span class="p">])</span>
 
         
     <span class="c1"># get only synopsis for movies in the transaction list</span>
@@ -982,6 +983,22 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_augmented_table</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Replace integrate user_features and item_features</span>
+<span class="sd">    to the transaction_list</span>
+<span class="sd">    </span>
+<span class="sd">    Input</span>
+<span class="sd">    ------</span>
+<span class="sd">    none</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    Output</span>
+<span class="sd">    -------</span>
+<span class="sd">    augmented_transaction_table  : transaction_list concatenated with user_features</span>
+<span class="sd">                                   from genres and item_features from movie synopsis</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
     <span class="n">transaction_list</span><span class="p">,</span> <span class="n">user_feature</span> <span class="o">=</span> <span class="n">create_user_feature</span><span class="p">()</span>
     <span class="n">item_feature</span> <span class="o">=</span> <span class="n">create_item_feature</span><span class="p">()</span>
@@ -1174,34 +1191,6 @@
 </table>
 <p>5 rows × 324 columns</p>
 </div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">user_feature_table</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;user_feature.parquet&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vanilla_transaction_list</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;transaction_list.parquet&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">item_feature_table</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;item_feature.parquet&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">augmented_transaction_table</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;augmented_transaction_table.parquet&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 </div>
 
     <script type="text/x-thebe-config">
