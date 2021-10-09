@@ -347,10 +347,13 @@ class ContentBasedModel:
         item_ids = self.item_ids 
         model_fitted = self.model # whether fit or not
         
+        user_df = user_df.drop([self.user_id_name], axis=1)
+        item_df = item_df.drop([self.item_id_name], axis=1)        
+        
         recos = {}
         c = 1
         for u, u_feats in user_df.iterrows():
-            print(c, 'out of', len(user_df), end='\r')
+            print("Predicting utility matrix:", c, 'out of', len(user_df), end='\r')
             u_feats = pd.concat([pd.DataFrame(u_feats).T] *
                                 len(item_ids)).reset_index(drop=True)
             a_feats = u_feats.join(item_df)
@@ -381,6 +384,8 @@ class ContentBasedModel:
                         df_rec (pandas.DataFrame): Table containing the top N item cluster recommendations for each user in the user list
 
         """
+        
+        self.reco_ml_cb() # generate predictions       
 
         utility_matrix_preds = self.utility_matrix_preds
         utility_matrix = self.utility_matrix
