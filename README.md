@@ -84,4 +84,4 @@ re.get_rec(user_list, top_n)
 | NMF                    | 1.360950 | 0.921752 |
 | SlopeOne               | 1.222082 | 0.869121 |
 | CoClustering           | 1.299210 | 0.900984 |
-| ReSyPE (Random Forest) | 0.955075 | 0.757576 |
+| ReSyPE (Content-based; Random Forest) | 0.955075 | 0.757576 |
