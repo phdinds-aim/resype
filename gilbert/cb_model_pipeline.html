@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Model Pipeline &#8212; ReSyPE</title>
+    <title>Content Based Model &#8212; ReSyPE</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Get Item Recommendations" href="../basti/get_rec.html" />
+    <link rel="prev" title="Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions Applied to Clustered Data" href="../eloi/demo_notebook_clusterbased_svd_model.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -123,7 +125,7 @@
   ML Models
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../eloi/prediction_pipeline.html">
    ReSyPE Training Pipeline
@@ -147,6 +149,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../eloi/demo_notebook_clusterbased_svd_model.html">
    Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions Applied to Clustered Data
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Content Based Model
   </a>
  </li>
 </ul>
@@ -239,7 +246,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/gilbert/model_pipeline.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/gilbert/cb_model_pipeline.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -259,7 +266,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fgilbert/model_pipeline.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fgilbert/cb_model_pipeline.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -280,7 +287,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/gilbert/model_pipeline.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/gilbert/cb_model_pipeline.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -304,11 +311,11 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Model Pipeline
+   Content Based Model
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#model-pipeline">
    Model Pipeline
   </a>
  </li>
@@ -323,8 +330,8 @@
         
               <div>
                 
-  <div class="section" id="model-pipeline">
-<h1>Model Pipeline<a class="headerlink" href="#model-pipeline" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="content-based-model">
+<h1>Content Based Model<a class="headerlink" href="#content-based-model" title="Permalink to this headline">¶</a></h1>
 <p>This notebook uses code from the cross_val, sample_train_test, and evaluate pipeline.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -726,8 +733,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="id1">
-<h1>Model Pipeline<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="model-pipeline">
+<h1>Model Pipeline<a class="headerlink" href="#model-pipeline" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Declare your model</span>
@@ -1532,6 +1539,24 @@ test_matrix_shape (__main__.TestGetRec) ...
 
 <div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="../eloi/demo_notebook_clusterbased_svd_model.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions Applied to Clustered Data</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../basti/get_rec.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Get Item Recommendations</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         
