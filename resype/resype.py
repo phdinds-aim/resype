@@ -468,7 +468,7 @@ class Resype:
         
         
     def train_model_svd(self,
-            U_df, model_object, d=2, return_models=True):
+            U_df, model_object, d=2, return_models=True, verbose=True):
         """
         Trains model with dimensionality reduction (SVD): 
         (1) Estimates the missing entries of the utility matrix.
@@ -504,31 +504,40 @@ class Resype:
 
         models_item = self.initialize_models_itemwise(model=model_object, U=U, suffix='')
 
+        training_count = 0
+        item_total = U.shape[1]
+        
         for item in U.columns:
-            U_temp = U.drop(item, axis=1)
-            U_temp = self.mean_filled_utilmat(U_temp)
-            S = np.matmul(U_temp.T.values, U_temp.values)
-            _, _, PT = svds(S, k=d)
-            Pd = PT.T
-            U_svd = pd.DataFrame(np.matmul(U_temp.values, Pd),
-                                 index=U_temp.index)
+            training_count+=1
+#             print(item, len(known_index[item]))
+            if len(known_index[item])>0:
+                U_temp = U.drop(item, axis=1)
+                U_temp = self.mean_filled_utilmat(U_temp).fillna(0)
+                S = np.matmul(U_temp.T.values, U_temp.values)
+                _, _, PT = svds(S, k=d)
+                Pd = PT.T
+                U_svd = pd.DataFrame(np.matmul(U_temp.values, Pd),
+                                     index=U_temp.index)
 
-            models_item[str(item)].fit(
-                U_svd.loc[known_index[item]],
-                U_update.loc[known_index[item], item])
+                models_item[str(item)].fit(
+                    U_svd.loc[known_index[item]],
+                    U_update.loc[known_index[item], item])
 
-            if len(missing_index[item]) > 0:
-                pred = models_item[str(item)].predict(
-                    U_svd.loc[missing_index[item]])
-            else:
-                pred = np.array([])
-            U_update.loc[missing_index[item], item] = pred
+                if len(missing_index[item]) > 0:
+                    pred = models_item[str(item)].predict(
+                        U_svd.loc[missing_index[item]])
+                else:
+                    pred = np.array([])
+                U_update.loc[missing_index[item], item] = pred
+            if verbose:
+                if (training_count%100==0)|(training_count==item_total):
+                    print(f'Done training {training_count} out of {item_total}')
 
 
         if return_models:
             return U_update, models_item
         else:
-            return U_update     
+            return U_update   
         
         
         
