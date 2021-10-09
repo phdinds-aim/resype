@@ -271,17 +271,32 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-contentbasedmodel">
+   Load ContentBasedModel
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-test-split">
+   Train-test Split
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#fit-model">
    Fit model
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#predict">
-   Predict
+  <a class="reference internal nav-link" href="#predict-on-test-set">
+   Predict on Test Set
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#get-recommendations">
+   Get Recommendations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
    Get recommendations
   </a>
  </li>
@@ -310,14 +325,8 @@
 <h1>Content based pipe<a class="headerlink" href="#content-based-pipe" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">resype.content_based</span> <span class="kn">import</span> <span class="n">ContentBasedModel</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transaction_list</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># transaction list</span>
+<span class="n">transaction_list</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -736,105 +745,729 @@
 <p>5 rows × 301 columns</p>
 </div></div></div>
 </div>
+<div class="section" id="load-contentbasedmodel">
+<h2>Load ContentBasedModel<a class="headerlink" href="#load-contentbasedmodel" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cb</span> <span class="o">=</span> <span class="n">ContentBasedModel</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">transaction_list</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">resype.content_based</span> <span class="kn">import</span> <span class="n">ContentBasedModel</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cb</span> <span class="o">=</span> <span class="n">ContentBasedModel</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span>
+                        <span class="n">item_df</span><span class="p">,</span>
+                        <span class="n">transaction_list</span><span class="p">,</span>
+                        <span class="n">item_id_name</span><span class="o">=</span><span class="s1">&#39;movieId&#39;</span><span class="p">,</span>
+                        <span class="n">user_id_name</span><span class="o">=</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span>
+                        <span class="n">target_name</span><span class="o">=</span><span class="s1">&#39;rating&#39;</span><span class="p">,</span>
+                        <span class="n">timestamp_name</span><span class="o">=</span><span class="s1">&#39;timestamp&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="train-test-split">
+<h2>Train-test Split<a class="headerlink" href="#train-test-split" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Do your train and test split</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">split_train_test</span><span class="p">(</span><span class="n">train_ratio</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cb</span><span class="o">.</span><span class="n">df_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>movieId</th>
+      <th>rating</th>
+      <th>timestamp</th>
+      <th>u_1</th>
+      <th>u_2</th>
+      <th>u_3</th>
+      <th>u_4</th>
+      <th>u_5</th>
+      <th>u_6</th>
+      <th>...</th>
+      <th>i_291</th>
+      <th>i_292</th>
+      <th>i_293</th>
+      <th>i_294</th>
+      <th>i_295</th>
+      <th>i_296</th>
+      <th>i_297</th>
+      <th>i_298</th>
+      <th>i_299</th>
+      <th>i_300</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>4.0</td>
+      <td>964982703</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>3</td>
+      <td>4.0</td>
+      <td>964981247</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1</td>
+      <td>110</td>
+      <td>4.0</td>
+      <td>964982176</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1</td>
+      <td>163</td>
+      <td>5.0</td>
+      <td>964983650</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1</td>
+      <td>223</td>
+      <td>3.0</td>
+      <td>964980985</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>100825</th>
+      <td>610</td>
+      <td>161634</td>
+      <td>4.0</td>
+      <td>1493848362</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>100828</th>
+      <td>610</td>
+      <td>163981</td>
+      <td>3.5</td>
+      <td>1493850155</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>100830</th>
+      <td>610</td>
+      <td>166528</td>
+      <td>4.0</td>
+      <td>1493879365</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>100831</th>
+      <td>610</td>
+      <td>166534</td>
+      <td>4.0</td>
+      <td>1493848402</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>100834</th>
+      <td>610</td>
+      <td>168252</td>
+      <td>5.0</td>
+      <td>1493846352</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.291784</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.282198</td>
+    </tr>
+  </tbody>
+</table>
+<p>30256 rows × 324 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cb</span><span class="o">.</span><span class="n">df_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>movieId</th>
+      <th>rating</th>
+      <th>timestamp</th>
+      <th>u_1</th>
+      <th>u_2</th>
+      <th>u_3</th>
+      <th>u_4</th>
+      <th>u_5</th>
+      <th>u_6</th>
+      <th>...</th>
+      <th>i_291</th>
+      <th>i_292</th>
+      <th>i_293</th>
+      <th>i_294</th>
+      <th>i_295</th>
+      <th>i_296</th>
+      <th>i_297</th>
+      <th>i_298</th>
+      <th>i_299</th>
+      <th>i_300</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>60</th>
+      <td>1</td>
+      <td>1073</td>
+      <td>5.0</td>
+      <td>964981680</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.707217</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>1</td>
+      <td>1009</td>
+      <td>3.0</td>
+      <td>964981775</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>105</th>
+      <td>1</td>
+      <td>1625</td>
+      <td>5.0</td>
+      <td>964983504</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>215</th>
+      <td>1</td>
+      <td>3450</td>
+      <td>5.0</td>
+      <td>964981144</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>1</td>
+      <td>2414</td>
+      <td>3.0</td>
+      <td>964982513</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>100800</th>
+      <td>610</td>
+      <td>147662</td>
+      <td>3.0</td>
+      <td>1479544214</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.283971</td>
+      <td>0.415069</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100641</th>
+      <td>610</td>
+      <td>104241</td>
+      <td>3.0</td>
+      <td>1479544709</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>99951</th>
+      <td>610</td>
+      <td>6283</td>
+      <td>4.5</td>
+      <td>1493845616</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100040</th>
+      <td>610</td>
+      <td>8142</td>
+      <td>5.0</td>
+      <td>1479545324</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100171</th>
+      <td>610</td>
+      <td>42632</td>
+      <td>4.0</td>
+      <td>1479545124</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.459726</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>70580 rows × 324 columns</p>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="fit-model">
 <h2>Fit model<a class="headerlink" href="#fit-model" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Declare your model</span>
-<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1">#Do your train and test split</span>
-<span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
-
-<span class="c1"># df_train = df_train.sample(100)</span>
-
-<span class="c1">#Fit your model to the train data</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">rs_model1</span><span class="p">)</span> <span class="c1">#To fit the model</span>
-
-<span class="c1">#Predict on the test data</span>
-<span class="n">preds_array</span> <span class="o">=</span> <span class="n">reco_ml_cb_tt</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span> <span class="c1">#To make predictions as an array</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RandomForestRegressor(n_jobs=-1, random_state=202109)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds_array</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show trained model</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">model</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RandomForestRegressor(n_jobs=-1, random_state=202109)
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="predict">
-<h2>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="predict-on-test-set">
+<h2>Predict on Test Set<a class="headerlink" href="#predict-on-test-set" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_rec</span><span class="p">(</span><span class="n">utility_matrix_preds</span><span class="p">,</span> <span class="n">utility_matrix</span><span class="p">,</span> <span class="n">user_list</span><span class="p">,</span> <span class="n">top_n</span><span class="p">,</span> <span class="n">uc_assignment</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    
-    <span class="sd">&quot;&quot;&quot;Returns the top N item cluster recommendations for each user in the user list</span>
-<span class="sd">    </span>
-<span class="sd">            Parameters:</span>
-<span class="sd">                    utility_matrix (numpy.ndarray): Matrix of utilities for each user-item pairing</span>
-<span class="sd">                    utility_matrix_o (numpy.ndarray): Original utility matrix, before imputation</span>
-<span class="sd">                    user_list (array-like): List of users</span>
-<span class="sd">                    uc_assignment (array-like): List containing the cluster assignment of each user</span>
-<span class="sd">                    top_n (int): Number of item clusters to recommend</span>
-
-<span class="sd">            Returns:</span>
-<span class="sd">                    df_rec (pandas.DataFrame): Table containing the top N item cluster recommendations for each user in the user list</span>
-<span class="sd">                    </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="c1"># Class stuff</span>
-    <span class="n">utility_matrix_o</span> <span class="o">=</span> <span class="n">utility_matrix</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">utility_matrix</span> <span class="o">=</span> <span class="n">utility_matrix_preds</span><span class="o">.</span><span class="n">values</span>
-    
-    <span class="c1"># Don&#39;t recommend items that are already rated</span>
-    <span class="n">utility_matrix</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">utility_matrix_o</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
-    
-    <span class="c1"># Get top N per user cluster</span>
-    <span class="n">cluster_rec</span> <span class="o">=</span> <span class="n">utility_matrix</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[:,</span> <span class="o">-</span><span class="n">top_n</span><span class="p">:]</span>
-
-    <span class="c1"># Create recommendation table</span>
-    <span class="n">df_rec</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-    <span class="n">df_rec</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_list</span>
-                
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">top_n</span><span class="p">):</span>
-        <span class="n">df_rec</span><span class="p">[</span><span class="s1">&#39;rank_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">df_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-            <span class="k">if</span> <span class="n">uc_assignment</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_rec</span><span class="p">[</span><span class="n">user_list</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">top_n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_rec</span><span class="p">[</span><span class="n">uc_assignment</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">user_list</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="n">top_n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    
-    <span class="c1"># look-up tables</span>
-    <span class="k">if</span> <span class="n">uc_assignment</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">user_id_lookup</span> <span class="o">=</span> <span class="n">utility_matrix_preds</span><span class="o">.</span><span class="n">index</span>
-        <span class="n">item_id_lookup</span> <span class="o">=</span> <span class="n">utility_matrix_preds</span><span class="o">.</span><span class="n">columns</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-            <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_id_lookup</span><span class="p">[</span><span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">)]</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">top_n</span><span class="p">):</span>
-                <span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">item_id_lookup</span><span class="p">[</span><span class="n">df_rec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int32&#39;</span><span class="p">)]</span>
-    
-    <span class="k">return</span> <span class="n">df_rec</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Predict on the test data</span>
+<span class="n">preds_array</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">reco_ml_cb_tt</span><span class="p">()</span> <span class="c1">#To make predictions as an array</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">preds_array</span><span class="p">))</span>
+<span class="n">preds_array</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30256
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4.575, 4.64 , 4.29 , ..., 4.5  , 4.265, 4.455])
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">resype.resype</span> <span class="kn">import</span> <span class="n">Resype</span>
-</pre></div>
 </div>
-</div>
-</div>
+<div class="section" id="get-recommendations">
+<h2>Get Recommendations<a class="headerlink" href="#get-recommendations" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">user_</span> <span class="o">=</span> <span class="n">user_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;userId&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -909,8 +1542,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="get-recommendations">
-<h2>Get recommendations<a class="headerlink" href="#get-recommendations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>Get recommendations<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_rec</span><span class="p">(</span><span class="n">reco_mtx</span><span class="p">,</span> <span class="n">original_um</span><span class="p">,</span> <span class="n">user_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">top_n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
