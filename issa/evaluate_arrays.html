@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Evaluation &#8212; ReSyPE</title>
+    <title>Evaluation_arrays &#8212; ReSyPE</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -280,7 +280,7 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Evaluation
+   Evaluation_arrays
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -314,14 +314,9 @@
         
               <div>
                 
-  <div class="section" id="evaluation">
-<h1>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h1>
-<p>This notebook contains 2nd and 3rd of three functions:</p>
-<ol class="simple">
-<li><p>split_train_test: creates train and test sets by splitting the raw data ‘user_feature.csv’.</p></li>
-<li><p>evaluate: calculates the mse and mae of the final recommendations to the actual recommendations based on the test set.</p></li>
-<li><p>append_error_to_df: for visualization purposes and for further exploration of the errors.</p></li>
-</ol>
+  <div class="section" id="evaluation-arrays">
+<h1>Evaluation_arrays<a class="headerlink" href="#evaluation-arrays" title="Permalink to this headline">¶</a></h1>
+<p>This notebook contains the function for evaluating the predictions against the ground truth from the test data set. Using the indices from split function, the ground truth values of ratings are extracted from the original transaction dataframe. The mse and mae errors are then computed by comparing model predicted ratings with the ground truth.</p>
 </div>
 <div class="section" id="generating-input-data-for-unittesting-purposes">
 <h1>Generating input data for unittesting purposes.<a class="headerlink" href="#generating-input-data-for-unittesting-purposes" title="Permalink to this headline">¶</a></h1>
