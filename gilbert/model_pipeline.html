@@ -273,6 +273,24 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Model Pipeline
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Model Pipeline
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -291,18 +309,8 @@
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
 
-<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># df = pd.read_parquet(&#39;augmented_transaction_table.parquet&#39;).dropna()</span>
-
-<span class="c1"># item_df = pd.read_parquet(&#39;item_feature.parquet&#39;)</span>
-<span class="c1"># item_ids = item_df[&#39;movieId&#39;].unique()</span>
-<span class="c1"># item_df = item_df.drop(columns=[&#39;movieId&#39;])</span>
-<span class="c1"># user_df = pd.read_parquet(&#39;user_feature.parquet&#39;).drop(columns=[&#39;userId&#39;])</span>
-<span class="c1"># user_ids = df[&#39;userId&#39;].unique()</span>
-
-
-<span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">aug_tt</span><span class="p">,</span> <span class="n">item_tt</span><span class="p">,</span><span class="n">user_tt</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">aug_tt</span><span class="p">,</span> <span class="n">item_tt</span><span class="p">,</span> <span class="n">user_tt</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load the data from the transaction tables</span>
 
@@ -325,20 +333,20 @@
 <span class="sd">    -------</span>
 <span class="sd">    df            : pandas DataFrame</span>
 <span class="sd">                    The augmented transaction table</span>
-<span class="sd">                    </span>
+
 <span class="sd">    item_df       : pandas DataFrame</span>
 <span class="sd">                    The item features as a transaction table</span>
-<span class="sd">                    </span>
+
 <span class="sd">    user_df       : pandas DataFrame</span>
 <span class="sd">                    The userfeatures as a transaction table</span>
-<span class="sd">                    </span>
+
 <span class="sd">    item_ids      : list</span>
 <span class="sd">                    All unique item ids</span>
-<span class="sd">                    </span>
+
 <span class="sd">    user_ids      : list</span>
 <span class="sd">                    All unique user ids</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">aug_tt</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
     <span class="n">item_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">item_tt</span><span class="p">)</span>
     <span class="n">item_ids</span> <span class="o">=</span> <span class="n">item_df</span><span class="p">[</span><span class="s1">&#39;movieId&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -347,12 +355,8 @@
     <span class="n">user_ids</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">user_df</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">user_ids</span>
 
-<span class="n">df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">user_df</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">user_ids</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;augmented_transaction_table.parquet&#39;</span><span class="p">,</span>
-                                                    <span class="s1">&#39;item_feature.parquet&#39;</span><span class="p">,</span>
-                                                    <span class="s1">&#39;user_feature.parquet&#39;</span><span class="p">)</span>
 
-
-<span class="k">def</span> <span class="nf">fit_ml_cb</span><span class="p">(</span><span class="n">train_df</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">target_col</span><span class="o">=</span><span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="n">drop_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;movieId&#39;</span><span class="p">,</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]):</span>
+<span class="k">def</span> <span class="nf">fit_ml_cb</span><span class="p">(</span><span class="n">train_df</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">target_col</span><span class="o">=</span><span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="n">drop_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform item-wise clustering and assign each item to a cluster of similar</span>
 <span class="sd">    items based on the users that </span>
@@ -405,7 +409,7 @@
 
 <span class="sd">    target_col   : str</span>
 <span class="sd">                   The column corresponding to the rating.</span>
-<span class="sd">                   </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    full_matrix  : a pandas DataFrame</span>
@@ -425,33 +429,43 @@
     <span class="k">return</span> <span class="n">full_matrix</span>
 
 
+<span class="k">def</span> <span class="nf">reco_ml_cb_tt</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span> <span class="n">model_fitted</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="n">drop_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make predictions on the test set and outputs an array of the predicted</span>
+<span class="sd">    values for them.</span>
 
-<span class="c1"># def fit_ml_cb_all(c_transactions, model, target_col=&#39;rating&#39;):</span>
-<span class="c1">#     # Unused Function</span>
-<span class="c1">#     c_models = {}</span>
-<span class="c1">#     for cluster, table in c_transactions.items():</span>
-<span class="c1">#         c_models[cluster] = fit_ml_cb(table, model, target_col)</span>
-<span class="c1">#     return c_models</span>
+<span class="sd">    Paramters</span>
+<span class="sd">    ---------</span>
+<span class="sd">    df_test      : pandas DataFrame</span>
+<span class="sd">                   The test set as a transaction table. Each row</span>
+<span class="sd">                   corresponds to a user&#39;s features and that item&#39;s features</span>
+<span class="sd">                   along with the user&#39;s rating for that item.</span>
+
+<span class="sd">    model_fitted : an sklearn regressor object</span>
+<span class="sd">                   An object with a fit and predict method that outputs a</span>
+<span class="sd">                   float. Must be fitted already</span>
+
+<span class="sd">    target_col   : str</span>
+<span class="sd">                   The column corresponding to the rating.</span>
+<span class="sd">                   </span>
+<span class="sd">    drop_cols    : list</span>
+<span class="sd">                   Columns to be dropped in df_test.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    result        : numpy array</span>
+<span class="sd">                   The results of the model using df_test&#39;s features</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_test</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">+</span><span class="n">drop_cols</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">model_fitted</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># idx = np.cumsum(np.in1d(np.arange(len(df.index)), user_ids))</span>
-<span class="c1"># u_i_history = {}</span>
-<span class="c1"># for i in user_ids:</span>
-<span class="c1">#     for x in df.groupby(&#39;userId&#39;)[&#39;movieId&#39;].get_group(i).index:</span>
-<span class="c1">#         u_i_history[x] = i</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="k">def</span> <span class="nf">split_train_test</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">train_ratio</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split_train_test</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">train_ratio</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Splits the transaction data into train and test sets.</span>
 <span class="sd">    </span>
@@ -640,9 +654,104 @@
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="id1">
+<h1>Model Pipeline<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># mse, mae = cross_val(df,5,rs_model1)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Declare your model</span>
+<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#Load the data</span>
+<span class="n">df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">user_df</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">user_ids</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;augmented_transaction_table.parquet&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;item_feature.parquet&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;user_feature.parquet&#39;</span><span class="p">)</span>
+<span class="c1">#Do your train and test split</span>
+<span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
+<span class="c1">#Fit your model to the train data</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">rs_model1</span><span class="p">)</span> <span class="c1">#To fit the model</span>
+<span class="c1">#Predict on the test data</span>
+<span class="n">preds_array</span> <span class="o">=</span> <span class="n">reco_ml_cb_tt</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span> <span class="c1">#To make predictions as an array</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds_array</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4.595, 4.29 , 4.355, ..., 3.73 , 3.565, 4.   ])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds_matrix</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span> <span class="c1">#To complete the utility matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>254 out of 610
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_166502</span><span class="o">/</span><span class="mf">3733873822.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">preds_matrix</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span> <span class="c1">#To complete the utility matrix</span>
+
+<span class="nn">/tmp/ipykernel_166502/2592439996.py</span> in <span class="ni">reco_ml_cb</span><span class="nt">(user_df, item_df, model_fitted)</span>
+<span class="g g-Whitespace">    </span><span class="mi">129</span>     <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">u_feats</span> <span class="ow">in</span> <span class="n">user_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span>         <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;out of&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_df</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">131</span>         <span class="n">u_feats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">u_feats</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">]</span> <span class="o">*</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span>                             <span class="nb">len</span><span class="p">(</span><span class="n">item_ids</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>         <span class="n">a_feats</span> <span class="o">=</span> <span class="n">u_feats</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item_df</span><span class="p">)</span>
+
+<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">312</span> 
+<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/core/reshape/concat.py</span> in <span class="ni">concat</span><span class="nt">(objs, axis, join, ignore_index, keys, levels, names, verify_integrity, sort, copy)</span>
+<span class="g g-Whitespace">    </span><span class="mi">305</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">306</span> 
+<span class="ne">--&gt; </span><span class="mi">307</span>     <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">get_result</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">308</span> 
+<span class="g g-Whitespace">    </span><span class="mi">309</span> 
+
+<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/core/reshape/concat.py</span> in <span class="ni">get_result</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">525</span>                     <span class="c1"># 1-ax to convert BlockManager axis to DataFrame axis</span>
+<span class="g g-Whitespace">    </span><span class="mi">526</span>                     <span class="n">obj_labels</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ax</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">527</span>                     <span class="k">if</span> <span class="ow">not</span> <span class="n">new_labels</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">obj_labels</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">528</span>                         <span class="n">indexers</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj_labels</span><span class="o">.</span><span class="n">get_indexer</span><span class="p">(</span><span class="n">new_labels</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">529</span> 
+
+<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">equals</span><span class="nt">(self, other)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4803</span>             <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4804</span> 
+<span class="ne">-&gt; </span><span class="mi">4805</span>         <span class="k">return</span> <span class="n">array_equivalent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">_values</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4806</span> 
+<span class="g g-Whitespace">   </span><span class="mi">4807</span>     <span class="nd">@final</span>
+
+<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">_values</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4401</span>         <span class="n">values</span> <span class="p">:</span> <span class="n">Values</span>
+<span class="g g-Whitespace">   </span><span class="mi">4402</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">4403</span><span class="s2">         return self._data</span>
+<span class="g g-Whitespace">   </span><span class="mi">4404</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">4405</span><span class="s2">     def _get_engine_target(self) -&gt; np.ndarray:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds_matrix</span>
 </pre></div>
 </div>
 </div>
