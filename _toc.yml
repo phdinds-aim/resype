@@ -27,3 +27,10 @@ parts:
     chapters:
     - file: basti/get_rec
     - file: basti/get_rec_item
+  - caption: Evaluation
+    chapters:
+    - file: issa/split_train_test_random
+    - file: issa/split_train_test_chronological
+    - file: issa/evaluate
+    - file: issa/evaluate_arrays
+    - file: issa/cross_val
