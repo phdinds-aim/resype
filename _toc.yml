@@ -8,10 +8,9 @@ parts:
     chapters:
     - caption: Preprocessing
       sections:
-#       - file: francis/item_feature_ntbk
-#       - file: francis/transaction_list_ntbk
-#       - file: francis/user_feature_ntbk
-        - file: francis/MovieLens Preprocessing
+      - file: francis/create_item_feature
+      - file: francis/get_augmented_table
+      - file: francis/create_user_feature
     - caption: Clustering
       sections:
       - file: gilbert/user_clustering
