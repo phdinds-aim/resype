@@ -593,8 +593,8 @@ class CollabFilteringModel:
 
         return self.utility_matrix_preds
 
-    def train_model_svd_cluster(self,
-            Uc_df, model_object, n_synth_data=100, d=10, p=0.2, return_models=True):
+    def train_model_svd_cluster(self, Uc_df, model_object, n_synth_data=100,
+                                d=10, p=0.2, return_models=True, verbose=False):
         """Trains model iteratively for the cluster-based recommender system: 
         (1) Given cluster-based utility matrix, create multiple synthetic data of 
         missing ratings. Randomly drop matrix elements by setting them to NaN to 
@@ -630,7 +630,8 @@ class CollabFilteringModel:
         for n in range(n_synth_data):
             U_df = synth_data[n]
             U_imputed, models = self.train_model_svd(
-                U_df, model_object, d=d, return_models=return_models)
+                U_df, model_object, d=d, return_models=return_models, 
+                verbose=verbose)
             um_output.append(U_imputed)
         um_output = pd.concat(um_output)
 
