@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_error
 # import warnings
 # warnings.filterwarnings("ignore")
 
-class Resype:
+class CollabFilteringModel:
     """
     Resype implements a machine learning framework for recommender systems.
             Parameters:

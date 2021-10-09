@@ -226,8 +226,14 @@ class ContentBasedModel:
         # 5. get indices of train and test sets
         indx_train = df_train_fin.index
         indx_test = df_test_fin.index
+        
+        self.df_train = df_train_fin
+        self.df_test = df_test_fin 
+        self.df_test_um = df_test_um 
+        self.indx_train = indx_train 
+        self.indx_test = indx_test        
 
-        return df_train_fin, df_test_fin, df_test_um, indx_train, indx_test       
+        return None
     
     
     # MODELS
@@ -314,6 +320,9 @@ class ContentBasedModel:
         
         df_test = self.df_test.drop(columns=[self.target_name]+drop_cols)
         result = self.model.predict(df_test)
+        
+        self.preds_array = result 
+        
         return result    
     
     
@@ -390,6 +399,13 @@ class ContentBasedModel:
         utility_matrix_preds = self.utility_matrix_preds
         utility_matrix = self.utility_matrix
         
+        # select only columns that exist in preds
+        col_a = utility_matrix_preds.columns
+        col_b = utility_matrix.columns
+        all_cols = sorted(list(set(list(col_a) + list(col_b))))
+        cols = [c for c in all_cols if c in col_a and c in col_b]
+        utility_matrix = utility_matrix[cols]
+        
         # Class stuff
         utility_matrix_o = utility_matrix.fillna(0).values
         utility_matrix = utility_matrix_preds.fillna(0).values
@@ -423,4 +439,139 @@ class ContentBasedModel:
 
         return df_rec    
     
+    
+    # EVALUATE
+    
+    def evaluate_test_set(self):
+        """
+        Calculates the mse and mae of the recommender system for a given result and test set.
+        Automatically computes performance on test set after splitting
+        
+        Parameters
+        ----------
+
+        model_result_arr   : ratings from the results of the recommender sys using test set
+
+        df_test_truth      : the original dataframe for before splitting.
+                             the original ratings or ground truth from the test set will be extracted from here using indices
+
+        indx_test          : result indices of test set from splitting
+
+        Returns
+        ---------
+
+        mse                : mse value using sklearn 
+
+        mae                : mse value using sklearn 
+
+        """
+
+        self.reco_ml_cb_tt() # predict on test data        
+        model_result_arr = self.preds_array # test_set
+        df_data = self.df
+        indx_test = self.indx_test
+        
+        
+        
+        df_test_truth = df_data.loc[pd.Index(indx_test), df_data.columns[2]]
+        test_arr = df_test_truth.values
+
+    #     test indices first, all user ids should be represented in the test matrix 
+
+        result_len = len(model_result_arr) 
+        test_len = len(test_arr)
+
+        if result_len!=test_len:
+            raise ValueError('the arrays are of different lengths %s in %s' % (result_len,test_len))
+
+        else:
+            print('proceed')
+
+            mse = mean_squared_error(test_arr, model_result_arr)
+            mae = mean_absolute_error(test_arr, model_result_arr)
+
+
+        return mse, mae
+    
+    
+    # CROSS VALIDATION
+
+    def cross_val(self, model, k=3):
+        """
+        Performs cross-validation for different train and test sets.
+
+        Parameters
+        -----------
+        df                    : the data to be split in the form of vanilla/transaction++ table (uid, iid, rating, timestamp)
+
+        k                     : the number of times splitting and learning with the model is desired
+
+        model                 : an unfitted sklearn model
+
+        split_method          : 'random' splitting or 'chronological' splitting of the data
+
+
+        Returns
+        --------
+        mse and mae           : error metrics using sklearn
+
+
+        """
+        
+        df = self.df
+        
+        mse = []
+        mae = []
+
+#         if split_method == 'random':
+
+        for i in range(k):
+            print(i)
+            # 1. split
+            print('Starting splitting')
+            self.split_train_test(train_ratio = 0.7) # DO WE NEED TO MAKE PROP TEST A PARAMETER?
+            print('Finished splitting')
+            # 2. train with model
+            model_clone = clone(model)
+            print('Starting training')
+            self.fit_ml_cb(model_clone)
+            print('Finished training')
+
+            # THIS IS INCLUDED IN EVALUATE TEST SET
+            # print('Starting completing matrix')
+            # result = self.reco_ml_cb_tt()
+            #print('Finished completing matrix')
+            print('Starting computing MAE and MSE')
+            # 3. evaluate results (result is in the form of utility matrix)
+            mse_i, mae_i = self.evaluate_test_set()
+            print('Finished computing MAE and MSE')
+
+            mse.append(mse_i)
+            mae.append(mae_i)
+
+                
+#         # MAYBE WE CAN SKIP THIS?
+#         elif split_method == 'chronological':
+
+#             # 1. split
+#             print('Starting splitting')            
+#             self.split_train_test_chronological(df, 0.7)
+#             print('Finished splitting')
+#             # 2. train with model
+#             model_clone = clone(model)
+#             print('Starting training')
+#             model_clone_fit = fit_ml_cb(df_train, model_clone)
+#             print('Finished training')
+#             print('Starting completing matrix')
+#             result = reco_ml_cb_tt(df_test, model_clone_fit)
+#             print('Finished completing matrix')
+#             print('Starting computing MAE and MSE')
+#             # 3. evaluate results (result is in the form of utility matrix)
+#             mse_i, mae_i = evaluate_arrays(result, df, indx_test)
+#             print('Finished computing MAE and MSE')
+
+#             mse.append(mse_i)
+#             mae.append(mae_i)
+
+        return mse, mae    
     
