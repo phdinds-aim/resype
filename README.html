@@ -350,9 +350,16 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#feature-comparison-with-surprise">
-   Feature Comparison with Surprise
+  <a class="reference internal nav-link" href="#comparison-with-surprise">
+   Comparison with Surprise
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#performance">
+     Performance
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -422,8 +429,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="feature-comparison-with-surprise">
-<h2>Feature Comparison with Surprise<a class="headerlink" href="#feature-comparison-with-surprise" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="comparison-with-surprise">
+<h2>Comparison with Surprise<a class="headerlink" href="#comparison-with-surprise" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:left head"><p>Features</p></th>
@@ -458,6 +465,63 @@
 </tr>
 </tbody>
 </table>
+<div class="section" id="performance">
+<h3>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Prediction Algorithm</p></th>
+<th class="text-align:center head"><p>MSE</p></th>
+<th class="text-align:center head"><p>MAE</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>NormalPredictor</p></td>
+<td class="text-align:center"><p>2.051080</p></td>
+<td class="text-align:center"><p>1.135742</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>BaselineOnly</p></td>
+<td class="text-align:center"><p>0.858667</p></td>
+<td class="text-align:center"><p>0.735921</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>KNNBasic</p></td>
+<td class="text-align:center"><p>1.362782</p></td>
+<td class="text-align:center"><p>0.906558</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>KNNWithMeans</p></td>
+<td class="text-align:center"><p>1.173480</p></td>
+<td class="text-align:center"><p>0.850230</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>KNNWithZScore</p></td>
+<td class="text-align:center"><p>1.185011</p></td>
+<td class="text-align:center"><p>0.842193</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>KNNBaseline</p></td>
+<td class="text-align:center"><p>1.057957</p></td>
+<td class="text-align:center"><p>0.796983</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>SVD</p></td>
+<td class="text-align:center"><p>0.862225</p></td>
+<td class="text-align:center"><p>0.730675</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>NMF</p></td>
+<td class="text-align:center"><p>1.360950</p></td>
+<td class="text-align:center"><p>0.921752</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>SlopeOne</p></td>
+<td class="text-align:center"><p>1.222082</p></td>
+<td class="text-align:center"><p>0.869121</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>CoClustering</p></td>
+<td class="text-align:center"><p>1.299210</p></td>
+<td class="text-align:center"><p>0.900984</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>ReSyPE (Random Forest)</p></td>
+<td class="text-align:center"><p>0.955075</p></td>
+<td class="text-align:center"><p>0.757576</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 

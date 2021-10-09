@@ -59,7 +59,7 @@ top_n = 10
 re.get_rec(user_list, top_n)
 ```
 
-## Feature Comparison with Surprise
+## Comparison with Surprise
 
 | Features                     | Surprise | ReSyPE |
 |:-----------------------------|:--------:|:------:|
@@ -69,3 +69,19 @@ re.get_rec(user_list, top_n)
 | Collaborative filtering      | ✔️        | ✔️      |
 | Content-based filtering      |          | ✔️      |
 | Customizable ML models       |          | ✔️      |
+
+### Performance
+
+| Prediction Algorithm   | MSE      | MAE      |
+|:-----------------------|:--------:|:--------:|
+| NormalPredictor        | 2.051080 | 1.135742 |
+| BaselineOnly           | 0.858667 | 0.735921 |
+| KNNBasic               | 1.362782 | 0.906558 |
+| KNNWithMeans           | 1.173480 | 0.850230 |
+| KNNWithZScore          | 1.185011 | 0.842193 |
+| KNNBaseline            | 1.057957 | 0.796983 |
+| SVD                    | 0.862225 | 0.730675 |
+| NMF                    | 1.360950 | 0.921752 |
+| SlopeOne               | 1.222082 | 0.869121 |
+| CoClustering           | 1.299210 | 0.900984 |
+| ReSyPE (Random Forest) | 0.955075 | 0.757576 |
