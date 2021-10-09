@@ -363,6 +363,23 @@
    Prepare data
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-random-forest-regressor-as-base-model">
+   Using Random Forest Regressor as base model
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#increase-dimensions-in-svd">
+     Increase dimensions in SVD
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-decision-tree-regressor-as-base-model">
+   Using Decision Tree Regressor as base model
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -544,6 +561,9 @@
 </table>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="using-random-forest-regressor-as-base-model">
+<h2>Using Random Forest Regressor as base model<a class="headerlink" href="#using-random-forest-regressor-as-base-model" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collab_filtering</span> <span class="kn">import</span> <span class="n">CollabFilteringModel</span>
@@ -634,6 +654,148 @@ Wall time: 6min 50s
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MSE:1.3433272948932116, MAE:0.9071479727188221
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="increase-dimensions-in-svd">
+<h3>Increase dimensions in SVD<a class="headerlink" href="#increase-dimensions-in-svd" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">df_test_fin_nans</span> <span class="o">=</span> <span class="n">transaction_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_test_fin_nans</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="n">re</span> <span class="o">=</span> <span class="n">CollabFilteringModel</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">transaction_train</span><span class="p">,</span> <span class="n">df_test_fin_nans</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">utility_matrix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">utility_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">rs_model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">train_model_svd</span><span class="p">(</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">rs_model</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">utility_matrix_imputed</span><span class="p">,</span> <span class="n">trained_model</span> <span class="o">=</span> <span class="n">outputs</span>
+<span class="n">utility_matrix_imputed</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">mean_filled_utilmat</span><span class="p">(</span><span class="n">utility_matrix_imputed</span><span class="p">)</span>
+<span class="n">imputed_transactions</span> <span class="o">=</span> <span class="n">utility_matrix_imputed</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">transaction_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">merged_test_data</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">imputed_transactions</span><span class="p">,</span> 
+    <span class="n">on</span><span class="o">=</span><span class="n">imputed_transactions</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[:</span><span class="mi">2</span><span class="p">],</span>
+    <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">merged_test_data</span><span class="o">.</span><span class="n">rating</span><span class="p">,</span> <span class="n">merged_test_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">merged_test_data</span><span class="o">.</span><span class="n">rating</span><span class="p">,</span> <span class="n">merged_test_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MSE:</span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s1">, MAE:</span><span class="si">{</span><span class="n">mae</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(32, 2427)
+Done training 100 out of 2427
+Done training 200 out of 2427
+Done training 300 out of 2427
+Done training 400 out of 2427
+Done training 500 out of 2427
+Done training 600 out of 2427
+Done training 700 out of 2427
+Done training 800 out of 2427
+Done training 900 out of 2427
+Done training 1000 out of 2427
+Done training 1100 out of 2427
+Done training 1200 out of 2427
+Done training 1300 out of 2427
+Done training 1400 out of 2427
+Done training 1500 out of 2427
+Done training 1600 out of 2427
+Done training 1700 out of 2427
+Done training 1800 out of 2427
+Done training 1900 out of 2427
+Done training 2000 out of 2427
+Done training 2100 out of 2427
+Done training 2200 out of 2427
+Done training 2300 out of 2427
+Done training 2400 out of 2427
+Done training 2427 out of 2427
+MSE:1.3714391507594483, MAE:0.9171259373147359
+CPU times: user 2h 43min 8s, sys: 9min 50s, total: 2h 52min 58s
+Wall time: 10min 48s
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="using-decision-tree-regressor-as-base-model">
+<h2>Using Decision Tree Regressor as base model<a class="headerlink" href="#using-decision-tree-regressor-as-base-model" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">df_test_fin_nans</span> <span class="o">=</span> <span class="n">transaction_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_test_fin_nans</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="n">re</span> <span class="o">=</span> <span class="n">CollabFilteringModel</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">transaction_train</span><span class="p">,</span> <span class="n">df_test_fin_nans</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">utility_matrix</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">utility_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">rs_model</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">train_model_svd</span><span class="p">(</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">utility_matrix</span><span class="p">,</span> <span class="n">rs_model</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="n">utility_matrix_imputed</span><span class="p">,</span> <span class="n">trained_model</span> <span class="o">=</span> <span class="n">outputs</span>
+<span class="n">utility_matrix_imputed</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">mean_filled_utilmat</span><span class="p">(</span><span class="n">utility_matrix_imputed</span><span class="p">)</span>
+<span class="n">imputed_transactions</span> <span class="o">=</span> <span class="n">utility_matrix_imputed</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">transaction_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">merged_test_data</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">imputed_transactions</span><span class="p">,</span> 
+    <span class="n">on</span><span class="o">=</span><span class="n">imputed_transactions</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[:</span><span class="mi">2</span><span class="p">],</span>
+    <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">merged_test_data</span><span class="o">.</span><span class="n">rating</span><span class="p">,</span> <span class="n">merged_test_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">merged_test_data</span><span class="o">.</span><span class="n">rating</span><span class="p">,</span> <span class="n">merged_test_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MSE:</span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s1">, MAE:</span><span class="si">{</span><span class="n">mae</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(32, 2427)
+Done training 100 out of 2427
+Done training 200 out of 2427
+Done training 300 out of 2427
+Done training 400 out of 2427
+Done training 500 out of 2427
+Done training 600 out of 2427
+Done training 700 out of 2427
+Done training 800 out of 2427
+Done training 900 out of 2427
+Done training 1000 out of 2427
+Done training 1100 out of 2427
+Done training 1200 out of 2427
+Done training 1300 out of 2427
+Done training 1400 out of 2427
+Done training 1500 out of 2427
+Done training 1600 out of 2427
+Done training 1700 out of 2427
+Done training 1800 out of 2427
+Done training 1900 out of 2427
+Done training 2000 out of 2427
+Done training 2100 out of 2427
+Done training 2200 out of 2427
+Done training 2300 out of 2427
+Done training 2400 out of 2427
+Done training 2427 out of 2427
+MSE:1.7662002282241689, MAE:1.0179823504179577
+CPU times: user 1h 42min 15s, sys: 5min 31s, total: 1h 47min 46s
+Wall time: 6min 44s
 </pre></div>
 </div>
 </div>
