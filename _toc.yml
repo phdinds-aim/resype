@@ -8,7 +8,7 @@ parts:
     chapters:
     - file: quickstart_collab_filtering
     - file: quickstart_content_based
-  - file: content_based_vs_surprise
+    - file: content_based_vs_surprise
   - caption: Preprocessing
     chapters:
     - file: francis/create_item_feature
