@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loading the Data &#8212; ReSyPE</title>
+    <title>Performance Comparison with Surprise &#8212; ReSyPE</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -346,22 +346,22 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-the-data">
    Loading the Data
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#loading-resype-s-content-based-recommend">
    Loading Resype’s Content-based Recommend
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#loading-surprise">
    Loading Surprise
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#performance-results">
    Performance Results
   </a>
@@ -377,7 +377,9 @@
         
               <div>
                 
-  <div class="cell docutils container">
+  <div class="section" id="performance-comparison-with-surprise">
+<h1>Performance Comparison with Surprise<a class="headerlink" href="#performance-comparison-with-surprise" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">resype.preprocessing</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">resype.content_based</span> <span class="kn">import</span> <span class="n">ContentBasedModel</span>
@@ -402,7 +404,7 @@
 </div>
 </div>
 <div class="section" id="loading-the-data">
-<h1>Loading the Data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">¶</a></h1>
+<h2>Loading the Data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transaction_list</span><span class="p">,</span> <span class="n">user_df</span> <span class="o">=</span> <span class="n">create_user_feature</span><span class="p">()</span> <span class="c1"># for example only</span>
@@ -423,7 +425,7 @@
 </div>
 </div>
 <div class="section" id="loading-resype-s-content-based-recommend">
-<h1>Loading Resype’s Content-based Recommend<a class="headerlink" href="#loading-resype-s-content-based-recommend" title="Permalink to this headline">¶</a></h1>
+<h2>Loading Resype’s Content-based Recommend<a class="headerlink" href="#loading-resype-s-content-based-recommend" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cb</span> <span class="o">=</span> <span class="n">ContentBasedModel</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span>
@@ -451,7 +453,7 @@
 </div>
 </div>
 <div class="section" id="loading-surprise">
-<h1>Loading Surprise<a class="headerlink" href="#loading-surprise" title="Permalink to this headline">¶</a></h1>
+<h2>Loading Surprise<a class="headerlink" href="#loading-surprise" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">surprise</span> <span class="kn">import</span> <span class="n">SVD</span>
@@ -536,7 +538,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 </div>
 <div class="section" id="performance-results">
-<h1>Performance Results<a class="headerlink" href="#performance-results" title="Permalink to this headline">¶</a></h1>
+<h2>Performance Results<a class="headerlink" href="#performance-results" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Prediction Algorithm&#39;</span><span class="p">,</span> <span class="s1">&#39;MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">]</span>
@@ -642,6 +644,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
   </tbody>
 </table>
 </div></div></div>
+</div>
 </div>
 </div>
 
