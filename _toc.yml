@@ -22,6 +22,7 @@ parts:
     - file: eloi/demo_notebook_clusterbased_iterative_model
     - file: eloi/demo_notebook_svd_model
     - file: eloi/demo_notebook_clusterbased_svd_model
+    - file: gilbert/cb_model_pipeline    
   - caption: Get Recommendations
     chapters:
     - file: basti/get_rec
