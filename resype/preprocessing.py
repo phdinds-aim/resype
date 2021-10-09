@@ -167,7 +167,7 @@ def create_item_feature(num_features = 300):
     seen_movies = seen_movies.merge(movie_id_links, on='movieId', how='inner')
     
     # Read MetaData CSV file with movie plots/synopsis
-    metadata = pd.read_csv('movies_metadata.csv', usecols=['id','overview'])
+    metadata = pd.read_csv('sample_data/movies_metadata.csv', usecols=['id','overview'])
     metadata = metadata.rename(columns={'id':'tmdbId'})
 
     # drop movies with invalid tmbdId (e.g., date string instead of integer)
@@ -255,3 +255,28 @@ def load_data(aug_tt, item_tt,user_tt):
 
 
 
+def get_augmented_table():
+    '''
+    Replace integrate user_features and item_features
+    to the transaction_list
+    
+    Input
+    ------
+    none
+    
+    
+    Output
+    -------
+    augmented_transaction_table  : transaction_list concatenated with user_features
+                                   from genres and item_features from movie synopsis
+    
+    
+    '''
+    import pandas as pd
+    transaction_list, user_feature = create_user_feature()
+    item_feature = create_item_feature()
+    augmented_tt = transaction_list.merge(user_feature, on='userId', how='left')
+    augmented_tt_2 = augmented_tt.merge(item_feature, on='movieId', how='left')
+    
+    return augmented_tt_2
+    
