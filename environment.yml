@@ -1,0 +1,22 @@
+name: resype
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python==3.9
+  - pandas==1.3.3
+  - matplotlib
+  - seaborn
+  - ipykernel
+  - jupyter
+  - ipython
+  - nb_conda_kernels
+  - pip
+  - pip:
+    - sklearn
+    - scikit-surprise
+    - nltk==3.6
+    - xlrd
+    - parquet
+    - autopep8
