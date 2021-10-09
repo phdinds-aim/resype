@@ -104,22 +104,15 @@
    Collaborative Filtering
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="quickstart_content_based.html">
    Content-based Filtering
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Performance Comparison with Surprise
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Performance Comparison with Surprise
+  </a>
  </li>
 </ul>
 <p class="caption">
@@ -380,102 +373,64 @@
 <h1>Performance Comparison with Surprise<a class="headerlink" href="#performance-comparison-with-surprise" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="performance-results">
 <h2>Performance Results<a class="headerlink" href="#performance-results" title="Permalink to this headline">¶</a></h2>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Prediction Algorithm</th>
-      <th>MSE</th>
-      <th>MAE</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>NormalPredictor</td>
-      <td>2.051080</td>
-      <td>1.135742</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>BaselineOnly</td>
-      <td>0.858667</td>
-      <td>0.735921</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>KNNBasic</td>
-      <td>1.362782</td>
-      <td>0.906558</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>KNNWithMeans</td>
-      <td>1.173480</td>
-      <td>0.850230</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>KNNWithZScore</td>
-      <td>1.185011</td>
-      <td>0.842193</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>KNNBaseline</td>
-      <td>1.057957</td>
-      <td>0.796983</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>SVD</td>
-      <td>0.862225</td>
-      <td>0.730675</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>NMF</td>
-      <td>1.360950</td>
-      <td>0.921752</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>SlopeOne</td>
-      <td>1.222082</td>
-      <td>0.869121</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>CoClustering</td>
-      <td>1.299210</td>
-      <td>0.900984</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>Resype (Random Forest)</td>
-      <td>0.955075</td>
-      <td>0.757576</td>
-    </tr>
-  </tbody>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Prediction Algorithm</p></th>
+<th class="text-align:center head"><p>MSE</p></th>
+<th class="text-align:center head"><p>MAE</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>NormalPredictor</p></td>
+<td class="text-align:center"><p>2.051080</p></td>
+<td class="text-align:center"><p>1.135742</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>BaselineOnly</p></td>
+<td class="text-align:center"><p>0.858667</p></td>
+<td class="text-align:center"><p>0.735921</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>KNNBasic</p></td>
+<td class="text-align:center"><p>1.362782</p></td>
+<td class="text-align:center"><p>0.906558</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>KNNWithMeans</p></td>
+<td class="text-align:center"><p>1.173480</p></td>
+<td class="text-align:center"><p>0.850230</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>KNNWithZScore</p></td>
+<td class="text-align:center"><p>1.185011</p></td>
+<td class="text-align:center"><p>0.842193</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>KNNBaseline</p></td>
+<td class="text-align:center"><p>1.057957</p></td>
+<td class="text-align:center"><p>0.796983</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>SVD</p></td>
+<td class="text-align:center"><p>0.862225</p></td>
+<td class="text-align:center"><p>0.730675</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>NMF</p></td>
+<td class="text-align:center"><p>1.360950</p></td>
+<td class="text-align:center"><p>0.921752</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>SlopeOne</p></td>
+<td class="text-align:center"><p>1.222082</p></td>
+<td class="text-align:center"><p>0.869121</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>CoClustering</p></td>
+<td class="text-align:center"><p>1.299210</p></td>
+<td class="text-align:center"><p>0.900984</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>ReSyPE (SVD-based Collaborative Filtering using Random Forest)</p></td>
+<td class="text-align:center"><p>1.343327</p></td>
+<td class="text-align:center"><p>0.907147</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>ReSyPE (Content-based; Random Forest)</p></td>
+<td class="text-align:center"><p>0.955075</p></td>
+<td class="text-align:center"><p>0.757576</p></td>
+</tr>
+</tbody>
 </table>
-</div></div></div>
-</div>
 </div>
 </div>
 
