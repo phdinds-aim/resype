@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="User Clustering" href="gilbert/user_clustering.html" />
+    <link rel="next" title="&lt;no title&gt;" href="francis/create_item_feature.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -342,7 +342,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">resype.resype</span> <span class="kn">import</span> <span class="n">Resype</span>
+<span class="kn">from</span> <span class="nn">resype.collab_filtering</span> <span class="kn">import</span> <span class="n">CollabFilteringModel</span>
 
 <span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2 
@@ -365,7 +365,7 @@
 <h2>Preprocess<a class="headerlink" href="#preprocess" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">transaction_list</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span> <span class="o">=</span> <span class="n">CollabFilteringModel</span><span class="p">(</span><span class="n">transaction_list</span><span class="p">)</span>
 <span class="n">re</span><span class="o">.</span><span class="n">transaction_list</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -396,21 +396,21 @@
   </thead>
   <tbody>
     <tr>
-      <th>91090</th>
-      <td>590</td>
-      <td>6783</td>
-      <td>3.5</td>
-    </tr>
-    <tr>
-      <th>2239</th>
-      <td>18</td>
-      <td>122920</td>
+      <th>58565</th>
+      <td>381</td>
+      <td>78266</td>
       <td>3.0</td>
     </tr>
     <tr>
-      <th>62507</th>
-      <td>414</td>
-      <td>481</td>
+      <th>18628</th>
+      <td>119</td>
+      <td>54272</td>
+      <td>4.5</td>
+    </tr>
+    <tr>
+      <th>35027</th>
+      <td>234</td>
+      <td>2123</td>
       <td>3.0</td>
     </tr>
   </tbody>
@@ -444,26 +444,26 @@
   <thead>
     <tr style="text-align: right;">
       <th>item_id</th>
-      <th>481</th>
-      <th>780</th>
-      <th>783</th>
-      <th>788</th>
-      <th>1136</th>
-      <th>1196</th>
-      <th>1215</th>
-      <th>1288</th>
-      <th>1374</th>
-      <th>1882</th>
-      <th>1944</th>
-      <th>2427</th>
-      <th>2688</th>
-      <th>3247</th>
-      <th>4452</th>
-      <th>5989</th>
-      <th>6783</th>
-      <th>7438</th>
-      <th>122920</th>
-      <th>173535</th>
+      <th>196</th>
+      <th>208</th>
+      <th>266</th>
+      <th>355</th>
+      <th>434</th>
+      <th>586</th>
+      <th>588</th>
+      <th>1701</th>
+      <th>1856</th>
+      <th>2123</th>
+      <th>2455</th>
+      <th>2502</th>
+      <th>2867</th>
+      <th>4025</th>
+      <th>6188</th>
+      <th>54272</th>
+      <th>78266</th>
+      <th>80463</th>
+      <th>106100</th>
+      <th>157108</th>
     </tr>
     <tr>
       <th>user_id</th>
@@ -510,14 +510,14 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
+      <td>NaN</td>
+      <td>4.5</td>
+    </tr>
+    <tr>
+      <th>107</th>
+      <td>NaN</td>
       <td>3.0</td>
       <td>NaN</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>3.5</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -537,7 +537,7 @@
       <td>NaN</td>
     </tr>
     <tr>
-      <th>42</th>
+      <th>111</th>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -549,8 +549,8 @@
       <td>4.0</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>4.0</td>
-      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -604,26 +604,26 @@
   <thead>
     <tr style="text-align: right;">
       <th>item_id</th>
-      <th>481</th>
-      <th>780</th>
-      <th>783</th>
-      <th>788</th>
-      <th>1136</th>
-      <th>1196</th>
-      <th>1215</th>
-      <th>1288</th>
-      <th>1374</th>
-      <th>1882</th>
-      <th>1944</th>
-      <th>2427</th>
-      <th>2688</th>
-      <th>3247</th>
-      <th>4452</th>
-      <th>5989</th>
-      <th>6783</th>
-      <th>7438</th>
-      <th>122920</th>
-      <th>173535</th>
+      <th>196</th>
+      <th>208</th>
+      <th>266</th>
+      <th>355</th>
+      <th>434</th>
+      <th>586</th>
+      <th>588</th>
+      <th>1701</th>
+      <th>1856</th>
+      <th>2123</th>
+      <th>2455</th>
+      <th>2502</th>
+      <th>2867</th>
+      <th>4025</th>
+      <th>6188</th>
+      <th>54272</th>
+      <th>78266</th>
+      <th>80463</th>
+      <th>106100</th>
+      <th>157108</th>
     </tr>
     <tr>
       <th>user_id</th>
@@ -652,72 +652,72 @@
   <tbody>
     <tr>
       <th>18</th>
-      <td>0.5</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.333333</td>
-      <td>-0.5</td>
-      <td>0.000000e+00</td>
-      <td>0.333333</td>
-      <td>-0.666667</td>
-      <td>0.5</td>
-      <td>-0.5</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
     </tr>
     <tr>
-      <th>20</th>
-      <td>0.5</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.333333</td>
-      <td>-0.5</td>
-      <td>0.000000e+00</td>
-      <td>0.333333</td>
-      <td>-0.666667</td>
-      <td>0.5</td>
-      <td>-0.5</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
-      <td>0.000000e+00</td>
+      <th>107</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
     </tr>
     <tr>
-      <th>42</th>
-      <td>0.5</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
-      <td>0.333333</td>
-      <td>-0.5</td>
-      <td>1.480297e-16</td>
-      <td>0.333333</td>
-      <td>-0.666667</td>
-      <td>0.5</td>
-      <td>-0.5</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
-      <td>1.480297e-16</td>
+      <th>111</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
@@ -769,44 +769,44 @@
     <tr>
       <th>0</th>
       <td>18</td>
-      <td>481.0</td>
-      <td>3247.0</td>
-      <td>1374.0</td>
-      <td>2427.0</td>
-      <td>780.0</td>
-      <td>783.0</td>
-      <td>788.0</td>
-      <td>1136.0</td>
-      <td>1196.0</td>
-      <td>1215.0</td>
+      <td>2123.0</td>
+      <td>106100.0</td>
+      <td>208.0</td>
+      <td>266.0</td>
+      <td>355.0</td>
+      <td>434.0</td>
+      <td>586.0</td>
+      <td>588.0</td>
+      <td>1701.0</td>
+      <td>1856.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>20</td>
-      <td>481.0</td>
-      <td>3247.0</td>
-      <td>1374.0</td>
-      <td>2427.0</td>
-      <td>780.0</td>
-      <td>788.0</td>
-      <td>1136.0</td>
-      <td>1196.0</td>
-      <td>1215.0</td>
-      <td>1288.0</td>
+      <td>107</td>
+      <td>157108.0</td>
+      <td>106100.0</td>
+      <td>266.0</td>
+      <td>355.0</td>
+      <td>434.0</td>
+      <td>586.0</td>
+      <td>588.0</td>
+      <td>1701.0</td>
+      <td>1856.0</td>
+      <td>2123.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>42</td>
-      <td>481.0</td>
-      <td>3247.0</td>
-      <td>122920.0</td>
-      <td>780.0</td>
-      <td>783.0</td>
-      <td>788.0</td>
-      <td>1136.0</td>
-      <td>1196.0</td>
-      <td>1215.0</td>
-      <td>1288.0</td>
+      <td>111</td>
+      <td>157108.0</td>
+      <td>106100.0</td>
+      <td>208.0</td>
+      <td>266.0</td>
+      <td>355.0</td>
+      <td>434.0</td>
+      <td>586.0</td>
+      <td>588.0</td>
+      <td>1701.0</td>
+      <td>2123.0</td>
     </tr>
   </tbody>
 </table>
@@ -883,42 +883,42 @@
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>3.666667</td>
+      <td>0.000000</td>
       <td>0.000000</td>
       <td>0.0</td>
+      <td>5.0</td>
+      <td>0.00000</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.0</td>
+      <td>0.000000</td>
     </tr>
     <tr>
       <th>1</th>
+      <td>0.363636</td>
+      <td>0.272727</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
+      <td>0.18595</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>4.0</td>
-      <td>0.0</td>
+      <td>0.363636</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.5</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.000000</td>
-      <td>0.330357</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
     </tr>
   </tbody>
 </table>
@@ -980,42 +980,42 @@
   <tbody>
     <tr>
       <th>0</th>
-      <td>-0.411481</td>
-      <td>-0.397742</td>
-      <td>3.255185</td>
-      <td>-0.381283</td>
-      <td>-0.411481</td>
-      <td>-0.181846</td>
-      <td>-0.411481</td>
-      <td>-0.411481</td>
-      <td>0.171945</td>
-      <td>-0.411481</td>
+      <td>-0.430173</td>
+      <td>-0.417114</td>
+      <td>-0.458333</td>
+      <td>3.538939</td>
+      <td>-0.458333</td>
+      <td>-0.458333</td>
+      <td>-0.458333</td>
+      <td>0.209448</td>
+      <td>-0.230966</td>
+      <td>-0.417366</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-0.448889</td>
-      <td>-0.448889</td>
-      <td>-0.315947</td>
-      <td>-0.429701</td>
-      <td>-0.448889</td>
-      <td>-0.448889</td>
-      <td>-0.199500</td>
-      <td>-0.448889</td>
-      <td>3.551111</td>
-      <td>-0.369698</td>
+      <td>0.225689</td>
+      <td>0.134780</td>
+      <td>-0.080534</td>
+      <td>-0.088732</td>
+      <td>0.067354</td>
+      <td>-0.099382</td>
+      <td>-0.114118</td>
+      <td>-0.137948</td>
+      <td>-0.116099</td>
+      <td>0.225689</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.410967</td>
-      <td>-0.089033</td>
-      <td>-0.079824</td>
-      <td>0.241324</td>
-      <td>-0.089033</td>
-      <td>-0.089033</td>
-      <td>-0.058418</td>
-      <td>-0.089033</td>
-      <td>0.151372</td>
-      <td>-0.089033</td>
+      <td>-0.486881</td>
+      <td>-0.522222</td>
+      <td>4.477778</td>
+      <td>-0.522222</td>
+      <td>-0.522222</td>
+      <td>0.130154</td>
+      <td>-0.522222</td>
+      <td>-0.522222</td>
+      <td>-0.522222</td>
+      <td>-0.522222</td>
     </tr>
   </tbody>
 </table>
@@ -1061,29 +1061,29 @@
     <tr>
       <th>0</th>
       <td>0</td>
-      <td>8.0</td>
-      <td>6.0</td>
       <td>2.0</td>
       <td>9.0</td>
       <td>7.0</td>
+      <td>6.0</td>
+      <td>5.0</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1</td>
-      <td>8.0</td>
-      <td>6.0</td>
       <td>2.0</td>
-      <td>9.0</td>
-      <td>7.0</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>6.0</td>
+      <td>8.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>2</td>
-      <td>8.0</td>
       <td>5.0</td>
-      <td>3.0</td>
-      <td>1.0</td>
       <td>9.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
     </tr>
   </tbody>
 </table>
@@ -1128,29 +1128,29 @@
     <tr>
       <th>0</th>
       <td>18</td>
-      <td>1944.0</td>
-      <td>173535.0</td>
-      <td>1374.0</td>
-      <td>2688.0</td>
-      <td>2427.0</td>
+      <td>2502.0</td>
+      <td>588.0</td>
+      <td>54272.0</td>
+      <td>106100.0</td>
+      <td>2455.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>20</td>
-      <td>1944.0</td>
-      <td>173535.0</td>
-      <td>2427.0</td>
-      <td>2688.0</td>
-      <td>1374.0</td>
+      <td>107</td>
+      <td>2502.0</td>
+      <td>2867.0</td>
+      <td>2455.0</td>
+      <td>106100.0</td>
+      <td>157108.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>42</td>
-      <td>1944.0</td>
-      <td>1215.0</td>
-      <td>1288.0</td>
-      <td>4452.0</td>
-      <td>481.0</td>
+      <td>111</td>
+      <td>2455.0</td>
+      <td>588.0</td>
+      <td>1701.0</td>
+      <td>78266.0</td>
+      <td>2867.0</td>
     </tr>
   </tbody>
 </table>
@@ -1197,10 +1197,10 @@
 <div class='prev-next-bottom'>
     
      <div id="next">
-        <a class="right-next" href="gilbert/user_clustering.html" title="next page">
+        <a class="right-next" href="francis/create_item_feature.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">User Clustering</p>
+                <p class="prevnext-title">&lt;no title&gt;</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

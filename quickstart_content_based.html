@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Content based pipe &#8212; ReSyPE</title>
+    <title>Quickstart &#8212; ReSyPE</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -207,7 +207,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/combined_pipe_content_based.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/quickstart_content_based.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -227,7 +227,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fcombined_pipe_content_based.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fquickstart_content_based.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -248,7 +248,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/combined_pipe_content_based.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/quickstart_content_based.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -270,6 +270,11 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#content-based-model">
+   Content based model
+  </a>
+ </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#load-contentbasedmodel">
    Load ContentBasedModel
@@ -296,13 +301,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Get recommendations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluate">
-   Evaluate
+  <a class="reference internal nav-link" href="#evaluate-on-test-set">
+   Evaluate on test set
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -321,8 +321,10 @@
         
               <div>
                 
-  <div class="section" id="content-based-pipe">
-<h1>Content based pipe<a class="headerlink" href="#content-based-pipe" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="content-based-model">
+<h2>Content based model<a class="headerlink" href="#content-based-model" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># transaction list</span>
@@ -393,181 +395,6 @@
     </tr>
   </tbody>
 </table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># user ids and features</span>
-<span class="n">user_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>userId</th>
-      <th>u_1</th>
-      <th>u_2</th>
-      <th>u_3</th>
-      <th>u_4</th>
-      <th>u_5</th>
-      <th>u_6</th>
-      <th>u_7</th>
-      <th>u_8</th>
-      <th>u_9</th>
-      <th>...</th>
-      <th>u_11</th>
-      <th>u_12</th>
-      <th>u_13</th>
-      <th>u_14</th>
-      <th>u_15</th>
-      <th>u_16</th>
-      <th>u_17</th>
-      <th>u_18</th>
-      <th>u_19</th>
-      <th>u_20</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>90</td>
-      <td>45</td>
-      <td>55</td>
-      <td>...</td>
-      <td>17</td>
-      <td>68</td>
-      <td>22</td>
-      <td>7</td>
-      <td>40</td>
-      <td>22</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>3</td>
-      <td>0</td>
-      <td>0</td>
-      <td>7</td>
-      <td>0</td>
-      <td>1</td>
-      <td>11</td>
-      <td>10</td>
-      <td>10</td>
-      <td>...</td>
-      <td>1</td>
-      <td>17</td>
-      <td>1</td>
-      <td>1</td>
-      <td>4</td>
-      <td>0</td>
-      <td>0</td>
-      <td>4</td>
-      <td>3</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>11</td>
-      <td>4</td>
-      <td>5</td>
-      <td>9</td>
-      <td>4</td>
-      <td>5</td>
-      <td>14</td>
-      <td>2</td>
-      <td>7</td>
-      <td>...</td>
-      <td>8</td>
-      <td>16</td>
-      <td>5</td>
-      <td>0</td>
-      <td>15</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>29</td>
-      <td>6</td>
-      <td>10</td>
-      <td>104</td>
-      <td>19</td>
-      <td>58</td>
-      <td>25</td>
-      <td>27</td>
-      <td>38</td>
-      <td>...</td>
-      <td>4</td>
-      <td>120</td>
-      <td>7</td>
-      <td>10</td>
-      <td>12</td>
-      <td>16</td>
-      <td>4</td>
-      <td>1</td>
-      <td>2</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>8</td>
-      <td>6</td>
-      <td>9</td>
-      <td>15</td>
-      <td>7</td>
-      <td>11</td>
-      <td>9</td>
-      <td>12</td>
-      <td>9</td>
-      <td>...</td>
-      <td>1</td>
-      <td>25</td>
-      <td>3</td>
-      <td>2</td>
-      <td>2</td>
-      <td>5</td>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 21 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -745,6 +572,182 @@
 <p>5 rows × 301 columns</p>
 </div></div></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># user ids and features</span>
+<span class="n">user_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>u_1</th>
+      <th>u_2</th>
+      <th>u_3</th>
+      <th>u_4</th>
+      <th>u_5</th>
+      <th>u_6</th>
+      <th>u_7</th>
+      <th>u_8</th>
+      <th>u_9</th>
+      <th>...</th>
+      <th>u_11</th>
+      <th>u_12</th>
+      <th>u_13</th>
+      <th>u_14</th>
+      <th>u_15</th>
+      <th>u_16</th>
+      <th>u_17</th>
+      <th>u_18</th>
+      <th>u_19</th>
+      <th>u_20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>90</td>
+      <td>45</td>
+      <td>55</td>
+      <td>...</td>
+      <td>17</td>
+      <td>68</td>
+      <td>22</td>
+      <td>7</td>
+      <td>40</td>
+      <td>22</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7</td>
+      <td>0</td>
+      <td>1</td>
+      <td>11</td>
+      <td>10</td>
+      <td>10</td>
+      <td>...</td>
+      <td>1</td>
+      <td>17</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>11</td>
+      <td>4</td>
+      <td>5</td>
+      <td>9</td>
+      <td>4</td>
+      <td>5</td>
+      <td>14</td>
+      <td>2</td>
+      <td>7</td>
+      <td>...</td>
+      <td>8</td>
+      <td>16</td>
+      <td>5</td>
+      <td>0</td>
+      <td>15</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>29</td>
+      <td>6</td>
+      <td>10</td>
+      <td>104</td>
+      <td>19</td>
+      <td>58</td>
+      <td>25</td>
+      <td>27</td>
+      <td>38</td>
+      <td>...</td>
+      <td>4</td>
+      <td>120</td>
+      <td>7</td>
+      <td>10</td>
+      <td>12</td>
+      <td>16</td>
+      <td>4</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>8</td>
+      <td>6</td>
+      <td>9</td>
+      <td>15</td>
+      <td>7</td>
+      <td>11</td>
+      <td>9</td>
+      <td>12</td>
+      <td>9</td>
+      <td>...</td>
+      <td>1</td>
+      <td>25</td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+</div>
 <div class="section" id="load-contentbasedmodel">
 <h2>Load ContentBasedModel<a class="headerlink" href="#load-contentbasedmodel" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
@@ -774,6 +777,14 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Do your train and test split</span>
 <span class="n">cb</span><span class="o">.</span><span class="n">split_train_test</span><span class="p">(</span><span class="n">train_ratio</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Do your train and test split</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">split_train_test_chronological</span><span class="p">(</span><span class="n">train_ratio</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
 </pre></div>
 </div>
 </div>
@@ -828,107 +839,11 @@
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
+      <th>5</th>
       <td>1</td>
-      <td>1</td>
-      <td>4.0</td>
-      <td>964982703</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>3</td>
-      <td>4.0</td>
-      <td>964981247</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>1</td>
-      <td>110</td>
-      <td>4.0</td>
-      <td>964982176</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>1</td>
-      <td>163</td>
-      <td>5.0</td>
-      <td>964983650</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>1</td>
-      <td>223</td>
+      <td>70</td>
       <td>3.0</td>
-      <td>964980985</td>
+      <td>964982400</td>
       <td>85</td>
       <td>29</td>
       <td>42</td>
@@ -941,11 +856,107 @@
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1</td>
+      <td>151</td>
+      <td>5.0</td>
+      <td>964984041</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>157</td>
+      <td>5.0</td>
+      <td>964984100</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>1</td>
+      <td>296</td>
+      <td>3.0</td>
+      <td>964982967</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>1</td>
+      <td>333</td>
+      <td>5.0</td>
+      <td>964981179</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>...</th>
@@ -972,128 +983,128 @@
       <td>...</td>
     </tr>
     <tr>
-      <th>100825</th>
-      <td>610</td>
-      <td>161634</td>
-      <td>4.0</td>
-      <td>1493848362</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>100828</th>
-      <td>610</td>
-      <td>163981</td>
+      <th>980</th>
+      <td>7</td>
+      <td>8665</td>
       <td>3.5</td>
-      <td>1493850155</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
+      <td>1108602755</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
       <td>...</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
     </tr>
     <tr>
-      <th>100830</th>
-      <td>610</td>
-      <td>166528</td>
+      <th>981</th>
+      <td>7</td>
+      <td>8666</td>
+      <td>1.0</td>
+      <td>1106779625</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>983</th>
+      <td>7</td>
+      <td>8798</td>
+      <td>4.5</td>
+      <td>1106636602</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>984</th>
+      <td>7</td>
+      <td>8808</td>
+      <td>1.5</td>
+      <td>1109746594</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>989</th>
+      <td>7</td>
+      <td>8949</td>
       <td>4.0</td>
-      <td>1493879365</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
+      <td>1110757890</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
       <td>...</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>100831</th>
-      <td>610</td>
-      <td>166534</td>
-      <td>4.0</td>
-      <td>1493848402</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
-      <td>...</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>100834</th>
-      <td>610</td>
-      <td>168252</td>
-      <td>5.0</td>
-      <td>1493846352</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.291784</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.282198</td>
     </tr>
   </tbody>
 </table>
-<p>30256 rows × 324 columns</p>
+<p>301 rows × 324 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1146,35 +1157,11 @@
   </thead>
   <tbody>
     <tr>
-      <th>60</th>
+      <th>206</th>
       <td>1</td>
-      <td>1073</td>
-      <td>5.0</td>
-      <td>964981680</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.707217</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>1</td>
-      <td>1009</td>
+      <td>3243</td>
       <td>3.0</td>
-      <td>964981775</td>
+      <td>964981093</td>
       <td>85</td>
       <td>29</td>
       <td>42</td>
@@ -1183,70 +1170,22 @@
       <td>26</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>0.00000</td>
       <td>0.0</td>
       <td>0.000000</td>
+      <td>0.0</td>
       <td>0.000000</td>
       <td>0.0</td>
+      <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>105</th>
+      <th>207</th>
       <td>1</td>
-      <td>1625</td>
-      <td>5.0</td>
-      <td>964983504</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>215</th>
-      <td>1</td>
-      <td>3450</td>
-      <td>5.0</td>
-      <td>964981144</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>155</th>
-      <td>1</td>
-      <td>2414</td>
+      <td>3247</td>
       <td>3.0</td>
-      <td>964982513</td>
+      <td>964983108</td>
       <td>85</td>
       <td>29</td>
       <td>42</td>
@@ -1255,13 +1194,85 @@
       <td>26</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>0.60429</td>
       <td>0.0</td>
       <td>0.000000</td>
+      <td>0.0</td>
       <td>0.000000</td>
       <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>1</td>
+      <td>3729</td>
+      <td>5.0</td>
+      <td>964982363</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>201</th>
+      <td>1</td>
+      <td>3053</td>
+      <td>5.0</td>
+      <td>964984086</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.202585</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>1</td>
+      <td>1256</td>
+      <td>5.0</td>
+      <td>964981442</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
@@ -1290,128 +1301,128 @@
       <td>...</td>
     </tr>
     <tr>
-      <th>100800</th>
-      <td>610</td>
-      <td>147662</td>
+      <th>972</th>
+      <td>7</td>
+      <td>7155</td>
       <td>3.0</td>
-      <td>1479544214</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
+      <td>1173051472</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
       <td>...</td>
       <td>0.0</td>
+      <td>0.00000</td>
       <td>0.0</td>
+      <td>0.590782</td>
       <td>0.0</td>
+      <td>0.000000</td>
       <td>0.0</td>
-      <td>0.0</td>
-      <td>0.283971</td>
-      <td>0.415069</td>
-      <td>0.0</td>
+      <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>100641</th>
-      <td>610</td>
-      <td>104241</td>
-      <td>3.0</td>
-      <td>1479544709</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
+      <th>921</th>
+      <td>7</td>
+      <td>2683</td>
+      <td>2.0</td>
+      <td>1106635420</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>0.00000</td>
       <td>0.0</td>
       <td>0.000000</td>
-      <td>0.000000</td>
       <td>0.0</td>
+      <td>0.171763</td>
+      <td>0.0</td>
+      <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>99951</th>
-      <td>610</td>
-      <td>6283</td>
-      <td>4.5</td>
-      <td>1493845616</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
+      <th>944</th>
+      <td>7</td>
+      <td>4700</td>
+      <td>1.5</td>
+      <td>1109746591</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>0.00000</td>
       <td>0.0</td>
       <td>0.000000</td>
+      <td>0.0</td>
       <td>0.000000</td>
       <td>0.0</td>
+      <td>0.478203</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>100040</th>
-      <td>610</td>
-      <td>8142</td>
-      <td>5.0</td>
-      <td>1479545324</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>100171</th>
-      <td>610</td>
-      <td>42632</td>
+      <th>897</th>
+      <td>7</td>
+      <td>1196</td>
       <td>4.0</td>
-      <td>1479545124</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
+      <td>1106635996</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
       <td>...</td>
       <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>0.00000</td>
       <td>0.0</td>
       <td>0.000000</td>
-      <td>0.459726</td>
       <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>968</th>
+      <td>7</td>
+      <td>6863</td>
+      <td>4.5</td>
+      <td>1106712827</td>
+      <td>54</td>
+      <td>14</td>
+      <td>15</td>
+      <td>49</td>
+      <td>23</td>
+      <td>30</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
       <td>0.0</td>
       <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>70580 rows × 324 columns</p>
+<p>699 rows × 324 columns</p>
 </div></div></div>
 </div>
 </div>
@@ -1457,10 +1468,43 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>30256
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>301
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4.575, 4.64 , 4.29 , ..., 4.5  , 4.265, 4.455])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4.07 , 4.18 , 4.26 , 4.15 , 4.24 , 4.45 , 4.26 , 4.53 , 4.69 ,
+       3.72 , 4.68 , 4.3  , 4.97 , 4.14 , 3.45 , 4.83 , 4.56 , 4.86 ,
+       4.18 , 4.82 , 4.73 , 3.6  , 4.96 , 4.9  , 4.89 , 4.48 , 4.7  ,
+       4.59 , 4.74 , 4.2  , 4.76 , 4.9  , 4.17 , 4.39 , 4.61 , 4.27 ,
+       4.05 , 4.46 , 4.26 , 4.88 , 4.6  , 4.45 , 4.39 , 4.49 , 3.23 ,
+       4.61 , 4.98 , 4.85 , 4.82 , 4.5  , 4.14 , 4.57 , 4.2  , 4.45 ,
+       4.52 , 4.32 , 4.7  , 3.74 , 4.45 , 4.87 , 4.6  , 4.29 , 4.51 ,
+       4.43 , 4.71 , 4.75 , 4.55 , 4.41 , 4.64 , 4.74 , 3.495, 2.17 ,
+       3.86 , 3.25 , 4.225, 3.5  , 4.41 , 3.175, 3.76 , 4.13 , 3.275,
+       3.575, 3.585, 3.36 , 3.84 , 3.625, 4.05 , 3.265, 3.5  , 4.175,
+       3.795, 3.62 , 3.19 , 3.9  , 4.23 , 3.99 , 3.315, 3.975, 3.66 ,
+       3.44 , 4.09 , 2.875, 3.35 , 3.015, 3.88 , 3.92 , 3.23 , 3.955,
+       4.1  , 3.5  , 2.895, 3.51 , 3.285, 3.4  , 3.285, 3.555, 4.02 ,
+       3.335, 4.17 , 3.435, 4.16 , 3.9  , 4.2  , 3.54 , 4.075, 3.36 ,
+       3.65 , 3.965, 3.615, 3.86 , 3.17 , 3.11 , 4.175, 3.02 , 4.08 ,
+       3.975, 3.24 , 4.105, 3.745, 3.67 , 4.18 , 4.14 , 4.2  , 3.87 ,
+       3.75 , 3.625, 3.63 , 4.08 , 3.835, 3.92 , 3.645, 4.275, 3.69 ,
+       3.285, 4.045, 3.015, 3.675, 3.63 , 3.705, 3.06 , 3.335, 3.57 ,
+       3.99 , 2.195, 3.14 , 3.285, 3.265, 3.95 , 3.07 , 3.49 , 3.48 ,
+       3.5  , 3.45 , 3.285, 3.53 , 3.14 , 3.22 , 3.38 , 3.49 , 3.17 ,
+       3.54 , 3.4  , 3.565, 4.   , 3.345, 3.78 , 2.795, 3.46 , 3.71 ,
+       3.505, 3.675, 3.9  , 2.99 , 3.2  , 3.345, 3.325, 3.64 , 3.28 ,
+       3.615, 3.935, 3.06 , 3.445, 4.085, 3.87 , 3.86 , 2.91 , 3.32 ,
+       3.82 , 3.79 , 3.225, 3.285, 3.56 , 2.895, 3.5  , 2.935, 3.31 ,
+       2.965, 2.55 , 3.735, 3.91 , 3.08 , 3.63 , 3.525, 3.175, 3.8  ,
+       3.64 , 3.645, 3.405, 2.49 , 3.37 , 3.24 , 3.175, 3.45 , 3.615,
+       3.585, 3.335, 3.81 , 3.875, 3.69 , 4.145, 3.21 , 3.825, 2.285,
+       3.19 , 2.655, 3.645, 3.715, 3.62 , 3.585, 3.5  , 3.355, 4.025,
+       3.   , 3.535, 3.645, 3.36 , 3.44 , 3.375, 3.63 , 2.815, 4.195,
+       3.56 , 3.51 , 4.15 , 4.305, 4.19 , 3.645, 3.96 , 3.605, 3.475,
+       3.04 , 3.96 , 3.975, 3.29 , 2.715, 3.695, 3.36 , 4.28 , 3.95 ,
+       3.105, 3.14 , 3.725, 3.725, 3.19 , 3.16 , 3.885, 3.88 , 3.405,
+       3.925, 3.73 , 3.77 , 3.715, 1.995, 2.65 , 3.77 , 3.87 , 3.045,
+       3.785, 3.775, 3.62 , 2.835])
 </pre></div>
 </div>
 </div>
@@ -1470,93 +1514,79 @@
 <h2>Get Recommendations<a class="headerlink" href="#get-recommendations" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">user_</span> <span class="o">=</span> <span class="n">user_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;userId&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cb</span><span class="o">.</span><span class="n">get_rec</span><span class="p">(</span><span class="n">user_list</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">user_</span> <span class="o">=</span> <span class="n">user_</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicting utility matrix: 7 out of 7
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">item_</span> <span class="o">=</span> <span class="n">item_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;movieId&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reco_mtx</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_</span><span class="p">,</span> <span class="n">item_</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span>
-<span class="n">reco_mtx</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reco_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">reco_mtx</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="n">reco_inds</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">um</span> <span class="o">=</span> <span class="n">_</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">um</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="n">rs</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">um</span><span class="p">)</span>
-<span class="n">original_um</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
-<span class="n">original_um</span> <span class="o">=</span> <span class="n">original_um</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">reco_inds</span><span class="p">[:],</span> <span class="p">:]</span>
-<span class="n">original_um</span> <span class="o">=</span> <span class="n">original_um</span><span class="p">[</span><span class="n">reco_mtx</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>user_id</th>
+      <th>rank_1</th>
+      <th>rank_2</th>
+      <th>rank_3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>163981.0</td>
+      <td>52042.0</td>
+      <td>117368.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>122882.0</td>
+      <td>596.0</td>
+      <td>7381.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2858.0</td>
+      <td>125.0</td>
+      <td>4967.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="evaluate-on-test-set">
+<h2>Evaluate on test set<a class="headerlink" href="#evaluate-on-test-set" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse</span><span class="p">,</span> <span class="n">mae</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">evaluate_test_set</span><span class="p">()</span> <span class="c1">#MSE and MAE</span>
+<span class="n">mse</span><span class="p">,</span> <span class="n">mae</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reco_mtx</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">original_um</span><span class="o">.</span><span class="n">shape</span>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>proceed
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">original_um</span> <span class="o">=</span> <span class="n">original_um</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">original_um</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reco_mtx</span> <span class="o">=</span> <span class="n">reco_mtx</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">reco_mtx</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="id1">
-<h2>Get recommendations<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_rec</span><span class="p">(</span><span class="n">reco_mtx</span><span class="p">,</span> <span class="n">original_um</span><span class="p">,</span> <span class="n">user_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">top_n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="evaluate">
-<h2>Evaluate<a class="headerlink" href="#evaluate" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evaluate_arrays</span><span class="p">(</span><span class="n">preds_array</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">indx_test</span><span class="p">)</span> <span class="c1">#MSE and MAE</span>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.4762376245847177, 0.9313455149501663)
 </pre></div>
 </div>
 </div>
@@ -1566,14 +1596,35 @@
 <h2>Cross Validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse</span><span class="p">,</span> <span class="n">mae</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">cross_val</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse</span><span class="p">,</span> <span class="n">mae</span> <span class="o">=</span> <span class="n">cross_val</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">rs_model1</span><span class="p">,</span> <span class="n">split_method</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+Starting splitting
+Finished splitting
+Starting training
+Finished training
+Starting computing MAE and MSE
+proceed
+Finished computing MAE and MSE
+1
+Starting splitting
+Finished splitting
+Starting training
+Finished training
+Starting computing MAE and MSE
+proceed
+Finished computing MAE and MSE
+2
+Starting splitting
+Finished splitting
+Starting training
+Finished training
+Starting computing MAE and MSE
+proceed
+Finished computing MAE and MSE
 </pre></div>
 </div>
 </div>
@@ -1581,6 +1632,12 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse</span><span class="p">,</span> <span class="n">mae</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([1.4898759966777408, 1.221593899192318, 1.5457277466777408],
+ [0.9358637873754153, 0.8729953725676317, 0.9878654485049833])
 </pre></div>
 </div>
 </div>

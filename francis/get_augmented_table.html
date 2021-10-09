@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ReSyPE Training Pipeline &#8212; ReSyPE</title>
+    <title>&lt;no title&gt; &#8212; ReSyPE</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering" href="demo_notebook_iterative_model.html" />
-    <link rel="prev" title="Cluster Assignments" href="../issa/assignment.html" />
+    <link rel="next" title="&lt;no title&gt;" href="create_user_feature.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="create_item_feature.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -125,29 +125,29 @@
   ML Models
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../eloi/prediction_pipeline.html">
    ReSyPE Training Pipeline
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="demo_notebook_iterative_model.html">
+  <a class="reference internal" href="../eloi/demo_notebook_iterative_model.html">
    Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="demo_notebook_clusterbased_iterative_model.html">
+  <a class="reference internal" href="../eloi/demo_notebook_clusterbased_iterative_model.html">
    Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering Applied to Clustered Data
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="demo_notebook_svd_model.html">
+  <a class="reference internal" href="../eloi/demo_notebook_svd_model.html">
    Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="demo_notebook_clusterbased_svd_model.html">
+  <a class="reference internal" href="../eloi/demo_notebook_clusterbased_svd_model.html">
    Demo: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions Applied to Clustered Data
   </a>
  </li>
@@ -209,7 +209,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/eloi/prediction_pipeline.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/francis/get_augmented_table.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -229,7 +229,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Feloi/prediction_pipeline.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Ffrancis/get_augmented_table.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -250,7 +250,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/eloi/prediction_pipeline.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/francis/get_augmented_table.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -271,41 +271,7 @@
                 <i class="fas fa-list"></i> Contents
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#machine-learning-collaborative-filtering-ml-cs-recommender-system">
-   Machine Learning + Collaborative Filtering (ML+CS) Recommender System
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#approach-1-ml-based-collaborative-filtering-on-utility-matrix-with-reduced-dimensions">
-     Approach 1: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#approach-2-iterative-approach-to-ml-based-item-wise-collaborative-filtering">
-     Approach 2: Iterative Approach to ML-based Item-wise Collaborative Filtering
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#approach-3-ml-and-content-based-collaborative-filtering">
-     Approach 3: ML and Content-Based Collaborative Filtering
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#training-on-large-datasets">
-   Training on Large Datasets
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-training-for-clustered-data">
-     Model training for clustered data
-    </a>
-   </li>
-  </ul>
- </li>
+                <ul class="simple visible nav section-nav flex-column">
 </ul>
 
             </nav>
@@ -317,58 +283,239 @@
         
               <div>
                 
-  <div class="section" id="resype-training-pipeline">
-<h1>ReSyPE Training Pipeline<a class="headerlink" href="#resype-training-pipeline" title="Permalink to this headline">¶</a></h1>
-<p>We introduce a framework for training arbitrary machine learning models to perform collaborative filtering on small and large datasets. Given the utility matrix as input, we outline two approaches for model training as discussed by C. Aggarwal in his book on <em>Recommender Systems</em>. We also propose an extension of these methodologies by applying clustering on the dataset before the model training.</p>
-<div class="section" id="machine-learning-collaborative-filtering-ml-cs-recommender-system">
-<h2>Machine Learning + Collaborative Filtering (ML+CS) Recommender System<a class="headerlink" href="#machine-learning-collaborative-filtering-ml-cs-recommender-system" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="approach-1-ml-based-collaborative-filtering-on-utility-matrix-with-reduced-dimensions">
-<h3>Approach 1: ML-based Collaborative Filtering on Utility Matrix with Reduced Dimensions<a class="headerlink" href="#approach-1-ml-based-collaborative-filtering-on-utility-matrix-with-reduced-dimensions" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
-<li><p>Fill Utility Matrix with mean of matrix</p></li>
-<li><p>Choose column j to where missing ratings will be predicted. Column j will be the label in the model while the features will be the rest of the columns (not equal to j).</p></li>
-<li><p>Perform SVD on feature matrix. This will be the  new feature table used to predict the ratings for item j.</p></li>
-<li><p>Train a model using the feature matrix as input and column j as output</p></li>
-<li><p>Repeat 2, 3, 4 for all items/columns.</p></li>
-</ol>
-</div>
-<div class="section" id="approach-2-iterative-approach-to-ml-based-item-wise-collaborative-filtering">
-<h3>Approach 2: Iterative Approach to ML-based Item-wise Collaborative Filtering<a class="headerlink" href="#approach-2-iterative-approach-to-ml-based-item-wise-collaborative-filtering" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
-<li><p>Mean-center each row of the utility matrix to remove user bias.</p></li>
-<li><p>Replace missing values with zero after mean centering.</p></li>
-<li><p>Choose column j to where missing ratings will be predicted. Column j will be the label in the model while the features will be the rest of the columns (not equal to j).</p></li>
-<li><p>Train a model using the feature matrix as input and column j as output</p></li>
-<li><p>Predict missing ratings for column j.</p></li>
-<li><p>Use the predicted values to update the missing ratings in the utility matrix.</p></li>
-<li><p>Perform steps 3, 4, 5, 6 for all columns.</p></li>
-<li><p>Iterate steps 3 to 7 until the predicted ratings converge.</p></li>
-</ol>
-</div>
-<div class="section" id="approach-3-ml-and-content-based-collaborative-filtering">
-<h3>Approach 3: ML and Content-Based Collaborative Filtering<a class="headerlink" href="#approach-3-ml-and-content-based-collaborative-filtering" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
-<li><p>Generate user features and item features</p></li>
-<li><p>Concatenate the user features and item features for every user-item pair wherein a user has rated an item.</p></li>
-<li><p>Perform a stratified splitting of the data into train and test sets where the test set is a fraction of the items a user has not rated. Each user must have a minimum number of items rated to be part of the training process.</p></li>
-<li><p>Train a model using the concatenated user-item feature table to predict the rating for each user-item pair in the training set.</p></li>
-<li><p>Use the trained model to predict the rating for all items a user has not rated.</p></li>
-<li><p>Select the items with the highest rating as the recommendations.</p></li>
-</ol>
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_augmented_table</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Replace integrate user_features and item_features</span>
+<span class="sd">    to the transaction_list</span>
+<span class="sd">    </span>
+<span class="sd">    Input</span>
+<span class="sd">    ------</span>
+<span class="sd">    none</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    Output</span>
+<span class="sd">    -------</span>
+<span class="sd">    augmented_transaction_table  : transaction_list concatenated with user_features</span>
+<span class="sd">                                   from genres and item_features from movie synopsis</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="n">transaction_list</span><span class="p">,</span> <span class="n">user_feature</span> <span class="o">=</span> <span class="n">create_user_feature</span><span class="p">(</span><span class="n">num_transactions</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">)</span>
+    <span class="n">item_feature</span> <span class="o">=</span> <span class="n">create_item_feature</span><span class="p">()</span>
+    <span class="n">augmented_tt</span> <span class="o">=</span> <span class="n">transaction_list</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">user_feature</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">augmented_tt_2</span> <span class="o">=</span> <span class="n">augmented_tt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">item_feature</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">augmented_tt_2</span>
+    
+</pre></div>
 </div>
 </div>
-<div class="section" id="training-on-large-datasets">
-<h2>Training on Large Datasets<a class="headerlink" href="#training-on-large-datasets" title="Permalink to this headline">¶</a></h2>
-<p>The diagram below shows the flowchart of the proposed method for model training. If the dataset is small (left branch), we use the two approaches metioned above and apply them to the raw utility matrix. Since we are training one model per item, a limitation of these methods is that they are computationally expensive especially when the iterative approach is used. Hence we need a more scalable solution. One way to do this assigning users and/or items into clusters and deriving a new utility matrix that contains the representative ratings per cluster.</p>
-<p>After clustering, the cluster-based utility matrix contains the aggregate ratings of each cluster. The collaborative filtering problem is now reduced to prediction of ratings per user- or item-cluster instead of predicting the ratings for all users and items.</p>
-<p><img alt="flowchart" src="../_images/training_pipeline.png" /></p>
-<div class="section" id="model-training-for-clustered-data">
-<h3>Model training for clustered data<a class="headerlink" href="#model-training-for-clustered-data" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
-<li><p>Generate multiple sets of synthetic data containing unknown/missing ratings. We do this by randomly setting elements of the cluster-based utility matrix to NaN.</p></li>
-<li><p>For each matrix of synthetic data, we apply the iterative and the SVD approach to predict the missing ratings.</p></li>
-<li><p>Get all predictions from each matrix of synthetic data and get the mean across all datasets. This will be the treated as the final cluster-based predictions of the RS.</p></li>
-</ol>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">augmented_transaction_table</span> <span class="o">=</span> <span class="n">get_augmented_table</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">augmented_transaction_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>movieId</th>
+      <th>rating</th>
+      <th>timestamp</th>
+      <th>u_1</th>
+      <th>u_2</th>
+      <th>u_3</th>
+      <th>u_4</th>
+      <th>u_5</th>
+      <th>u_6</th>
+      <th>...</th>
+      <th>i_291</th>
+      <th>i_292</th>
+      <th>i_293</th>
+      <th>i_294</th>
+      <th>i_295</th>
+      <th>i_296</th>
+      <th>i_297</th>
+      <th>i_298</th>
+      <th>i_299</th>
+      <th>i_300</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>4.0</td>
+      <td>964982703</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>3</td>
+      <td>4.0</td>
+      <td>964981247</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>6</td>
+      <td>4.0</td>
+      <td>964982224</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>47</td>
+      <td>5.0</td>
+      <td>964983815</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>50</td>
+      <td>5.0</td>
+      <td>964982931</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 324 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">augmented_transaction_table</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5000, 324)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">augmented_transaction_table</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32
+</pre></div>
 </div>
 </div>
 </div>
@@ -382,16 +529,16 @@
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "conda-root-py"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "conda-root-py",
-            path: "./eloi"
+            kernelName: "python3",
+            path: "./francis"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'conda-root-py'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
@@ -403,19 +550,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../issa/assignment.html" title="previous page">
+        <a class="left-prev" href="create_item_feature.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Cluster Assignments</p>
+                <p class="prevnext-title">&lt;no title&gt;</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="demo_notebook_iterative_model.html" title="next page">
+        <a class="right-next" href="create_user_feature.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Demo: Iterative Approach to ML-based Item-wise Collaborative Filtering</p>
+                <p class="prevnext-title">&lt;no title&gt;</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
