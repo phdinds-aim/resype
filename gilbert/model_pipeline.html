@@ -391,11 +391,11 @@
     <span class="k">return</span> <span class="n">rs_model</span>
 
 
-<span class="k">def</span> <span class="nf">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_fitted</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">model_fitted</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Completes the entire utility matrix based on the model passed</span>
 
-<span class="sd">    Paramters</span>
+<span class="sd">    Parameters</span>
 <span class="sd">    ---------</span>
 <span class="sd">    train_df     : pandas DataFrame</span>
 <span class="sd">                   The training set as a transaction table. Each row</span>
@@ -464,7 +464,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split_train_test</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">train_ratio</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split_train_test</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">train_ratio</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">uid</span><span class="o">=</span><span class="s1">&#39;userId&#39;</span><span class="p">,</span> <span class="n">iid</span><span class="o">=</span><span class="s1">&#39;movieId&#39;</span><span class="p">,</span> <span class="n">rid</span><span class="o">=</span><span class="s1">&#39;rating&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Splits the transaction data into train and test sets.</span>
 <span class="sd">    </span>
@@ -509,8 +509,8 @@
     <span class="n">df_test_fin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">list_df_test</span><span class="p">)</span>
     
     <span class="c1"># 3. Option to pivot it to create the utility matrix ready as input for recsys</span>
-    <span class="n">df_test_um</span> <span class="o">=</span> <span class="n">df_test_fin</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">df_test_fin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">df_test_fin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="n">df_test_fin</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-
+    <span class="n">df_test_um</span> <span class="o">=</span> <span class="n">df_test_fin</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">uid</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iid</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">rid</span><span class="p">)</span>
+    
     <span class="c1"># 4. get indices of train and test sets</span>
     <span class="n">indx_train</span> <span class="o">=</span> <span class="n">df_train_fin</span><span class="o">.</span><span class="n">index</span>
     <span class="n">indx_test</span> <span class="o">=</span> <span class="n">df_test_fin</span><span class="o">.</span><span class="n">index</span>
@@ -551,24 +551,72 @@
     
 <span class="c1">#     test indices first, all user ids should be represented in the test matrix </span>
     <span class="n">idx_orig_data</span> <span class="o">=</span> <span class="n">df_test_data</span><span class="o">.</span><span class="n">index</span>
-    <span class="n">idx_result</span> <span class="o">=</span> <span class="n">df_test_result</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">idx_result</span> <span class="o">=</span> <span class="n">df_test_result</span><span class="o">.</span><span class="n">index</span>
     <span class="n">a</span><span class="o">=</span><span class="n">idx_orig_data</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">idx_result</span><span class="p">)</span>
     
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;proceed&#39;</span><span class="p">)</span>
-        
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">df_test_result</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
             <span class="n">y_pred</span> <span class="o">=</span> <span class="n">df_test_result</span><span class="p">[</span><span class="n">df_test_result</span><span class="o">.</span><span class="n">index</span><span class="o">==</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="n">df_test_data</span><span class="p">[</span><span class="n">df_test_data</span><span class="o">.</span><span class="n">index</span><span class="o">==</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">df_test_data</span><span class="p">[</span><span class="n">df_test_data</span><span class="o">.</span><span class="n">index</span><span class="o">==</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">y</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
             <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
             <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
             <span class="n">mse_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
             <span class="n">mae_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">mse_list</span><span class="p">,</span> <span class="n">mae_list</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
+
+<span class="k">def</span> <span class="nf">evaluate_arrays</span><span class="p">(</span><span class="n">model_result_arr</span><span class="p">,</span> <span class="n">df_data</span><span class="p">,</span> <span class="n">indx_test</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the mse and mae of the recommender system for a given result and test set.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    </span>
+<span class="sd">    model_result_arr   : ratings from the results of the recommender sys using test set</span>
+<span class="sd">    </span>
+<span class="sd">    df_test_truth      : the original dataframe for before splitting.</span>
+<span class="sd">                         the original ratings or ground truth from the test set will be extracted from here using indices</span>
+<span class="sd">                         </span>
+<span class="sd">    indx_test          : result indices of test set from splitting</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    ---------</span>
+<span class="sd">    </span>
+<span class="sd">    mse                : mse value using sklearn </span>
+<span class="sd">    </span>
+<span class="sd">    mae                : mse value using sklearn </span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">df_test_truth</span> <span class="o">=</span> <span class="n">df_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">indx_test</span><span class="p">),</span> <span class="n">df_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+    <span class="n">test_arr</span> <span class="o">=</span> <span class="n">df_test_truth</span><span class="o">.</span><span class="n">values</span>
+         
+<span class="c1">#     test indices first, all user ids should be represented in the test matrix </span>
+
+    <span class="n">result_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_result_arr</span><span class="p">)</span> 
+    <span class="n">test_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_arr</span><span class="p">)</span>
+      
+    <span class="k">if</span> <span class="n">result_len</span><span class="o">!=</span><span class="n">test_len</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;the arrays are of different lengths </span><span class="si">%s</span><span class="s1"> in </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">result_len</span><span class="p">,</span><span class="n">test_len</span><span class="p">))</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;proceed&#39;</span><span class="p">)</span>
+            
+        <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_arr</span><span class="p">,</span> <span class="n">model_result_arr</span><span class="p">)</span>
+        <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">test_arr</span><span class="p">,</span> <span class="n">model_result_arr</span><span class="p">)</span>
+
+            
+    <span class="k">return</span> <span class="n">mse</span><span class="p">,</span> <span class="n">mae</span>
 </pre></div>
 </div>
 </div>
@@ -658,30 +706,344 @@
 <h1>Model Pipeline<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># #Declare your model</span>
-<span class="c1"># rs_model1 = RandomForestRegressor(random_state=202109, n_jobs=-1)</span>
-<span class="c1"># #Load the data</span>
-<span class="c1"># df, item_df, user_df, item_ids, user_ids = load_data(&#39;augmented_transaction_table.parquet&#39;,</span>
-<span class="c1">#                                                      &#39;item_feature.parquet&#39;,</span>
-<span class="c1">#                                                      &#39;user_feature.parquet&#39;)</span>
-<span class="c1"># #Do your train and test split</span>
-<span class="c1"># df_train, df_test, df_test_um, indx_train, indx_test = split_train_test(df, 0.7) #To split the data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Declare your model</span>
+<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#Load the data</span>
+<span class="n">df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">user_df</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">user_ids</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;augmented_transaction_table.parquet&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;item_feature.parquet&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;user_feature.parquet&#39;</span><span class="p">)</span>
+<span class="c1">#Do your train and test split</span>
+<span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
 <span class="c1"># #Fit your model to the train data</span>
-<span class="c1"># model_fit = fit_ml_cb(df_train, rs_model1) #To fit the model</span>
-<span class="c1"># #Predict on the test data</span>
-<span class="c1"># preds_array = reco_ml_cb_tt(df_test, model_fit) #To make predictions as an array</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds_array</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">rs_model1</span><span class="p">)</span> <span class="c1">#To fit the model</span>
+<span class="c1">#Predict on the test data</span>
+<span class="n">preds_array</span> <span class="o">=</span> <span class="n">reco_ml_cb_tt</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span> <span class="c1">#To make predictions as an array</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4.595, 4.29 , 4.355, ..., 3.73 , 3.565, 4.   ])
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>movieId</th>
+      <th>rating</th>
+      <th>timestamp</th>
+      <th>u_1</th>
+      <th>u_2</th>
+      <th>u_3</th>
+      <th>u_4</th>
+      <th>u_5</th>
+      <th>u_6</th>
+      <th>...</th>
+      <th>i_291</th>
+      <th>i_292</th>
+      <th>i_293</th>
+      <th>i_294</th>
+      <th>i_295</th>
+      <th>i_296</th>
+      <th>i_297</th>
+      <th>i_298</th>
+      <th>i_299</th>
+      <th>i_300</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>50</td>
+      <td>5.0</td>
+      <td>964982931</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>70</td>
+      <td>3.0</td>
+      <td>964982400</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1</td>
+      <td>101</td>
+      <td>5.0</td>
+      <td>964980868</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1</td>
+      <td>110</td>
+      <td>4.0</td>
+      <td>964982176</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>157</td>
+      <td>5.0</td>
+      <td>964984100</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>100823</th>
+      <td>610</td>
+      <td>160836</td>
+      <td>3.0</td>
+      <td>1493844794</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.287034</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100824</th>
+      <td>610</td>
+      <td>161582</td>
+      <td>4.0</td>
+      <td>1493847759</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100827</th>
+      <td>610</td>
+      <td>163937</td>
+      <td>3.5</td>
+      <td>1493848789</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100831</th>
+      <td>610</td>
+      <td>166534</td>
+      <td>4.0</td>
+      <td>1493848402</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100833</th>
+      <td>610</td>
+      <td>168250</td>
+      <td>5.0</td>
+      <td>1494273047</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>30101 rows × 324 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evaluate_arrays</span><span class="p">(</span><span class="n">preds_array</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">indx_test</span><span class="p">)</span> <span class="c1">#MSE and MAE</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>proceed
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.277636794458656, 0.881370718580778)
 </pre></div>
 </div>
 </div>
@@ -765,7 +1127,7 @@
                                                      <span class="s1">&#39;user_feature.parquet&#39;</span><span class="p">)</span>
         <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
         <span class="n">model_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">rs_model1</span><span class="p">)</span> 
-        <span class="n">matrix_result</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span>
+        <span class="n">matrix_result</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">matrix_result</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_ids</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">matrix_result</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_ids</span><span class="p">))</span>
 
@@ -783,21 +1145,632 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_matrix_shape (__main__.TestGetRec) ... 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_array_pred (__main__.TestGetRec) ... 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>610 out of 610
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ok
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-----------------------------------------------------------------------
-Ran 1 test in 277.740s
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-OK
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>movieId</th>
+      <th>rating</th>
+      <th>timestamp</th>
+      <th>u_1</th>
+      <th>u_2</th>
+      <th>u_3</th>
+      <th>u_4</th>
+      <th>u_5</th>
+      <th>u_6</th>
+      <th>...</th>
+      <th>i_291</th>
+      <th>i_292</th>
+      <th>i_293</th>
+      <th>i_294</th>
+      <th>i_295</th>
+      <th>i_296</th>
+      <th>i_297</th>
+      <th>i_298</th>
+      <th>i_299</th>
+      <th>i_300</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>3</td>
+      <td>4.0</td>
+      <td>964981247</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>6</td>
+      <td>4.0</td>
+      <td>964982224</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>70</td>
+      <td>3.0</td>
+      <td>964982400</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1</td>
+      <td>216</td>
+      <td>5.0</td>
+      <td>964981208</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.448884</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>1</td>
+      <td>333</td>
+      <td>5.0</td>
+      <td>964981179</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>100824</th>
+      <td>610</td>
+      <td>161582</td>
+      <td>4.0</td>
+      <td>1493847759</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>100826</th>
+      <td>610</td>
+      <td>162350</td>
+      <td>3.5</td>
+      <td>1493849971</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>100829</th>
+      <td>610</td>
+      <td>164179</td>
+      <td>5.0</td>
+      <td>1493845631</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.296870</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>100834</th>
+      <td>610</td>
+      <td>168252</td>
+      <td>5.0</td>
+      <td>1493846352</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.291784</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.282198</td>
+    </tr>
+    <tr>
+      <th>100835</th>
+      <td>610</td>
+      <td>170875</td>
+      <td>3.0</td>
+      <td>1493846415</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.365896</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.313337</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>30101 rows × 324 columns</p>
+</div></div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ok
+test_matrix_shape (__main__.TestGetRec) ... 
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x7f3882d81130&gt;
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>userId</th>
+      <th>movieId</th>
+      <th>rating</th>
+      <th>timestamp</th>
+      <th>u_1</th>
+      <th>u_2</th>
+      <th>u_3</th>
+      <th>u_4</th>
+      <th>u_5</th>
+      <th>u_6</th>
+      <th>...</th>
+      <th>i_291</th>
+      <th>i_292</th>
+      <th>i_293</th>
+      <th>i_294</th>
+      <th>i_295</th>
+      <th>i_296</th>
+      <th>i_297</th>
+      <th>i_298</th>
+      <th>i_299</th>
+      <th>i_300</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>4.0</td>
+      <td>964982703</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>50</td>
+      <td>5.0</td>
+      <td>964982931</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>70</td>
+      <td>3.0</td>
+      <td>964982400</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1</td>
+      <td>101</td>
+      <td>5.0</td>
+      <td>964980868</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1</td>
+      <td>151</td>
+      <td>5.0</td>
+      <td>964984041</td>
+      <td>85</td>
+      <td>29</td>
+      <td>42</td>
+      <td>83</td>
+      <td>47</td>
+      <td>26</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>100817</th>
+      <td>610</td>
+      <td>158956</td>
+      <td>3.0</td>
+      <td>1493848947</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100819</th>
+      <td>610</td>
+      <td>160080</td>
+      <td>3.0</td>
+      <td>1493848031</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100827</th>
+      <td>610</td>
+      <td>163937</td>
+      <td>3.5</td>
+      <td>1493848789</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100828</th>
+      <td>610</td>
+      <td>163981</td>
+      <td>3.5</td>
+      <td>1493850155</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>100832</th>
+      <td>610</td>
+      <td>168248</td>
+      <td>5.0</td>
+      <td>1493850091</td>
+      <td>267</td>
+      <td>66</td>
+      <td>56</td>
+      <td>411</td>
+      <td>151</td>
+      <td>119</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.24502</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>30101 rows × 324 columns</p>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42 out of 610
 </pre></div>
 </div>
 </div>
