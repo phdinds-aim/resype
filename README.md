@@ -33,7 +33,7 @@ source activate resype
 ```python
 import pandas as pd
 import numpy as np
-from resype.resype import Resype
+from resype.collab_filtering import CollabFilteringModel
 
 # load transaction list
 transaction_list = pd.read_csv("sample_data/ratings.csv")
@@ -41,7 +41,7 @@ transaction_list = transaction_list[['userId', 'movieId', 'rating']]
 transaction_list = transaction_list.sample(20)
 transaction_list.columns = ["user_id", 'item_id', 'rating']
 
-re = Resype(transaction_list)
+re = CollabFilteringModel(transaction_list)
 
 # construct utlity matrix
 re.construct_utility_matrix()
