@@ -350,10 +350,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE: 0.9321
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE: 0.9350
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9321051878380916
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9349850075768633
 </pre></div>
 </div>
 </div>
@@ -427,6 +427,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">rmses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">algos</span><span class="p">))</span>
+<span class="n">mses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">algos</span><span class="p">))</span>
 <span class="n">maes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">algos</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">algo</span> <span class="ow">in</span> <span class="n">algos</span><span class="p">:</span>
@@ -434,6 +435,7 @@
     <span class="n">algo</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainset</span><span class="p">)</span>
     <span class="n">predictions</span> <span class="o">=</span> <span class="n">algo</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">testset</span><span class="p">)</span>
     <span class="n">rmses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">mses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">mse</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">maes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy</span><span class="o">.</span><span class="n">mae</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
@@ -461,7 +463,7 @@ NMF
 SlopeOne
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-4-e82625e22493&gt;:7: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-4-d0ed600a51f2&gt;:8: DeprecationWarning: `np.int` is a deprecated alias for the builtin `int`. To silence this warning, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
   algo.fit(trainset)
 </pre></div>
@@ -473,7 +475,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Prediction Algorithm&#39;</span><span class="p">,</span> <span class="s1">&#39;RMSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Prediction Algorithm&#39;</span><span class="p">,</span> <span class="s1">&#39;RMSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">]</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -483,6 +485,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Prediction Algorithm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">algo_names</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RMSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rmses</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mses</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MAE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">maes</span>
 <span class="n">df</span>
 </pre></div>
@@ -509,6 +512,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
       <th></th>
       <th>Prediction Algorithm</th>
       <th>RMSE</th>
+      <th>MSE</th>
       <th>MAE</th>
     </tr>
   </thead>
@@ -516,62 +520,72 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
     <tr>
       <th>0</th>
       <td>NormalPredictor</td>
-      <td>1.517755</td>
-      <td>1.217249</td>
+      <td>1.519409</td>
+      <td>2.308603</td>
+      <td>1.220866</td>
     </tr>
     <tr>
       <th>1</th>
       <td>BaselineOnly</td>
-      <td>0.941380</td>
-      <td>0.745818</td>
+      <td>0.942609</td>
+      <td>0.888511</td>
+      <td>0.745891</td>
     </tr>
     <tr>
       <th>2</th>
       <td>KNNBasic</td>
-      <td>0.978443</td>
-      <td>0.771277</td>
+      <td>0.978922</td>
+      <td>0.958288</td>
+      <td>0.770645</td>
     </tr>
     <tr>
       <th>3</th>
       <td>KNNWithMeans</td>
-      <td>0.948054</td>
-      <td>0.747284</td>
+      <td>0.948836</td>
+      <td>0.900290</td>
+      <td>0.745781</td>
     </tr>
     <tr>
       <th>4</th>
       <td>KNNWithZScore</td>
-      <td>0.948948</td>
-      <td>0.744540</td>
+      <td>0.948678</td>
+      <td>0.899989</td>
+      <td>0.742454</td>
     </tr>
     <tr>
       <th>5</th>
       <td>KNNBaseline</td>
-      <td>0.927418</td>
-      <td>0.730104</td>
+      <td>0.929740</td>
+      <td>0.864417</td>
+      <td>0.730747</td>
     </tr>
     <tr>
       <th>6</th>
       <td>SVD</td>
-      <td>0.933118</td>
-      <td>0.735697</td>
+      <td>0.936611</td>
+      <td>0.877241</td>
+      <td>0.737930</td>
     </tr>
     <tr>
       <th>7</th>
       <td>NMF</td>
-      <td>0.960820</td>
-      <td>0.755339</td>
+      <td>0.960500</td>
+      <td>0.922560</td>
+      <td>0.752521</td>
     </tr>
     <tr>
       <th>8</th>
       <td>SlopeOne</td>
-      <td>0.939599</td>
-      <td>0.738244</td>
+      <td>0.943907</td>
+      <td>0.890960</td>
+      <td>0.740921</td>
     </tr>
     <tr>
       <th>9</th>
       <td>CoClustering</td>
-      <td>0.963961</td>
-      <td>0.754460</td>
+      <td>0.962844</td>
+      <td>0.927068</td>
+      <td>0.752880</td>
     </tr>
   </tbody>
 </table>
@@ -599,7 +613,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 Done computing similarity matrix.
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;surprise.prediction_algorithms.knns.KNNBasic at 0x7f9090894ca0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;surprise.prediction_algorithms.knns.KNNBasic at 0x7fb7c3ae4d30&gt;
 </pre></div>
 </div>
 </div>
