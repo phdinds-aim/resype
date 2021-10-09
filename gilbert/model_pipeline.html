@@ -651,14 +651,14 @@
             <span class="c1"># 2. train with model</span>
             <span class="n">model_clone</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting training&#39;</span><span class="p">)</span>
-            <span class="n">model_clone_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">model_clone</span><span class="p">)</span>
+            <span class="n">model_clone_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">model_clone</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished training&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting completing matrix&#39;</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_clone_fit</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">reco_ml_cb_tt</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished completing matrix&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting computing MAE and MSE&#39;</span><span class="p">)</span>
             <span class="c1"># 3. evaluate results (result is in the form of utility matrix)</span>
-            <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">)</span>
+            <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate_arrays</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">indx_test</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished computing MAE and MSE&#39;</span><span class="p">)</span>
 
             <span class="n">mse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse_i</span><span class="p">)</span>
@@ -675,14 +675,14 @@
         <span class="c1"># 2. train with model</span>
         <span class="n">model_clone</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting training&#39;</span><span class="p">)</span>
-        <span class="n">model_clone_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">model_clone</span><span class="p">)</span>
+        <span class="n">model_clone_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">model_clone</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished training&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting completing matrix&#39;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_test</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_clone_fit</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">reco_ml_cb_tt</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished completing matrix&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting computing MAE and MSE&#39;</span><span class="p">)</span>
         <span class="c1"># 3. evaluate results (result is in the form of utility matrix)</span>
-        <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">)</span>
+        <span class="n">mse_i</span><span class="p">,</span> <span class="n">mae_i</span> <span class="o">=</span> <span class="n">evaluate_arrays</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">indx_test</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished computing MAE and MSE&#39;</span><span class="p">)</span>
 
         <span class="n">mse</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse_i</span><span class="p">)</span>
@@ -707,323 +707,80 @@
 <span class="c1">#Do your train and test split</span>
 <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
 <span class="c1"># #Fit your model to the train data</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">rs_model1</span><span class="p">)</span> <span class="c1">#To fit the model</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">rs_model1</span><span class="p">)</span> <span class="c1">#To fit the model</span>
 <span class="c1">#Predict on the test data</span>
 <span class="n">preds_array</span> <span class="o">=</span> <span class="n">reco_ml_cb_tt</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span> <span class="c1">#To make predictions as an array</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse</span><span class="p">,</span> <span class="n">mae</span> <span class="o">=</span> <span class="n">cross_val</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">,</span> <span class="n">split_method</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>userId</th>
-      <th>movieId</th>
-      <th>rating</th>
-      <th>timestamp</th>
-      <th>u_1</th>
-      <th>u_2</th>
-      <th>u_3</th>
-      <th>u_4</th>
-      <th>u_5</th>
-      <th>u_6</th>
-      <th>...</th>
-      <th>i_291</th>
-      <th>i_292</th>
-      <th>i_293</th>
-      <th>i_294</th>
-      <th>i_295</th>
-      <th>i_296</th>
-      <th>i_297</th>
-      <th>i_298</th>
-      <th>i_299</th>
-      <th>i_300</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>4</th>
-      <td>1</td>
-      <td>50</td>
-      <td>5.0</td>
-      <td>964982931</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>1</td>
-      <td>70</td>
-      <td>3.0</td>
-      <td>964982400</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>1</td>
-      <td>101</td>
-      <td>5.0</td>
-      <td>964980868</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>1</td>
-      <td>110</td>
-      <td>4.0</td>
-      <td>964982176</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>1</td>
-      <td>157</td>
-      <td>5.0</td>
-      <td>964984100</td>
-      <td>85</td>
-      <td>29</td>
-      <td>42</td>
-      <td>83</td>
-      <td>47</td>
-      <td>26</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>100823</th>
-      <td>610</td>
-      <td>160836</td>
-      <td>3.0</td>
-      <td>1493844794</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.287034</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>100824</th>
-      <td>610</td>
-      <td>161582</td>
-      <td>4.0</td>
-      <td>1493847759</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>100827</th>
-      <td>610</td>
-      <td>163937</td>
-      <td>3.5</td>
-      <td>1493848789</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>100831</th>
-      <td>610</td>
-      <td>166534</td>
-      <td>4.0</td>
-      <td>1493848402</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>100833</th>
-      <td>610</td>
-      <td>168250</td>
-      <td>5.0</td>
-      <td>1494273047</td>
-      <td>267</td>
-      <td>66</td>
-      <td>56</td>
-      <td>411</td>
-      <td>151</td>
-      <td>119</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-  </tbody>
-</table>
-<p>30101 rows × 324 columns</p>
-</div></div></div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+Starting splitting
+Finished splitting
+Starting training
+Finished training
+Starting completing matrix
+Finished completing matrix
+Starting computing MAE and MSE
+proceed
+Finished computing MAE and MSE
+1
+Starting splitting
+Finished splitting
+Starting training
+Finished training
+Starting completing matrix
+Finished completing matrix
+Starting computing MAE and MSE
+proceed
+Finished computing MAE and MSE
+2
+Starting splitting
+Finished splitting
+Starting training
+Finished training
+Starting completing matrix
+Finished completing matrix
+Starting computing MAE and MSE
+proceed
+Finished computing MAE and MSE
+3
+Starting splitting
+Finished splitting
+Starting training
+Finished training
+Starting completing matrix
+Finished completing matrix
+Starting computing MAE and MSE
+proceed
+Finished computing MAE and MSE
+4
+Starting splitting
+Finished splitting
+Starting training
+Finished training
+Starting completing matrix
+Finished completing matrix
+Starting computing MAE and MSE
+proceed
+Finished computing MAE and MSE
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse</span><span class="p">,</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1035,69 +792,14 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>proceed
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.277636794458656, 0.881370718580778)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.8669795716126364, 0.7143198938393699)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds_matrix</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span> <span class="c1">#To complete the utility matrix</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>254 out of 610
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_166502</span><span class="o">/</span><span class="mf">3733873822.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">preds_matrix</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span> <span class="c1">#To complete the utility matrix</span>
-
-<span class="nn">/tmp/ipykernel_166502/2592439996.py</span> in <span class="ni">reco_ml_cb</span><span class="nt">(user_df, item_df, model_fitted)</span>
-<span class="g g-Whitespace">    </span><span class="mi">129</span>     <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">u_feats</span> <span class="ow">in</span> <span class="n">user_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-<span class="g g-Whitespace">    </span><span class="mi">130</span>         <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;out of&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_df</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">131</span>         <span class="n">u_feats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">u_feats</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">]</span> <span class="o">*</span>
-<span class="g g-Whitespace">    </span><span class="mi">132</span>                             <span class="nb">len</span><span class="p">(</span><span class="n">item_ids</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">133</span>         <span class="n">a_feats</span> <span class="o">=</span> <span class="n">u_feats</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item_df</span><span class="p">)</span>
-
-<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">309</span>                     <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">311</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">312</span> 
-<span class="g g-Whitespace">    </span><span class="mi">313</span>         <span class="k">return</span> <span class="n">wrapper</span>
-
-<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/core/reshape/concat.py</span> in <span class="ni">concat</span><span class="nt">(objs, axis, join, ignore_index, keys, levels, names, verify_integrity, sort, copy)</span>
-<span class="g g-Whitespace">    </span><span class="mi">305</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">306</span> 
-<span class="ne">--&gt; </span><span class="mi">307</span>     <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">get_result</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">308</span> 
-<span class="g g-Whitespace">    </span><span class="mi">309</span> 
-
-<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/core/reshape/concat.py</span> in <span class="ni">get_result</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">525</span>                     <span class="c1"># 1-ax to convert BlockManager axis to DataFrame axis</span>
-<span class="g g-Whitespace">    </span><span class="mi">526</span>                     <span class="n">obj_labels</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ax</span><span class="p">]</span>
-<span class="ne">--&gt; </span><span class="mi">527</span>                     <span class="k">if</span> <span class="ow">not</span> <span class="n">new_labels</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">obj_labels</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">528</span>                         <span class="n">indexers</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj_labels</span><span class="o">.</span><span class="n">get_indexer</span><span class="p">(</span><span class="n">new_labels</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">529</span> 
-
-<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">equals</span><span class="nt">(self, other)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4803</span>             <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4804</span> 
-<span class="ne">-&gt; </span><span class="mi">4805</span>         <span class="k">return</span> <span class="n">array_equivalent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">_values</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4806</span> 
-<span class="g g-Whitespace">   </span><span class="mi">4807</span>     <span class="nd">@final</span>
-
-<span class="nn">/opt/conda/lib/python3.9/site-packages/pandas/core/indexes/base.py</span> in <span class="ni">_values</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4401</span>         <span class="n">values</span> <span class="p">:</span> <span class="n">Values</span>
-<span class="g g-Whitespace">   </span><span class="mi">4402</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">4403</span><span class="s2">         return self._data</span>
-<span class="g g-Whitespace">   </span><span class="mi">4404</span><span class="s2"> </span>
-<span class="g g-Whitespace">   </span><span class="mi">4405</span><span class="s2">     def _get_engine_target(self) -&gt; np.ndarray:</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># preds_matrix = reco_ml_cb(user_df, item_df, model_fit) #To complete the utility matrix</span>
 </pre></div>
 </div>
 </div>
@@ -1762,7 +1464,7 @@ test_matrix_shape (__main__.TestGetRec) ...
   </tbody>
 </table>
 <p>30101 rows × 324 columns</p>
-</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42 out of 610
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>130 out of 610
 </pre></div>
 </div>
 </div>
