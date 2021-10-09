@@ -309,7 +309,6 @@
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
 
-
 <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">aug_tt</span><span class="p">,</span> <span class="n">item_tt</span><span class="p">,</span> <span class="n">user_tt</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load the data from the transaction tables</span>
@@ -615,7 +614,7 @@
             <span class="n">model_clone_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">model_clone</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished training&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting completing matrix&#39;</span><span class="p">)</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_test</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_clone_fit</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_clone_fit</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished completing matrix&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting computing MAE and MSE&#39;</span><span class="p">)</span>
             <span class="c1"># 3. evaluate results (result is in the form of utility matrix)</span>
@@ -659,18 +658,18 @@
 <h1>Model Pipeline<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Declare your model</span>
-<span class="n">rs_model1</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1">#Load the data</span>
-<span class="n">df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">user_df</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">user_ids</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;augmented_transaction_table.parquet&#39;</span><span class="p">,</span>
-                                                     <span class="s1">&#39;item_feature.parquet&#39;</span><span class="p">,</span>
-                                                     <span class="s1">&#39;user_feature.parquet&#39;</span><span class="p">)</span>
-<span class="c1">#Do your train and test split</span>
-<span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
-<span class="c1">#Fit your model to the train data</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">rs_model1</span><span class="p">)</span> <span class="c1">#To fit the model</span>
-<span class="c1">#Predict on the test data</span>
-<span class="n">preds_array</span> <span class="o">=</span> <span class="n">reco_ml_cb_tt</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span> <span class="c1">#To make predictions as an array</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># #Declare your model</span>
+<span class="c1"># rs_model1 = RandomForestRegressor(random_state=202109, n_jobs=-1)</span>
+<span class="c1"># #Load the data</span>
+<span class="c1"># df, item_df, user_df, item_ids, user_ids = load_data(&#39;augmented_transaction_table.parquet&#39;,</span>
+<span class="c1">#                                                      &#39;item_feature.parquet&#39;,</span>
+<span class="c1">#                                                      &#39;user_feature.parquet&#39;)</span>
+<span class="c1"># #Do your train and test split</span>
+<span class="c1"># df_train, df_test, df_test_um, indx_train, indx_test = split_train_test(df, 0.7) #To split the data</span>
+<span class="c1"># #Fit your model to the train data</span>
+<span class="c1"># model_fit = fit_ml_cb(df_train, rs_model1) #To fit the model</span>
+<span class="c1"># #Predict on the test data</span>
+<span class="c1"># preds_array = reco_ml_cb_tt(df_test, model_fit) #To make predictions as an array</span>
 </pre></div>
 </div>
 </div>
@@ -751,7 +750,54 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preds_matrix</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+
+
+<span class="k">class</span> <span class="nc">TestGetRec</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">clone</span>
+    <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+    
+    <span class="k">def</span> <span class="nf">test_matrix_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">user_df</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">user_ids</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;augmented_transaction_table.parquet&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;item_feature.parquet&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;user_feature.parquet&#39;</span><span class="p">)</span>
+        <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
+        <span class="n">model_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">rs_model1</span><span class="p">)</span> 
+        <span class="n">matrix_result</span> <span class="o">=</span> <span class="n">reco_ml_cb</span><span class="p">(</span><span class="n">user_df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">matrix_result</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_ids</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">matrix_result</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_ids</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">test_array_pred</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">df</span><span class="p">,</span> <span class="n">item_df</span><span class="p">,</span> <span class="n">user_df</span><span class="p">,</span> <span class="n">item_ids</span><span class="p">,</span> <span class="n">user_ids</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="s1">&#39;augmented_transaction_table.parquet&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;item_feature.parquet&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;user_feature.parquet&#39;</span><span class="p">)</span>
+        <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">df_test_um</span><span class="p">,</span> <span class="n">indx_train</span><span class="p">,</span> <span class="n">indx_test</span> <span class="o">=</span> <span class="n">split_train_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span> <span class="c1">#To split the data</span>
+        <span class="n">model_fit</span> <span class="o">=</span> <span class="n">fit_ml_cb</span><span class="p">(</span><span class="n">df_train</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">rs_model1</span><span class="p">)</span> 
+        <span class="n">array_result</span> <span class="o">=</span> <span class="n">reco_ml_cb_tt</span><span class="p">(</span><span class="n">df_test</span><span class="p">,</span> <span class="n">model_fit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">array_result</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_test</span><span class="p">))</span>        
+        
+<span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_matrix_shape (__main__.TestGetRec) ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>610 out of 610
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ok
+
+----------------------------------------------------------------------
+Ran 1 test in 277.740s
+
+OK
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x7f3882d81130&gt;
 </pre></div>
 </div>
 </div>
