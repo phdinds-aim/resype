@@ -19,6 +19,15 @@ The library provides an end-to-end pipeline that includes:
 
 `pip install resype`
 
+## Setup
+
+The package uses Python 3 and `virtualenv` to manage the environment.  Once you've cloned this repo run this from the root of the repo to create the environment:
+
+```
+conda env create -f environment.yml
+source activate resype
+```
+
 ## Getting Started
 
 ```python
