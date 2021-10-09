@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Getting Started &#8212; ReSyPE</title>
+    <title>Quickstart &#8212; ReSyPE</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quickstart" href="quickstart_collab_filtering.html" />
+    <link rel="next" title="Quickstart" href="quickstart_content_based.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -86,8 +87,8 @@
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
- <li class="toctree-l1 current">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
    Getting Started
   </a>
  </li>
@@ -97,9 +98,9 @@
   Quickstart
  </span>
 </p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="quickstart_collab_filtering.html">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Quickstart
   </a>
  </li>
@@ -284,7 +285,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/getting_started.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/quickstart_collab_filtering.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -304,7 +305,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fgetting_started.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/phdinds-aim/resype/issues/new?title=Issue%20on%20page%20%2Fquickstart_collab_filtering.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -325,7 +326,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/getting_started.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phdinds-aim/resype/main?urlpath=tree/quickstart_collab_filtering.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -348,41 +349,38 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#introduction">
-   Introduction
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installation">
-   Installation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#load-the-data">
-   Load the Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#preprocess">
-   Preprocess
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-on-unclustered-matrix">
-   Train on Unclustered Matrix
+  <a class="reference internal nav-link" href="#collaborative-filtering">
+   Collaborative Filtering
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#iterative-approach">
-     Iterative Approach
+    <a class="reference internal nav-link" href="#load-the-data">
+     Load the Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#preprocess">
+     Preprocess
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-on-unclustered-matrix">
+     Train on Unclustered Matrix
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#iterative-approach">
+       Iterative Approach
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-on-clustered-matrix">
+     Train on Clustered matrix
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-on-clustered-matrix">
-   Train on Clustered matrix
-  </a>
  </li>
 </ul>
 
@@ -395,25 +393,12 @@
         
               <div>
                 
-  <div class="section" id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>ReSyPE (pronounced <em>recipe</em>) is a Python library built for both practitioners and researchers that wish to quickly develop and deploy ML-based recommender systems.</p>
-<p>The library provides an end-to-end pipeline that includes:</p>
-<ol class="simple">
-<li><p>Loading transaction, user feature, and item feature datasets</p></li>
-<li><p>Interchangable methods for user and item clustering</p></li>
-<li><p>Modular framework for machine learning models</p></li>
-<li><p>Iterative and decomposition-based techniques</p></li>
-</ol>
-</div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">resype</span></code></p>
-</div>
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="collaborative-filtering">
+<h2>Collaborative Filtering<a class="headerlink" href="#collaborative-filtering" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="load-the-data">
-<h2>Load the Data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">¶</a></h2>
+<h3>Load the Data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -438,7 +423,7 @@
 </div>
 </div>
 <div class="section" id="preprocess">
-<h2>Preprocess<a class="headerlink" href="#preprocess" title="Permalink to this headline">¶</a></h2>
+<h3>Preprocess<a class="headerlink" href="#preprocess" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span> <span class="o">=</span> <span class="n">CollabFilteringModel</span><span class="p">(</span><span class="n">transaction_list</span><span class="p">)</span>
@@ -641,9 +626,9 @@
 </div>
 </div>
 <div class="section" id="train-on-unclustered-matrix">
-<h2>Train on Unclustered Matrix<a class="headerlink" href="#train-on-unclustered-matrix" title="Permalink to this headline">¶</a></h2>
+<h3>Train on Unclustered Matrix<a class="headerlink" href="#train-on-unclustered-matrix" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="iterative-approach">
-<h3>Iterative Approach<a class="headerlink" href="#iterative-approach" title="Permalink to this headline">¶</a></h3>
+<h4>Iterative Approach<a class="headerlink" href="#iterative-approach" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import sklearn Model</span>
@@ -891,7 +876,7 @@
 </div>
 </div>
 <div class="section" id="train-on-clustered-matrix">
-<h2>Train on Clustered matrix<a class="headerlink" href="#train-on-clustered-matrix" title="Permalink to this headline">¶</a></h2>
+<h3>Train on Clustered matrix<a class="headerlink" href="#train-on-clustered-matrix" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
@@ -1233,17 +1218,6 @@
 </div></div></div>
 </div>
 </div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
 </div>
 </div>
 
@@ -1276,8 +1250,17 @@
 
 <div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="getting_started.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Getting Started</p>
+            </div>
+        </a>
+    </div>
      <div id="next">
-        <a class="right-next" href="quickstart_collab_filtering.html" title="next page">
+        <a class="right-next" href="quickstart_content_based.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
                 <p class="prevnext-title">Quickstart</p>

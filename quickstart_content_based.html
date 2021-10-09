@@ -51,6 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Item Feature Table" href="francis/create_item_feature.html" />
+    <link rel="prev" title="Quickstart" href="quickstart_collab_filtering.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -88,6 +90,23 @@
  <li class="toctree-l1">
   <a class="reference internal" href="getting_started.html">
    Getting Started
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Quickstart
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="quickstart_collab_filtering.html">
+   Quickstart
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Quickstart
   </a>
  </li>
 </ul>
@@ -333,41 +352,43 @@
   <a class="reference internal nav-link" href="#content-based-model">
    Content based model
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#load-contentbasedmodel">
-   Load ContentBasedModel
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train-test-split">
-   Train-test Split
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fit-model">
-   Fit model
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#predict-on-test-set">
-   Predict on Test Set
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#get-recommendations">
-   Get Recommendations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluate-on-test-set">
-   Evaluate on test set
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cross-validation">
-   Cross Validation
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-contentbasedmodel">
+     Load ContentBasedModel
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-test-split">
+     Train-test Split
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fit-model">
+     Fit model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#predict-on-test-set">
+     Predict on Test Set
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-recommendations">
+     Get Recommendations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evaluate-on-test-set">
+     Evaluate on test set
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-validation">
+     Cross Validation
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -806,9 +827,8 @@
 <p>5 rows × 21 columns</p>
 </div></div></div>
 </div>
-</div>
 <div class="section" id="load-contentbasedmodel">
-<h2>Load ContentBasedModel<a class="headerlink" href="#load-contentbasedmodel" title="Permalink to this headline">¶</a></h2>
+<h3>Load ContentBasedModel<a class="headerlink" href="#load-contentbasedmodel" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">resype.content_based</span> <span class="kn">import</span> <span class="n">ContentBasedModel</span>
@@ -831,7 +851,7 @@
 </div>
 </div>
 <div class="section" id="train-test-split">
-<h2>Train-test Split<a class="headerlink" href="#train-test-split" title="Permalink to this headline">¶</a></h2>
+<h3>Train-test Split<a class="headerlink" href="#train-test-split" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Do your train and test split</span>
@@ -1486,7 +1506,7 @@
 </div>
 </div>
 <div class="section" id="fit-model">
-<h2>Fit model<a class="headerlink" href="#fit-model" title="Permalink to this headline">¶</a></h2>
+<h3>Fit model<a class="headerlink" href="#fit-model" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
@@ -1516,7 +1536,7 @@
 </div>
 </div>
 <div class="section" id="predict-on-test-set">
-<h2>Predict on Test Set<a class="headerlink" href="#predict-on-test-set" title="Permalink to this headline">¶</a></h2>
+<h3>Predict on Test Set<a class="headerlink" href="#predict-on-test-set" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Predict on the test data</span>
@@ -1570,7 +1590,7 @@
 </div>
 </div>
 <div class="section" id="get-recommendations">
-<h2>Get Recommendations<a class="headerlink" href="#get-recommendations" title="Permalink to this headline">¶</a></h2>
+<h3>Get Recommendations<a class="headerlink" href="#get-recommendations" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cb</span><span class="o">.</span><span class="n">get_rec</span><span class="p">(</span><span class="n">user_list</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -1633,7 +1653,7 @@
 </div>
 </div>
 <div class="section" id="evaluate-on-test-set">
-<h2>Evaluate on test set<a class="headerlink" href="#evaluate-on-test-set" title="Permalink to this headline">¶</a></h2>
+<h3>Evaluate on test set<a class="headerlink" href="#evaluate-on-test-set" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse</span><span class="p">,</span> <span class="n">mae</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">evaluate_test_set</span><span class="p">()</span> <span class="c1">#MSE and MAE</span>
@@ -1652,7 +1672,7 @@
 </div>
 </div>
 <div class="section" id="cross-validation">
-<h2>Cross Validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h2>
+<h3>Cross Validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse</span><span class="p">,</span> <span class="n">mae</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">cross_val</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -1703,6 +1723,7 @@ Finished computing MAE and MSE
 </div>
 </div>
 </div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -1733,6 +1754,24 @@ Finished computing MAE and MSE
 
 <div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="quickstart_collab_filtering.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Quickstart</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="francis/create_item_feature.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Item Feature Table</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         
