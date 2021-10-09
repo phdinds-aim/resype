@@ -58,3 +58,14 @@ user_list = [0, 1, 2] # indices
 top_n = 10
 re.get_rec(user_list, top_n)
 ```
+
+## Feature Comparison with Surprise
+
+| Features                     | Surprise | ReSyPE |
+|:-----------------------------|:--------:|:------:|
+| Handles explicit rating data | ✔️        | ✔️      |
+| Cross validation             | ✔️        | ✔️      |
+| Recommendation evaluation    | ✔️        | ✔️      |
+| Collaborative filtering      | ✔️        | ✔️      |
+| Content-based filtering      |          | ✔️      |
+| Customizable ML models       |          | ✔️      |
