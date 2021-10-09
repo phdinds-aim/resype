@@ -4,6 +4,10 @@
 format: jb-book
 root: getting_started
 parts:
+  - caption: Quickstart
+    chapters:
+    - file: quickstart_collab_filtering
+    - file: quickstart_content_based    
   - caption: Preprocessing
     chapters:
     - file: francis/create_item_feature
