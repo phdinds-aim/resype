@@ -572,14 +572,8 @@
 <h2>Load resype<a class="headerlink" href="#load-resype" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">resype</span> <span class="kn">import</span> <span class="n">Resype</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">transactions</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collab_filtering</span> <span class="kn">import</span> <span class="n">CollabFilteringModel</span>
+<span class="n">re</span> <span class="o">=</span> <span class="n">CollabFilteringModel</span><span class="p">(</span><span class="n">transactions</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -933,6 +927,11 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done training 100 out of 100
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="prediction">
@@ -1268,6 +1267,11 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rs_model2</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
 <span class="n">re</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rs_model2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;svd&#39;</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done training 100 out of 100
 </pre></div>
 </div>
 </div>
@@ -1608,7 +1612,7 @@
 <span class="k">class</span> <span class="nc">TestTrainSVDModel</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">test_train_model_svd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">resype</span> <span class="kn">import</span> <span class="n">Resype</span>
+        <span class="kn">from</span> <span class="nn">collab_filtering</span> <span class="kn">import</span> <span class="n">CollabFilteringModel</span>
         <span class="n">movies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;M1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
                                   <span class="s1">&#39;M2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                                   <span class="s1">&#39;M3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
@@ -1619,7 +1623,7 @@
             <span class="n">value_vars</span><span class="o">=</span><span class="n">movies_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">movie_transactions</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
 
-        <span class="n">re_test</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
+        <span class="n">re_test</span> <span class="o">=</span> <span class="n">CollabFilteringModel</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
         <span class="n">um</span> <span class="o">=</span> <span class="n">re_test</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
         <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
 
@@ -1630,7 +1634,7 @@
             <span class="n">um</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">return_models</span><span class="o">=</span><span class="kc">False</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">um</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">test_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">resype</span> <span class="kn">import</span> <span class="n">Resype</span>
+        <span class="kn">from</span> <span class="nn">collab_filtering</span> <span class="kn">import</span> <span class="n">CollabFilteringModel</span>
         <span class="n">movies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;M1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
                                   <span class="s1">&#39;M2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                                   <span class="s1">&#39;M3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
@@ -1641,7 +1645,7 @@
             <span class="n">value_vars</span><span class="o">=</span><span class="n">movies_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">movie_transactions</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span> <span class="s1">&#39;item_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">]</span>
         
-        <span class="n">re_test</span> <span class="o">=</span> <span class="n">Resype</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
+        <span class="n">re_test</span> <span class="o">=</span> <span class="n">CollabFilteringModel</span><span class="p">(</span><span class="n">movie_transactions</span><span class="p">)</span>
         <span class="n">um</span> <span class="o">=</span> <span class="n">re_test</span><span class="o">.</span><span class="n">construct_utility_matrix</span><span class="p">()</span>
         <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">202109</span><span class="p">)</span>
         <span class="n">re_test</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rf</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;svd&#39;</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -1660,16 +1664,31 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_fit (__main__.TestTrainSVDModel) ... ok
-test_train_model_svd (__main__.TestTrainSVDModel) ... ok
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_fit (__main__.TestTrainSVDModel) ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done training 4 out of 4
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ok
+test_train_model_svd (__main__.TestTrainSVDModel) ... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done training 4 out of 4
+Done training 4 out of 4
+Done training 4 out of 4
+Done training 4 out of 4
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ok
 
 ----------------------------------------------------------------------
-Ran 2 tests in 1.672s
+Ran 2 tests in 2.111s
 
 OK
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x7f7fa9aadd60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;unittest.main.TestProgram at 0x7f06b4368c40&gt;
 </pre></div>
 </div>
 </div>
@@ -1686,16 +1705,16 @@ OK
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "conda-env-resype-py"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "conda-env-resype-py",
+            kernelName: "python3",
             path: "./eloi"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'conda-env-resype-py'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
