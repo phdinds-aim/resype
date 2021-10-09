@@ -4,27 +4,25 @@
 format: jb-book
 root: getting_started
 parts:
-  - caption: Collaborative Filtering
+  - caption: Preprocessing
     chapters:
-    - caption: Preprocessing
-      sections:
-      - file: francis/create_item_feature
-      - file: francis/get_augmented_table
-      - file: francis/create_user_feature
-    - caption: Clustering
-      sections:
-      - file: gilbert/user_clustering
-      - file: gilbert/item_clustering
-      - file: issa/aggregation
-      - file: issa/assignment
-    - caption: ML Models
-      sections:
-      - file: eloi/prediction_pipeline
-      - file: eloi/demo_notebook_iterative_model
-      - file: eloi/demo_notebook_clusterbased_iterative_model
-      - file: eloi/demo_notebook_svd_model
-      - file: eloi/demo_notebook_clusterbased_svd_model
-    - caption: Get Recommendations
-      sections:
-      - file: basti/get_rec
-      - file: basti/get_rec_item
+    - file: francis/create_item_feature
+    - file: francis/get_augmented_table
+    - file: francis/create_user_feature
+  - caption: Clustering
+    chapters:
+    - file: gilbert/user_clustering
+    - file: gilbert/item_clustering
+    - file: issa/aggregation
+    - file: issa/assignment
+  - caption: ML Models
+    chapters:
+    - file: eloi/prediction_pipeline
+    - file: eloi/demo_notebook_iterative_model
+    - file: eloi/demo_notebook_clusterbased_iterative_model
+    - file: eloi/demo_notebook_svd_model
+    - file: eloi/demo_notebook_clusterbased_svd_model
+  - caption: Get Recommendations
+    chapters:
+    - file: basti/get_rec
+    - file: basti/get_rec_item
