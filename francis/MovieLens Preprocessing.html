@@ -366,6 +366,9 @@
         <span class="n">new_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;u_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">user_feature</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">old_cols</span><span class="p">,</span> <span class="n">new_cols</span><span class="p">)),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     
+    <span class="c1"># replace NaNs in user_feature with 0</span>
+    <span class="n">user_feature</span> <span class="o">=</span> <span class="n">user_feature</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    
     <span class="k">return</span> <span class="n">raw_transaction_list</span><span class="p">,</span> <span class="n">user_feature</span>
     
     
@@ -906,7 +909,7 @@
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.513014</td>
+      <td>0.513025</td>
       <td>...</td>
       <td>0.0</td>
       <td>0.0</td>
